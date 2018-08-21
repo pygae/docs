@@ -1,0 +1,6 @@
+clifford.MultiVector.basis
+==========================
+
+.. currentmodule:: clifford
+
+.. automethod:: MultiVector.basis

@@ -1,0 +1,6 @@
+clifford.Frame.flatten
+======================
+
+.. currentmodule:: clifford
+
+.. automethod:: Frame.flatten

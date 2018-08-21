@@ -1,0 +1,6 @@
+clifford.Frame.nbytes
+=====================
+
+.. currentmodule:: clifford
+
+.. autoattribute:: Frame.nbytes

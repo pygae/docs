@@ -1,0 +1,408 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>clifford.Layout &mdash; Clifford 0.82 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="next" title="clifford.Layout.I" href="clifford.Layout.I.html" />
+    <link rel="prev" title="clifford.MultiVector.x" href="clifford.MultiVector.x.html" />
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-85010051-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Clifford
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.82
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials.html">Tutorials</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../clifford.html">clifford (<code class="docutils literal"><span class="pre">clifford</span></code>)</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../clifford.html#classes">Classes</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="clifford.MultiVector.html">clifford.MultiVector</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">clifford.Layout</a></li>
+<li class="toctree-l4"><a class="reference internal" href="clifford.Frame.html">clifford.Frame</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../clifford.html#functions">Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../cga.html">cga (<code class="docutils literal"><span class="pre">clifford.cga</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tools.html">tools (<code class="docutils literal"><span class="pre">clifford.tools</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../issues_and_changelog.html">Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../issues_and_changelog.html#changelog">ChangeLog</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Clifford</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../api.html">API</a> &raquo;</li>
+        
+          <li><a href="../clifford.html">clifford (<code class="docutils literal"><span class="pre">clifford</span></code>)</a> &raquo;</li>
+        
+      <li>clifford.Layout</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/generated/clifford.Layout.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+</style>
+<div class="section" id="clifford-layout">
+<h1>clifford.Layout<a class="headerlink" href="#clifford-layout" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="clifford.Layout">
+<em class="property">class </em><code class="descclassname">clifford.</code><code class="descname">Layout</code><span class="sig-paren">(</span><em>sig</em>, <em>bladeTupList</em>, <em>firstIdx=0</em>, <em>names=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/clifford.html#Layout"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#clifford.Layout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Layout stores information regarding the geometric algebra itself and the
+internal representation of multivectors.</p>
+<p>It is constructed like this:</p>
+<blockquote>
+<div>Layout(signature, bladeTupList, firstIdx=0, names=None)</div></blockquote>
+<p>The arguments to be passed are interpreted as follows:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>signature &#8211; the signature of the vector space.  This should be</dt>
+<dd><p class="first">a list of positive and negative numbers where the sign determines the
+sign of the inner product of the corresponding vector with itself.
+The values are irrelevant except for sign.  This list also determines
+the dimensionality of the vectors.  Signatures with zeroes are not
+permitted at this time.</p>
+<dl class="last docutils">
+<dt>Examples:</dt>
+<dd>signature = [+1, -1, -1, -1] # Hestenes&#8217;, et al. Space-Time Algebra
+signature = [+1, +1, +1]     # 3-D Euclidean signature</dd>
+</dl>
+</dd>
+<dt>bladeTupList &#8211; list of tuples corresponding to the blades in the whole</dt>
+<dd><p class="first">algebra.  This list determines the order of coefficients in the
+internal representation of multivectors.  The entry for the scalar
+must be an empty tuple, and the entries for grade-1 vectors must be
+singleton tuples.  Remember, the length of the list will be 2**dims.</p>
+<dl class="last docutils">
+<dt>Example:</dt>
+<dd>bladeTupList = [(), (0,), (1,), (0,1)]  # 2-D</dd>
+</dl>
+</dd>
+<dt>firstIdx &#8211; the index of the first vector.  That is, some systems number</dt>
+<dd>the base vectors starting with 0, some with 1.  Choose by passing
+the correct number as firstIdx.  0 is the default.</dd>
+<dt>names &#8211; list of names of each blade.  When pretty-printing multivectors,</dt>
+<dd><p class="first">use these symbols for the blades.  names should be in the same order
+as bladeTupList.  You may use an empty string for scalars.  By
+default, the name for each non-scalar blade is &#8216;e&#8217; plus the indices
+of the blade as given in bladeTupList.</p>
+<dl class="last docutils">
+<dt>Example:</dt>
+<dd>names = [&#8216;&#8217;, &#8216;s0&#8217;, &#8216;s1&#8217;, &#8216;i&#8217;]  # 2-D</dd>
+</dl>
+</dd>
+</dl>
+</div></blockquote>
+<p>Layout&#8217;s Members:</p>
+<blockquote>
+<div><p>dims &#8211; dimensionality of vectors (== len(signature))</p>
+<p>sig &#8211; normalized signature (i.e. all values are +1 or -1)</p>
+<p>firstIdx &#8211; starting point for vector indices</p>
+<p>bladeTupList &#8211; list of blades</p>
+<p>gradeList &#8211; corresponding list of the grades of each blade</p>
+<p>gaDims &#8211; 2**dims</p>
+<p>names &#8211; pretty-printing symbols for the blades</p>
+<p>even &#8211; dictionary of even permutations of blades to the canonical blades</p>
+<p>odd &#8211; dictionary of odd permutations of blades to the canonical blades</p>
+<p>gmt &#8211; multiplication table for geometric product [1]</p>
+<p>imt &#8211; multiplication table for inner product [1]</p>
+<p>omt &#8211; multiplication table for outer product [1]</p>
+<p>lcmt &#8211; multiplication table for the left-contraction [1]</p>
+</div></blockquote>
+<dl class="docutils">
+<dt>[1] The multiplication tables are NumPy arrays of rank 3 with indices like</dt>
+<dd>the tensor g_ijk discussed above.</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">Attributes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="clifford.Layout.I.html#clifford.Layout.I" title="clifford.Layout.I"><code class="xref py py-obj docutils literal"><span class="pre">I</span></code></a></td>
+<td>the psuedoScalar</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.Layout.basis_vectors.html#clifford.Layout.basis_vectors" title="clifford.Layout.basis_vectors"><code class="xref py py-obj docutils literal"><span class="pre">basis_vectors</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.Layout.basis_vectors_lst.html#clifford.Layout.basis_vectors_lst" title="clifford.Layout.basis_vectors_lst"><code class="xref py py-obj docutils literal"><span class="pre">basis_vectors_lst</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.Layout.blades.html#clifford.Layout.blades" title="clifford.Layout.blades"><code class="xref py py-obj docutils literal"><span class="pre">blades</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.Layout.blades_list.html#clifford.Layout.blades_list" title="clifford.Layout.blades_list"><code class="xref py py-obj docutils literal"><span class="pre">blades_list</span></code></a></td>
+<td>Ordered list of blades in this layout (with scalar as [0])</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.Layout.pseudoScalar.html#clifford.Layout.pseudoScalar" title="clifford.Layout.pseudoScalar"><code class="xref py py-obj docutils literal"><span class="pre">pseudoScalar</span></code></a></td>
+<td>the psuedoScalar</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.Layout.scalar.html#clifford.Layout.scalar" title="clifford.Layout.scalar"><code class="xref py py-obj docutils literal"><span class="pre">scalar</span></code></a></td>
+<td>the scalar of value 1, for this GA (a MultiVector object)</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="clifford.Layout.MultiVector.html#clifford.Layout.MultiVector" title="clifford.Layout.MultiVector"><code class="xref py py-obj docutils literal"><span class="pre">MultiVector</span></code></a></td>
+<td>create a multivector in this layout</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.Layout.__init__.html#clifford.Layout.__init__" title="clifford.Layout.__init__"><code class="xref py py-obj docutils literal"><span class="pre">__init__</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.Layout.bases.html#clifford.Layout.bases" title="clifford.Layout.bases"><code class="xref py py-obj docutils literal"><span class="pre">bases</span></code></a></td>
+<td>Returns a dictionary mapping basis element names to their MultiVector</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.Layout.blades_of_grade.html#clifford.Layout.blades_of_grade" title="clifford.Layout.blades_of_grade"><code class="xref py py-obj docutils literal"><span class="pre">blades_of_grade</span></code></a></td>
+<td>return all blades of a given grade,</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.Layout.dict_to_multivector.html#clifford.Layout.dict_to_multivector" title="clifford.Layout.dict_to_multivector"><code class="xref py py-obj docutils literal"><span class="pre">dict_to_multivector</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.Layout.parse_multivector.html#clifford.Layout.parse_multivector" title="clifford.Layout.parse_multivector"><code class="xref py py-obj docutils literal"><span class="pre">parse_multivector</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.Layout.randomMV.html#clifford.Layout.randomMV" title="clifford.Layout.randomMV"><code class="xref py py-obj docutils literal"><span class="pre">randomMV</span></code></a></td>
+<td>Convenience method to create a random multivector.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.Layout.randomRotor.html#clifford.Layout.randomRotor" title="clifford.Layout.randomRotor"><code class="xref py py-obj docutils literal"><span class="pre">randomRotor</span></code></a></td>
+<td>generate a random Rotor.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.Layout.randomV.html#clifford.Layout.randomV" title="clifford.Layout.randomV"><code class="xref py py-obj docutils literal"><span class="pre">randomV</span></code></a></td>
+<td>generate n random 1-vector s</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="clifford.Layout.I.html" class="btn btn-neutral float-right" title="clifford.Layout.I" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="clifford.MultiVector.x.html" class="btn btn-neutral" title="clifford.MultiVector.x" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Robert Kern and the Clifford Team.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.82',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: ''
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

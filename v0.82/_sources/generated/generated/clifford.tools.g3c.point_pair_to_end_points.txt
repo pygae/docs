@@ -1,0 +1,6 @@
+clifford.tools.g3c.point_pair_to_end_points
+===========================================
+
+.. currentmodule:: clifford.tools.g3c
+
+.. autofunction:: point_pair_to_end_points

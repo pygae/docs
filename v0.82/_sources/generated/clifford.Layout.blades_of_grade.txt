@@ -1,0 +1,6 @@
+clifford.Layout.blades_of_grade
+===============================
+
+.. currentmodule:: clifford
+
+.. automethod:: Layout.blades_of_grade

@@ -1,0 +1,6 @@
+clifford.cga.Flat.__init__
+==========================
+
+.. currentmodule:: clifford.cga
+
+.. automethod:: Flat.__init__

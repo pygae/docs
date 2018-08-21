@@ -1,0 +1,6 @@
+clifford.Frame.setflags
+=======================
+
+.. currentmodule:: clifford
+
+.. automethod:: Frame.setflags

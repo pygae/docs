@@ -1,0 +1,6 @@
+clifford.cga.Round.inverted
+===========================
+
+.. currentmodule:: clifford.cga
+
+.. automethod:: Round.inverted

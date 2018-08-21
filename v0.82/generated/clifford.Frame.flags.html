@@ -1,0 +1,381 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>clifford.Frame.flags &mdash; Clifford 0.82 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="next" title="clifford.Frame.flat" href="clifford.Frame.flat.html" />
+    <link rel="prev" title="clifford.Frame.dtype" href="clifford.Frame.dtype.html" />
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-85010051-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Clifford
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.82
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials.html">Tutorials</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../clifford.html">clifford (<code class="docutils literal"><span class="pre">clifford</span></code>)</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../clifford.html#classes">Classes</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="clifford.MultiVector.html">clifford.MultiVector</a></li>
+<li class="toctree-l4"><a class="reference internal" href="clifford.Layout.html">clifford.Layout</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="clifford.Frame.html">clifford.Frame</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../clifford.html#functions">Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../cga.html">cga (<code class="docutils literal"><span class="pre">clifford.cga</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tools.html">tools (<code class="docutils literal"><span class="pre">clifford.tools</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../issues_and_changelog.html">Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../issues_and_changelog.html#changelog">ChangeLog</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Clifford</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../api.html">API</a> &raquo;</li>
+        
+          <li><a href="../clifford.html">clifford (<code class="docutils literal"><span class="pre">clifford</span></code>)</a> &raquo;</li>
+        
+          <li><a href="clifford.Frame.html">clifford.Frame</a> &raquo;</li>
+        
+      <li>clifford.Frame.flags</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/generated/clifford.Frame.flags.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+</style>
+<div class="section" id="clifford-frame-flags">
+<h1>clifford.Frame.flags<a class="headerlink" href="#clifford-frame-flags" title="Permalink to this headline">¶</a></h1>
+<dl class="attribute">
+<dt id="clifford.Frame.flags">
+<code class="descclassname">Frame.</code><code class="descname">flags</code><a class="headerlink" href="#clifford.Frame.flags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Information about the memory layout of the array.</p>
+<dl class="attribute">
+<dt id="clifford.Frame.C_CONTIGUOUS">
+<code class="descname">C_CONTIGUOUS</code><span class="sig-paren">(</span><em>C</em><span class="sig-paren">)</span><a class="headerlink" href="#clifford.Frame.C_CONTIGUOUS" title="Permalink to this definition">¶</a></dt>
+<dd><p>The data is in a single, C-style contiguous segment.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="clifford.Frame.F_CONTIGUOUS">
+<code class="descname">F_CONTIGUOUS</code><span class="sig-paren">(</span><em>F</em><span class="sig-paren">)</span><a class="headerlink" href="#clifford.Frame.F_CONTIGUOUS" title="Permalink to this definition">¶</a></dt>
+<dd><p>The data is in a single, Fortran-style contiguous segment.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="clifford.Frame.OWNDATA">
+<code class="descname">OWNDATA</code><span class="sig-paren">(</span><em>O</em><span class="sig-paren">)</span><a class="headerlink" href="#clifford.Frame.OWNDATA" title="Permalink to this definition">¶</a></dt>
+<dd><p>The array owns the memory it uses or borrows it from another object.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="clifford.Frame.WRITEABLE">
+<code class="descname">WRITEABLE</code><span class="sig-paren">(</span><em>W</em><span class="sig-paren">)</span><a class="headerlink" href="#clifford.Frame.WRITEABLE" title="Permalink to this definition">¶</a></dt>
+<dd><p>The data area can be written to.  Setting this to False locks
+the data, making it read-only.  A view (slice, etc.) inherits WRITEABLE
+from its base array at creation time, but a view of a writeable
+array may be subsequently locked while the base array remains writeable.
+(The opposite is not true, in that a view of a locked array may not
+be made writeable.  However, currently, locking a base object does not
+lock any views that already reference it, so under that circumstance it
+is possible to alter the contents of a locked array via a previously
+created writeable view onto it.)  Attempting to change a non-writeable
+array raises a RuntimeError exception.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="clifford.Frame.ALIGNED">
+<code class="descname">ALIGNED</code><span class="sig-paren">(</span><em>A</em><span class="sig-paren">)</span><a class="headerlink" href="#clifford.Frame.ALIGNED" title="Permalink to this definition">¶</a></dt>
+<dd><p>The data and all elements are aligned appropriately for the hardware.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="clifford.Frame.UPDATEIFCOPY">
+<code class="descname">UPDATEIFCOPY</code><span class="sig-paren">(</span><em>U</em><span class="sig-paren">)</span><a class="headerlink" href="#clifford.Frame.UPDATEIFCOPY" title="Permalink to this definition">¶</a></dt>
+<dd><p>This array is a copy of some other array. When this array is
+deallocated, the base array will be updated with the contents of
+this array.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="clifford.Frame.FNC">
+<code class="descname">FNC</code><a class="headerlink" href="#clifford.Frame.FNC" title="Permalink to this definition">¶</a></dt>
+<dd><p>F_CONTIGUOUS and not C_CONTIGUOUS.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="clifford.Frame.FORC">
+<code class="descname">FORC</code><a class="headerlink" href="#clifford.Frame.FORC" title="Permalink to this definition">¶</a></dt>
+<dd><p>F_CONTIGUOUS or C_CONTIGUOUS (one-segment test).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="clifford.Frame.BEHAVED">
+<code class="descname">BEHAVED</code><span class="sig-paren">(</span><em>B</em><span class="sig-paren">)</span><a class="headerlink" href="#clifford.Frame.BEHAVED" title="Permalink to this definition">¶</a></dt>
+<dd><p>ALIGNED and WRITEABLE.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="clifford.Frame.CARRAY">
+<code class="descname">CARRAY</code><span class="sig-paren">(</span><em>CA</em><span class="sig-paren">)</span><a class="headerlink" href="#clifford.Frame.CARRAY" title="Permalink to this definition">¶</a></dt>
+<dd><p>BEHAVED and C_CONTIGUOUS.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="clifford.Frame.FARRAY">
+<code class="descname">FARRAY</code><span class="sig-paren">(</span><em>FA</em><span class="sig-paren">)</span><a class="headerlink" href="#clifford.Frame.FARRAY" title="Permalink to this definition">¶</a></dt>
+<dd><p>BEHAVED and F_CONTIGUOUS and not C_CONTIGUOUS.</p>
+</dd></dl>
+
+<p class="rubric">Notes</p>
+<p>The <cite>flags</cite> object can be accessed dictionary-like (as in <code class="docutils literal"><span class="pre">a.flags['WRITEABLE']</span></code>),
+or by using lowercased attribute names (as in <code class="docutils literal"><span class="pre">a.flags.writeable</span></code>). Short flag
+names are only supported in dictionary access.</p>
+<p>Only the UPDATEIFCOPY, WRITEABLE, and ALIGNED flags can be changed by
+the user, via direct assignment to the attribute or dictionary entry,
+or by calling <cite>ndarray.setflags</cite>.</p>
+<p>The array flags cannot be set arbitrarily:</p>
+<ul class="simple">
+<li>UPDATEIFCOPY can only be set <code class="docutils literal"><span class="pre">False</span></code>.</li>
+<li>ALIGNED can only be set <code class="docutils literal"><span class="pre">True</span></code> if the data is truly aligned.</li>
+<li>WRITEABLE can only be set <code class="docutils literal"><span class="pre">True</span></code> if the array owns its own memory
+or the ultimate owner of the memory exposes a writeable buffer
+interface or is a string.</li>
+</ul>
+<p>Arrays can be both C-style and Fortran-style contiguous simultaneously.
+This is clear for 1-dimensional arrays, but can also be true for higher
+dimensional arrays.</p>
+<p>Even for contiguous arrays a stride for a given dimension
+<code class="docutils literal"><span class="pre">arr.strides[dim]</span></code> may be <em>arbitrary</em> if <code class="docutils literal"><span class="pre">arr.shape[dim]</span> <span class="pre">==</span> <span class="pre">1</span></code>
+or the array has no elements.
+It does <em>not</em> generally hold that <code class="docutils literal"><span class="pre">self.strides[-1]</span> <span class="pre">==</span> <span class="pre">self.itemsize</span></code>
+for C-style contiguous arrays or <code class="docutils literal"><span class="pre">self.strides[0]</span> <span class="pre">==</span> <span class="pre">self.itemsize</span></code> for
+Fortran-style contiguous arrays is true.</p>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="clifford.Frame.flat.html" class="btn btn-neutral float-right" title="clifford.Frame.flat" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="clifford.Frame.dtype.html" class="btn btn-neutral" title="clifford.Frame.dtype" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Robert Kern and the Clifford Team.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.82',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: ''
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,823 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Interfacing Other Mathematical Systems &mdash; Clifford 0.82 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="next" title="Predefined Geometric Algebras" href="PredefinedGAs.html" />
+    <link rel="prev" title="Space Time Algebra" href="SpaceTimeAlgebra.html" />
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-85010051-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Clifford
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.82
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="tutorials.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="QuickStartG2.html">Quick Start (G2)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TheAlgebraOfSpaceG3.html">The Algebra Of Space (G3)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EulerAngles.html">Rotations in Space: Euler Angles, Matrices, and Quaternions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ConformalGeometricAlgebra.html">Conformal Geometric Algebra</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SpaceTimeAlgebra.html">Space Time Algebra</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Interfacing Other Mathematical Systems</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Complex-Numbers">Complex Numbers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Quaternions">Quaternions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PredefinedGAs.html">Predefined Geometric Algebras</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PerformanceCliffordTutorial.html">Writing high(ish) performance code with Clifford and Numba via Numpy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Example 1 Interpolating Conformal Objects.html">Example 1 Interpolating Conformal Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Example 2 Clustering Geometric Objects.html">Example 2 Clustering Geometric Objects</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Clifford</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="tutorials.html">Tutorials</a> &raquo;</li>
+        
+      <li>Interfacing Other Mathematical Systems</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/InterfacingOtherMathSystems.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #303F9F;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #D84315;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 8ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #cfcfcf;
+    border-radius: 2px;
+    background: #f7f7f7;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.pngmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+</style>
+<div class="section" id="Interfacing-Other-Mathematical-Systems">
+<h1>Interfacing Other Mathematical Systems<a class="headerlink" href="#Interfacing-Other-Mathematical-Systems" title="Permalink to this headline">¶</a></h1>
+<p>Geometric Algebra is known as a <em>universal algebra</em> because it subsumes
+several other mathematical systems. Two algebras commonly used by
+engineers and scientists are complex numbers and quaternions. These
+algebras can be subsumed as the even sub-algebras of 2 and 3 dimensional
+geometric algebras, respectively. This notebook demonstrates how
+<code class="docutils literal"><span class="pre">clifford</span></code> can be used to incorperate data created with these systems
+into geometric algebra.</p>
+<div class="section" id="Complex-Numbers">
+<h2>Complex Numbers<a class="headerlink" href="#Complex-Numbers" title="Permalink to this headline">¶</a></h2>
+<p>Given a two dimensional GA with the orthonormal basis,</p>
+<div class="math">
+\[e_{i}\cdot e_{j}=\delta_{ij}\]</div>
+<p>The geometric algebra consists of scalars, two vectors, and a bivector ,</p>
+<div class="math">
+\[\{\underbrace{\alpha}_{\mbox{scalar}},\qquad\underbrace{e_{1},e_{2}}_{\mbox{vector}},\qquad\underbrace{e_{12}}_{\mbox{bivector}}\}\]</div>
+<p>A complex number can be directly associated with a 2D spinor in the
+<span class="math">\(e_{12}\)</span> -plane,</p>
+<div class="math">
+\[\underbrace{\mathbf{z}=\alpha+\beta i}_{\mbox{complex number}}\quad\Longrightarrow\quad\underbrace{Z=\alpha+\beta e_{12}}_{\mbox{2D spinor}}\]</div>
+<p>The even subalgebra of a two dimensional geometric algebra is isomorphic
+to the complex numbers. We can setup translating functions which
+converts a 2D spinor into a complex number and vice-versa. In two
+dimensions the spinor can be also be mapped into vectors if desired.</p>
+<p>Below is an illustation of the three different planes, the later two
+being contained within the geometric algbera of two dimensions,
+<span class="math">\(G_2\)</span>. Both spinors and vectors in <span class="math">\(G_2\)</span> can be modeled as
+points on a plane, but they have distinct algebraic properties.</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="n">Image</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s1">&#39;_static/2dmap.svg&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">pi</span><span class="p">,</span><span class="n">e</span>
+<span class="kn">import</span> <span class="nn">clifford</span> <span class="kn">as</span> <span class="nn">cf</span>
+<span class="n">layout</span><span class="p">,</span> <span class="n">blades</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">Cl</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># instantiate a 2D- GA</span>
+<span class="nb">locals</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">blades</span><span class="p">)</span>   <span class="c1"># put all blades into local namespace</span>
+
+
+<span class="k">def</span> <span class="nf">c2s</span><span class="p">(</span><span class="n">z</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;convert a complex number to a spinor&#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="n">z</span><span class="o">.</span><span class="n">real</span> <span class="o">+</span> <span class="n">z</span><span class="o">.</span><span class="n">imag</span><span class="o">*</span><span class="n">e12</span>
+
+<span class="k">def</span> <span class="nf">s2c</span><span class="p">(</span><span class="n">S</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;convert a spinor to a complex number&#39;&#39;&#39;</span>
+    <span class="n">S0</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">S</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+    <span class="n">S2</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="o">-</span><span class="n">S</span><span class="o">|</span><span class="n">e12</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">S0</span> <span class="o">+</span> <span class="n">S2</span><span class="o">*</span><span class="mi">1j</span>
+
+</pre></div>
+</div>
+</div>
+<p>Convert a complex number to a spinor</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">c2s</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mi">2j</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Convert a spinor to a complex number</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">s2c</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">e12</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Make sure we get what we started with when we make a round trip</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">s2c</span><span class="p">(</span><span class="n">c2s</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mi">2j</span><span class="p">))</span> <span class="o">==</span> <span class="mi">1</span><span class="o">+</span><span class="mi">2j</span>
+</pre></div>
+</div>
+</div>
+<p>The spinor is then mapped to a vector by choosing a reference direction.
+This may be done by left multiplying with <span class="math">\(e_{1}\)</span> .</p>
+<div class="math">
+\[Z\Longrightarrow e_{1}Z=e_{1}\alpha+\beta e_{1}e_{12}=\underbrace{\alpha e_{1}+\beta e_{2}}_{\mbox{vector}}\]</div>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">s</span> <span class="o">=</span> <span class="mi">1</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">e12</span>
+<span class="n">e1</span><span class="o">*</span><span class="n">s</span>
+</pre></div>
+</div>
+</div>
+<p>Geometrically, this is interpreted as having the spinor rotate a
+specific vector, in this case <span class="math">\(e_1\)</span>. Building off of the
+previously defined functions</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">c2v</span><span class="p">(</span><span class="n">c</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;convert a complex number to a vector&#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="n">e1</span><span class="o">*</span><span class="n">c2s</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">v2c</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;convert a vector to a complex number&#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="n">s2c</span><span class="p">(</span><span class="n">e1</span><span class="o">*</span><span class="n">v</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">c2v</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mi">2j</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">v2c</span><span class="p">(</span><span class="mi">1</span><span class="o">*</span><span class="n">e1</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">e2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Depending on your applications, you may wish to have the bivector be an
+argument to the <code class="docutils literal"><span class="pre">c2s</span></code> and <code class="docutils literal"><span class="pre">s2c</span></code> functions. This allows you to map
+input data given in the form of complex number onto the planes of your
+choice. For example, in three dimensional space there are three
+bivector-planes; <span class="math">\(e_{12}, e_{23}\)</span> and <span class="math">\(e_{13}\)</span>, so there are
+many bivectors which could be interepreted as the unit imaginary.</p>
+<p>Complex numbers mapped in this way can be used to enact rotations within
+the specified planes.</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+
+<span></span><span class="kn">import</span> <span class="nn">clifford</span> <span class="kn">as</span> <span class="nn">cf</span>
+<span class="n">layout</span><span class="p">,</span> <span class="n">blades</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">Cl</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="nb">locals</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">blades</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">c2s</span><span class="p">(</span><span class="n">z</span><span class="p">,</span><span class="n">B</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;convert a complex number to a spinor&#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="n">z</span><span class="o">.</span><span class="n">real</span> <span class="o">+</span> <span class="n">z</span><span class="o">.</span><span class="n">imag</span><span class="o">*</span><span class="n">B</span>
+
+<span class="k">def</span> <span class="nf">s2c</span><span class="p">(</span><span class="n">S</span><span class="p">,</span><span class="n">B</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;convert a spinor to a complex number&#39;&#39;&#39;</span>
+    <span class="n">S0</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">S</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+    <span class="n">S2</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="o">-</span><span class="n">S</span><span class="o">|</span><span class="n">B</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">S0</span> <span class="o">+</span> <span class="n">S2</span><span class="o">*</span><span class="mi">1j</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">c2s</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mi">2j</span><span class="p">,</span><span class="n">e23</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">c2s</span><span class="p">(</span><span class="mi">3</span><span class="o">+</span><span class="mi">4j</span><span class="p">,</span><span class="n">e13</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>This brings us to the subject of quaternions, which are used to handle
+rotations in three dimensions much like complex numbers do in two
+dimensions. With geometric algebra, they are just spinors acting in a
+different geometry.</p>
+</div>
+<div class="section" id="Quaternions">
+<h2>Quaternions<a class="headerlink" href="#Quaternions" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="admonition-title fa fa-exclamation-circle"><strong>Note:</strong></p>
+<p>There is support for quaternions in numpy through the package
+<a class="reference external" href="https://github.com/moble/quaternion">quaternion</a>.</p>
+</div>
+<p>For some reason people think quaternions (<a class="reference external" href="https://en.wikipedia.org/wiki/Quaternion">wiki
+page</a>) are mystical or
+something. They are just spinors in a three dimensional geometric
+algebra.</p>
+<p>In either case, we can pass the <code class="docutils literal"><span class="pre">names</span></code> parameters to <code class="docutils literal"><span class="pre">Cl()</span></code> to
+explicitly label the bivectors <code class="docutils literal"><span class="pre">i,j,</span></code> and <code class="docutils literal"><span class="pre">k</span></code>.</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">clifford</span> <span class="kn">as</span> <span class="nn">cf</span>
+
+<span class="c1"># the vector/bivector order is reversed because Hamilton defined quaternions using a</span>
+<span class="c1"># left handed frame. wtf.</span>
+<span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;z&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="s1">&#39;k&#39;</span><span class="p">,</span><span class="s1">&#39;j&#39;</span><span class="p">,</span><span class="s1">&#39;i&#39;</span><span class="p">,</span><span class="s1">&#39;I&#39;</span><span class="p">]</span>
+
+<span class="n">layout</span><span class="p">,</span> <span class="n">blades</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">Cl</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="n">names</span><span class="p">)</span>
+<span class="nb">locals</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">blades</span><span class="p">)</span>
+
+</pre></div>
+</div>
+</div>
+<p>This leads to the commutations relations familiar to quaternion users</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="n">k</span><span class="p">]:</span>
+    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="n">k</span><span class="p">]:</span>
+        <span class="k">print</span> <span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">*</span><span class="si">%s</span><span class="s1">=</span><span class="si">%s</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">m</span><span class="p">),</span><span class="nb">str</span><span class="p">(</span><span class="n">n</span><span class="p">),</span><span class="n">m</span><span class="o">*</span><span class="n">n</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<p>Quaternion data could be stored in a variety of ways. Assuming you have
+the scalar components for the quaternion, all you will need to do is
+setup a map each component to the correct bivector.</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">q2S</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    convert tuple of quaternion coefficients to a spinor&#39;&#39;&#39;</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">args</span>
+    <span class="k">return</span> <span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">i</span> <span class="o">+</span><span class="n">q</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="n">j</span> <span class="o">+</span> <span class="n">q</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">*</span><span class="n">k</span>
+</pre></div>
+</div>
+</div>
+<p>Then all the quaternion computations can be done using GA</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">q1</span> <span class="o">=</span> <span class="n">q2S</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">q1</span>
+</pre></div>
+</div>
+</div>
+<p>This prints <span class="math">\(i,j\)</span> and <span class="math">\(k\)</span> in reverse order but whatever,</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1"># &#39;scalar&#39; part</span>
+<span class="n">q1</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1"># &#39;vector&#39; part (more like bivector part!)</span>
+<span class="n">q1</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p><em>quaternion conjugation</em> is implemented with reversion</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="o">~</span><span class="n">q1</span>
+</pre></div>
+</div>
+</div>
+<p>The norm</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="nb">abs</span><span class="p">(</span><span class="n">q1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Taking the <code class="docutils literal"><span class="pre">dual()</span></code> of the &#8220;vector&#8221; part actually returns a vector,</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">q1</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">dual</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">q1</span> <span class="o">=</span> <span class="n">q2S</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">q2</span> <span class="o">=</span> <span class="n">q2S</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">)</span>
+
+<span class="c1"># quaternion product</span>
+<span class="n">q1</span><span class="o">*</span><span class="n">q2</span>
+</pre></div>
+</div>
+</div>
+<p>If you want to keep using a left-handed frame and names like <span class="math">\(i,j\)</span>
+and <span class="math">\(k\)</span> to label the planes in 3D space, ok. If you think it makes
+more sense to use the consistent and transparent approach provided by
+GA, we think you have good taste. If we make this switch, the basis and
+<code class="docutils literal"><span class="pre">q2S()</span></code> functions will be changed to</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">clifford</span> <span class="kn">as</span> <span class="nn">cf</span>
+<span class="n">layout</span><span class="p">,</span> <span class="n">blades</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">Cl</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="nb">locals</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">blades</span><span class="p">)</span>
+
+<span class="n">blades</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+
+
+<span></span><span class="k">def</span> <span class="nf">q2S</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    convert tuple of quaternion coefficients to a spinor&#39;&#39;&#39;</span>
+    <span class="n">q</span> <span class="o">=</span> <span class="n">args</span>
+    <span class="k">return</span> <span class="n">q</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">q</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">e13</span> <span class="o">+</span><span class="n">q</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="n">e23</span> <span class="o">+</span> <span class="n">q</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">*</span><span class="n">e12</span>
+
+<span class="n">q1</span> <span class="o">=</span> <span class="n">q2S</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">q1</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="PredefinedGAs.html" class="btn btn-neutral float-right" title="Predefined Geometric Algebras" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="SpaceTimeAlgebra.html" class="btn btn-neutral" title="Space Time Algebra" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Robert Kern and the Clifford Team.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.82',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: ''
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

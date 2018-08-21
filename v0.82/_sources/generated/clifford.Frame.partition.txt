@@ -1,0 +1,6 @@
+clifford.Frame.partition
+========================
+
+.. currentmodule:: clifford
+
+.. automethod:: Frame.partition

@@ -1,0 +1,6 @@
+clifford.Layout.randomV
+=======================
+
+.. currentmodule:: clifford
+
+.. automethod:: Layout.randomV

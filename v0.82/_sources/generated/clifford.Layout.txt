@@ -1,0 +1,47 @@
+clifford.Layout
+===============
+
+.. currentmodule:: clifford
+
+.. autoclass:: Layout
+  :no-members:
+
+
+
+.. rubric:: Attributes
+
+.. autosummary::
+  :toctree:
+  :nosignatures:
+
+  ~Layout.I
+  ~Layout.basis_vectors
+  ~Layout.basis_vectors_lst
+  ~Layout.blades
+  ~Layout.blades_list
+  ~Layout.pseudoScalar
+  ~Layout.scalar
+
+
+
+
+
+.. rubric:: Methods
+
+.. autosummary::
+  :toctree:
+  :nosignatures:
+
+  ~Layout.MultiVector
+  ~Layout.__init__
+  ~Layout.bases
+  ~Layout.blades_of_grade
+  ~Layout.dict_to_multivector
+  ~Layout.parse_multivector
+  ~Layout.randomMV
+  ~Layout.randomRotor
+  ~Layout.randomV
+
+
+
+

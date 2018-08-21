@@ -1,0 +1,6 @@
+clifford.Frame.nonzero
+======================
+
+.. currentmodule:: clifford
+
+.. automethod:: Frame.nonzero

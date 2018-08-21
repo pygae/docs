@@ -1,0 +1,807 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Example 1 Interpolating Conformal Objects &mdash; Clifford 0.82 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="next" title="Example 2 Clustering Geometric Objects" href="Example 2 Clustering Geometric Objects.html" />
+    <link rel="prev" title="Writing high(ish) performance code with Clifford and Numba via Numpy" href="PerformanceCliffordTutorial.html" />
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-85010051-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Clifford
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.82
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="tutorials.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="QuickStartG2.html">Quick Start (G2)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TheAlgebraOfSpaceG3.html">The Algebra Of Space (G3)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EulerAngles.html">Rotations in Space: Euler Angles, Matrices, and Quaternions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ConformalGeometricAlgebra.html">Conformal Geometric Algebra</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SpaceTimeAlgebra.html">Space Time Algebra</a></li>
+<li class="toctree-l2"><a class="reference internal" href="InterfacingOtherMathSystems.html">Interfacing Other Mathematical Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PredefinedGAs.html">Predefined Geometric Algebras</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PerformanceCliffordTutorial.html">Writing high(ish) performance code with Clifford and Numba via Numpy</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Example 1 Interpolating Conformal Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Example 2 Clustering Geometric Objects.html">Example 2 Clustering Geometric Objects</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Clifford</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="tutorials.html">Tutorials</a> &raquo;</li>
+        
+      <li>Example 1 Interpolating Conformal Objects</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/Example 1 Interpolating Conformal Objects.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #303F9F;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #D84315;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 8ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #cfcfcf;
+    border-radius: 2px;
+    background: #f7f7f7;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.pngmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+</style>
+<div class="section" id="Example-1-Interpolating-Conformal-Objects">
+<h1>Example 1 Interpolating Conformal Objects<a class="headerlink" href="#Example-1-Interpolating-Conformal-Objects" title="Permalink to this headline">¶</a></h1>
+<p>In this example we will look at a few of the tools provided by the
+clifford package for (4,1) conformal geometric algebra (CGA) and see how
+we can use them in a practical setting to interpolate geometric
+primitives.</p>
+<p>The first step in using the package for CGA is to generate and import
+the algebra:</p>
+<div class="nbinput container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">clifford.g3c</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">blades</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>Out[1]:
+</pre></div>
+</div>
+<div class="output_area highlight-none"><div class="highlight"><pre>
+<span></span>{&#39;e1&#39;: (1^e1),
+ &#39;e12&#39;: (1^e12),
+ &#39;e123&#39;: (1^e123),
+ &#39;e1234&#39;: (1^e1234),
+ &#39;e12345&#39;: (1^e12345),
+ &#39;e1235&#39;: (1^e1235),
+ &#39;e124&#39;: (1^e124),
+ &#39;e1245&#39;: (1^e1245),
+ &#39;e125&#39;: (1^e125),
+ &#39;e13&#39;: (1^e13),
+ &#39;e134&#39;: (1^e134),
+ &#39;e1345&#39;: (1^e1345),
+ &#39;e135&#39;: (1^e135),
+ &#39;e14&#39;: (1^e14),
+ &#39;e145&#39;: (1^e145),
+ &#39;e15&#39;: (1^e15),
+ &#39;e2&#39;: (1^e2),
+ &#39;e23&#39;: (1^e23),
+ &#39;e234&#39;: (1^e234),
+ &#39;e2345&#39;: (1^e2345),
+ &#39;e235&#39;: (1^e235),
+ &#39;e24&#39;: (1^e24),
+ &#39;e245&#39;: (1^e245),
+ &#39;e25&#39;: (1^e25),
+ &#39;e3&#39;: (1^e3),
+ &#39;e34&#39;: (1^e34),
+ &#39;e345&#39;: (1^e345),
+ &#39;e35&#39;: (1^e35),
+ &#39;e4&#39;: (1^e4),
+ &#39;e45&#39;: (1^e45),
+ &#39;e5&#39;: (1^e5)}
+</pre></div>
+</div>
+</div>
+<p>This creates an algebra with the required signature and imports the
+basis blades into the current workspace. We can check our metric by
+squaring our grade 1 multivectors.</p>
+<div class="nbinput container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="k">print</span><span class="p">(</span><span class="s1">&#39;e1*e1 &#39;</span><span class="p">,</span> <span class="n">e1</span><span class="o">*</span><span class="n">e1</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;e2*e2 &#39;</span><span class="p">,</span> <span class="n">e2</span><span class="o">*</span><span class="n">e2</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;e3*e3 &#39;</span><span class="p">,</span> <span class="n">e3</span><span class="o">*</span><span class="n">e3</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;e4*e4 &#39;</span><span class="p">,</span> <span class="n">e4</span><span class="o">*</span><span class="n">e4</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;e5*e5 &#39;</span><span class="p">,</span> <span class="n">e5</span><span class="o">*</span><span class="n">e5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast container">
+<div class="prompt empty container">
+</div>
+<div class="output_area container">
+<div class="highlight"><pre>
+e1*e1  1.0
+e2*e2  1.0
+e3*e3  1.0
+e4*e4  1.0
+e5*e5  -1.0
+</pre></div></div>
+</div>
+<p>As expected this gives us 4 basis vectors that square to 1.0 and one
+that squares to -1.0, therefore confirming our metric is (4,1).</p>
+<p>The up() function implements the mapping of vectors from standard 3D
+space to conformal space. We can use this to construct conformal objects
+to play around with.</p>
+<p>For example a line at the origin:</p>
+<div class="nbinput container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">line_a</span> <span class="o">=</span> <span class="p">(</span> <span class="n">up</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">^</span><span class="n">up</span><span class="p">(</span><span class="n">e1</span><span class="o">+</span><span class="n">e2</span><span class="p">)</span><span class="o">^</span><span class="n">einf</span> <span class="p">)</span><span class="o">.</span><span class="n">normal</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">line_a</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast container">
+<div class="prompt empty container">
+</div>
+<div class="output_area container">
+<div class="highlight"><pre>
+(0.70711^e145) + (0.70711^e245)
+</pre></div></div>
+</div>
+<p>The tools submodule of the clifford package contains a wide array of
+algorihtms and tools that can be useful for manipulating objects in CGA.
+We will use these tools to generate rotors that rotate and translate
+objects:</p>
+<div class="nbinput container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">clifford.tools.g3</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">clifford.tools.g3c</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">pi</span>
+
+<span class="n">rotation_radians</span> <span class="o">=</span> <span class="n">pi</span><span class="o">/</span><span class="mi">4</span>
+<span class="n">euc_vector_in_plane_m</span> <span class="o">=</span> <span class="n">e1</span>
+<span class="n">euc_vector_in_plane_n</span> <span class="o">=</span> <span class="n">e3</span>
+
+<span class="n">euc_translation</span> <span class="o">=</span> <span class="o">-</span><span class="mf">5.2</span><span class="o">*</span><span class="n">e1</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">e2</span> <span class="o">-</span> <span class="n">pi</span><span class="o">*</span><span class="n">e3</span>
+
+<span class="n">rotor_rotation</span> <span class="o">=</span> <span class="n">generate_rotation_rotor</span><span class="p">(</span><span class="n">rotation_radians</span><span class="p">,</span> <span class="n">euc_vector_in_plane_m</span><span class="p">,</span> <span class="n">euc_vector_in_plane_n</span><span class="p">)</span>
+<span class="n">rotor_translation</span> <span class="o">=</span> <span class="n">generate_translation_rotor</span><span class="p">(</span><span class="n">euc_translation</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">rotor_rotation</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">rotor_translation</span><span class="p">)</span>
+
+<span class="n">combined_rotor</span> <span class="o">=</span> <span class="p">(</span><span class="n">rotor_translation</span><span class="o">*</span><span class="n">rotor_rotation</span><span class="p">)</span><span class="o">.</span><span class="n">normal</span><span class="p">()</span>
+
+<span class="n">line_b</span> <span class="o">=</span> <span class="p">(</span><span class="n">combined_rotor</span><span class="o">*</span><span class="n">line_a</span><span class="o">*~</span><span class="n">combined_rotor</span><span class="p">)</span><span class="o">.</span><span class="n">normal</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">line_b</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast container">
+<div class="prompt empty container">
+</div>
+<div class="output_area container">
+<div class="highlight"><pre>
+0.92388 - (0.38268^e13)
+1.0 + (2.6^e14) + (2.6^e15) - (1.5^e24) - (1.5^e25) + (1.5708^e34) + (1.5708^e35)
+-(5.17696^e124) - (5.17696^e125) - (1.0292^e134) - (1.0292^e135) + (0.5^e145) + (3.72144^e234) + (3.72144^e235) + (0.70711^e245) + (0.5^e345)
+</pre></div></div>
+</div>
+<p>In the above snippet of code we have generated rotors for translation
+and rotation, then combined these, then applied the combined rotor to
+the original line that we made.</p>
+<p>The clifford package also contains an easy interface to the
+<a class="reference external" href="https://github.com/hugohadfield/GAonline">GAOnline</a> visualisation
+software. Using this we can visualise the two lines in space, to follow
+along open <a class="reference external" href="http://gaonline.azurewebsites.net/">http://gaonline.azurewebsites.net/</a> and copy and paste the
+output of the next box into the input of the GAOnline viewer, replacing
+all of the default content. Then untick the &#8216;Draw axes and floor&#8217;
+checkbox and press execute script.</p>
+<div class="nbinput container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">clifford.tools.g3c.GAOnline</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">sc</span> <span class="o">=</span> <span class="n">GAScene</span><span class="p">()</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">add_line</span><span class="p">(</span><span class="n">line_a</span><span class="p">,</span><span class="s1">&#39;rgb(255,0,0)&#39;</span><span class="p">)</span>
+<span class="n">sc</span><span class="o">.</span><span class="n">add_line</span><span class="p">(</span><span class="n">line_b</span><span class="p">,</span><span class="s1">&#39;rgb(0,255,0)&#39;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">sc</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast container">
+<div class="prompt empty container">
+</div>
+<div class="output_area container">
+<div class="highlight"><pre>
+DrawLine((0.70711^e145) + (0.70711^e245),rgb(255,0,0));
+DrawLine(-(5.17696^e124) - (5.17696^e125) - (1.0292^e134) - (1.0292^e135) + (0.5^e145) + (3.72144^e234) + (3.72144^e235) + (0.70711^e245) + (0.5^e345),rgb(0,255,0));
+</pre></div></div>
+</div>
+<p>We can also interpolate the objects using the tools in clifford and can
+visualise the result</p>
+<div class="nbinput container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">interpolate_lines_linearly</span><span class="p">(</span><span class="n">L1</span><span class="p">,</span><span class="n">L2</span><span class="p">,</span><span class="n">n_steps</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">color_1</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]),</span><span class="n">color_2</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">])):</span>
+    <span class="n">alpha_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">num</span><span class="o">=</span><span class="n">n_steps</span><span class="p">)</span>
+    <span class="n">intermediary_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">sc</span> <span class="o">=</span> <span class="n">GAScene</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">alpha</span> <span class="ow">in</span> <span class="n">alpha_list</span><span class="p">:</span>
+        <span class="n">intermediate_color</span> <span class="o">=</span> <span class="p">(</span><span class="n">alpha</span><span class="o">*</span><span class="n">color_1</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">alpha</span><span class="p">)</span><span class="o">*</span><span class="n">color_2</span><span class="p">)</span>
+        <span class="n">intermediate_object</span> <span class="o">=</span> <span class="n">interp_objects_root</span><span class="p">(</span><span class="n">L1</span><span class="p">,</span><span class="n">L2</span><span class="p">,</span><span class="n">alpha</span><span class="p">)</span>
+        <span class="n">intermediary_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">intermediate_object</span><span class="p">)</span>
+        <span class="n">sc</span><span class="o">.</span><span class="n">add_line</span><span class="p">(</span><span class="n">intermediate_object</span><span class="p">,</span> <span class="s1">&#39;rgb&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="nb">tuple</span><span class="p">([</span><span class="nb">int</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">intermediate_color</span><span class="p">])))</span>
+    <span class="k">return</span> <span class="n">intermediary_list</span><span class="p">,</span> <span class="n">sc</span>
+
+<span class="n">intermediary_list</span><span class="p">,</span> <span class="n">finished_scene</span> <span class="o">=</span> <span class="n">interpolate_lines_linearly</span><span class="p">(</span><span class="n">line_a</span><span class="p">,</span> <span class="n">line_b</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">finished_scene</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast container">
+<div class="prompt empty container">
+</div>
+<div class="output_area container">
+<div class="highlight"><pre>
+DrawLine(-(5.17696^e124) - (5.17696^e125) - (1.0292^e134) - (1.0292^e135) + (0.5^e145) + (3.72144^e234) + (3.72144^e235) + (0.70711^e245) + (0.5^e345),rgb(0, 255, 0));
+DrawLine(-(4.25101^e124) - (4.25101^e125) - (0.30926^e134) - (0.30926^e135) + (0.56758^e145) + (2.49276^e234) + (2.49276^e235) + (0.72736^e245) + (0.38574^e345),rgb(63, 191, 0));
+DrawLine(-(2.92411^e124) - (2.92411^e125) + (0.13104^e134) + (0.13104^e135) + (0.62694^e145) + (1.36472^e234) + (1.36472^e235) + (0.73451^e245) + (0.25969^e345),rgb(127, 127, 0));
+DrawLine(-(1.417^e124) - (1.417^e125) + (0.22008^e134) + (0.22008^e135) + (0.6741^e145) + (0.50775^e234) + (0.50775^e235) + (0.72736^e245) + (0.12858^e345),rgb(191, 63, 0));
+DrawLine((0.70711^e145) + (0.70711^e245),rgb(255, 0, 0));
+</pre></div></div>
+</div>
+<p>We can do the same for all the other geometric primitives as well</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">interpolate_objects_linearly</span><span class="p">(</span><span class="n">L1</span><span class="p">,</span><span class="n">L2</span><span class="p">,</span><span class="n">object_flag</span><span class="p">,</span><span class="n">n_steps</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">color_1</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]),</span><span class="n">color_2</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">])):</span>
+    <span class="n">alpha_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">num</span><span class="o">=</span><span class="n">n_steps</span><span class="p">)</span>
+    <span class="n">intermediary_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">sc</span> <span class="o">=</span> <span class="n">GAScene</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">alpha</span> <span class="ow">in</span> <span class="n">alpha_list</span><span class="p">:</span>
+        <span class="n">intermediate_color</span> <span class="o">=</span> <span class="p">(</span><span class="n">alpha</span><span class="o">*</span><span class="n">color_1</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">alpha</span><span class="p">)</span><span class="o">*</span><span class="n">color_2</span><span class="p">)</span>
+        <span class="n">intermediate_object</span> <span class="o">=</span> <span class="n">interp_objects_root</span><span class="p">(</span><span class="n">L1</span><span class="p">,</span><span class="n">L2</span><span class="p">,</span><span class="n">alpha</span><span class="p">)</span>
+        <span class="n">intermediary_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">intermediate_object</span><span class="p">)</span>
+        <span class="n">color_string</span> <span class="o">=</span> <span class="s1">&#39;rgb&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="nb">tuple</span><span class="p">([</span><span class="nb">int</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">intermediate_color</span><span class="p">]))</span>
+        <span class="k">if</span> <span class="n">object_flag</span><span class="o">==</span><span class="s1">&#39;point_pairs&#39;</span><span class="p">:</span>
+            <span class="n">sc</span><span class="o">.</span><span class="n">add_point_pair</span><span class="p">(</span><span class="n">intermediate_object</span><span class="p">,</span> <span class="n">color_string</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">object_flag</span><span class="o">==</span><span class="s1">&#39;lines&#39;</span><span class="p">:</span>
+            <span class="n">sc</span><span class="o">.</span><span class="n">add_line</span><span class="p">(</span><span class="n">intermediate_object</span><span class="p">,</span> <span class="n">color_string</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">object_flag</span><span class="o">==</span><span class="s1">&#39;planes&#39;</span><span class="p">:</span>
+            <span class="n">sc</span><span class="o">.</span><span class="n">add_plane</span><span class="p">(</span><span class="n">intermediate_object</span><span class="p">,</span> <span class="n">color_string</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">object_flag</span><span class="o">==</span><span class="s1">&#39;circles&#39;</span><span class="p">:</span>
+            <span class="n">sc</span><span class="o">.</span><span class="n">add_circle</span><span class="p">(</span><span class="n">intermediate_object</span><span class="p">,</span> <span class="n">color_string</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">object_flag</span><span class="o">==</span><span class="s1">&#39;spheres&#39;</span><span class="p">:</span>
+            <span class="n">sc</span><span class="o">.</span><span class="n">add_sphere</span><span class="p">(</span><span class="n">intermediate_object</span><span class="p">,</span> <span class="n">color_string</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">intermediary_list</span><span class="p">,</span> <span class="n">sc</span>
+</pre></div>
+</div>
+</div>
+<p>Circles:</p>
+<div class="nbinput container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">circle_a</span> <span class="o">=</span> <span class="p">(</span><span class="n">up</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">^</span><span class="n">up</span><span class="p">(</span><span class="n">e1</span><span class="p">)</span><span class="o">^</span><span class="n">up</span><span class="p">(</span><span class="n">e2</span><span class="p">))</span><span class="o">.</span><span class="n">normal</span><span class="p">()</span>
+<span class="n">circle_b</span> <span class="o">=</span> <span class="p">(</span><span class="n">combined_rotor</span><span class="o">*</span><span class="n">circle_a</span><span class="o">*~</span><span class="n">combined_rotor</span><span class="p">)</span><span class="o">.</span><span class="n">normal</span><span class="p">()</span>
+<span class="n">intermediary_list</span><span class="p">,</span> <span class="n">finished_scene</span> <span class="o">=</span> <span class="n">interpolate_objects_linearly</span><span class="p">(</span><span class="n">circle_a</span><span class="p">,</span> <span class="n">circle_b</span><span class="p">,</span> <span class="s1">&#39;circles&#39;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">finished_scene</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast container">
+<div class="prompt empty container">
+</div>
+<div class="output_area container">
+<div class="highlight"><pre>
+DrawCircle((2.05841^e123) - (27.74452^e124) - (26.74452^e125) - (7.20443^e134) - (7.20443^e135) + (3.5^e145) + (12.02964^e234) + (11.02964^e235) + (7.63449^e245) + (3.5^e345),rgb(0, 255, 0));
+DrawCircle(-(1.36938^e123) + (2.36461^e124) + (2.44041^e125) - (4.66392^e134) - (4.25943^e135) - (0.95663^e145) + (8.07753^e234) + (8.055^e235) + (0.48604^e245) + (2.30919^e345),rgb(28, 226, 0));
+DrawCircle(-(0.85834^e123) + (1.58453^e124) + (1.64011^e125) - (2.99269^e134) - (2.76061^e135) - (0.6222^e145) + (5.18091^e234) + (5.20328^e235) + (0.29418^e245) + (1.47879^e345),rgb(56, 198, 0));
+DrawCircle(-(0.61333^e123) + (1.19809^e124) + (1.2481^e125) - (2.23415^e134) - (2.08957^e135) - (0.46456^e145) + (3.86479^e234) + (3.91692^e235) + (0.21327^e245) + (1.10089^e345),rgb(85, 170, 0));
+DrawCircle(-(0.44836^e123) + (0.94356^e124) + (0.99256^e125) - (1.74971^e134) - (1.66852^e135) - (0.36205^e145) + (3.02334^e234) + (3.10311^e235) + (0.16249^e245) + (0.85874^e345),rgb(113, 141, 0));
+DrawCircle(-(0.31585^e123) + (0.749^e124) + (0.7999^e125) - (1.3856^e134) - (1.36009^e135) - (0.28379^e145) + (2.38999^e234) + (2.50006^e235) + (0.12414^e245) + (0.67588^e345),rgb(141, 113, 0));
+DrawCircle(-(0.19353^e123) + (0.58351^e124) + (0.63958^e125) - (1.07967^e134) - (1.11153^e135) - (0.21675^e145) + (1.85666^e234) + (2.00485^e235) + (0.0911^e245) + (0.5211^e345),rgb(170, 85, 0));
+DrawCircle(-(0.06082^e123) + (0.42702^e124) + (0.4943^e125) - (0.79409^e134) - (0.89755^e135) - (0.15207^e145) + (1.3568^e234) + (1.56227^e235) + (0.05835^e245) + (0.37468^e345),rgb(198, 56, 0));
+DrawCircle((0.13426^e123) + (0.25075^e124) + (0.34988^e125) - (0.48202^e134) - (0.71262^e135) - (0.07475^e145) + (0.80523^e234) + (1.13212^e235) + (0.01592^e245) + (0.20943^e345),rgb(226, 28, 0));
+DrawCircle(-(0.70711^e124) + (0.70711^e125) + (0.70711^e145) - (0.70711^e245),rgb(255, 0, 0));
+</pre></div></div>
+</div>
+<p>Point pairs</p>
+<div class="nbinput container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">point_pair_a</span> <span class="o">=</span> <span class="p">(</span><span class="n">up</span><span class="p">(</span><span class="n">e3</span><span class="p">)</span><span class="o">^</span><span class="n">up</span><span class="p">(</span><span class="n">e1</span><span class="o">+</span><span class="n">e2</span><span class="p">))</span><span class="o">.</span><span class="n">normal</span><span class="p">()</span>
+<span class="n">point_pair_b</span> <span class="o">=</span> <span class="p">(</span><span class="n">combined_rotor</span><span class="o">*</span><span class="n">point_pair_a</span><span class="o">*~</span><span class="n">combined_rotor</span><span class="p">)</span><span class="o">.</span><span class="n">normal</span><span class="p">()</span>
+<span class="n">intermediary_list</span><span class="p">,</span> <span class="n">finished_scene</span> <span class="o">=</span> <span class="n">interpolate_objects_linearly</span><span class="p">(</span><span class="n">point_pair_a</span><span class="p">,</span> <span class="n">point_pair_b</span><span class="p">,</span> <span class="s1">&#39;point_pairs&#39;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">finished_scene</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast container">
+<div class="prompt empty container">
+</div>
+<div class="output_area container">
+<div class="highlight"><pre>
+DrawPointPair(-(6.7665^e12) + (2.29526^e13) - (7.83729^e14) - (8.7801^e15) + (1.62299^e23) - (23.98137^e24) - (24.64803^e25) + (6.25486^e34) + (6.25486^e35) + (2.56927^e45),rgb(0, 255, 0));
+DrawPointPair(-(2.15719^e12) + (1.1893^e13) - (4.04791^e14) - (4.35255^e15) + (0.1631^e23) - (6.61729^e24) - (6.87784^e25) + (3.34219^e34) + (3.4628^e35) + (0.44558^e45),rgb(28, 226, 0));
+DrawPointPair(-(1.44916^e12) + (0.80617^e13) - (2.79935^e14) - (3.02062^e15) + (0.07001^e23) - (4.42571^e24) - (4.63444^e25) + (2.3268^e34) + (2.43222^e35) + (0.27256^e45),rgb(56, 198, 0));
+DrawPointPair(-(1.09335^e12) + (0.6008^e13) - (2.14581^e14) - (2.33024^e15) + (0.02261^e23) - (3.35189^e24) - (3.5434^e25) + (1.79752^e34) + (1.89894^e35) + (0.18957^e45),rgb(85, 170, 0));
+DrawPointPair(-(0.85616^e12) + (0.45825^e13) - (1.70556^e14) - (1.86973^e15) - (0.01345^e23) - (2.64738^e24) - (2.83525^e25) + (1.44378^e34) + (1.54691^e35) + (0.13338^e45),rgb(113, 141, 0));
+DrawPointPair(-(0.67284^e12) + (0.34357^e13) - (1.36569^e14) - (1.51881^e15) - (0.04726^e23) - (2.11122^e24) - (2.3047^e25) + (1.17399^e34) + (1.28354^e35) + (0.08774^e45),rgb(141, 113, 0));
+DrawPointPair(-(0.51509^e12) + (0.23972^e13) - (1.07615^e14) - (1.22581^e15) - (0.08459^e23) - (1.65848^e24) - (1.86759^e25) + (0.94856^e34) + (1.07045^e35) + (0.04498^e45),rgb(170, 85, 0));
+DrawPointPair(-(0.36411^e12) + (0.13206^e13) - (0.80495^e14) - (0.96131^e15) - (0.13394^e23) - (1.23688^e24) - (1.47807^e25) + (0.74471^e34) + (0.8897^e35) - (0.00203^e45),rgb(198, 56, 0));
+DrawPointPair(-(0.19493^e12) - (0.01022^e13) - (0.51367^e14) - (0.70295^e15) - (0.22179^e23) - (0.78585^e24) - (1.10191^e25) + (0.54326^e34) + (0.74205^e35) - (0.06979^e45),rgb(226, 28, 0));
+DrawPointPair(-(0.66667^e13) - (0.66667^e15) - (0.66667^e23) - (0.66667^e25) + (0.33333^e34) + (1.0^e35) - (0.33333^e45),rgb(255, 0, 0));
+</pre></div></div>
+</div>
+<p>Planes</p>
+<div class="nbinput container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">plane_a</span> <span class="o">=</span> <span class="p">(</span><span class="n">up</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">^</span><span class="n">up</span><span class="p">(</span><span class="n">e1</span><span class="p">)</span><span class="o">^</span><span class="n">up</span><span class="p">(</span><span class="n">e2</span><span class="p">)</span><span class="o">^</span><span class="n">einf</span><span class="p">)</span><span class="o">.</span><span class="n">normal</span><span class="p">()</span>
+<span class="n">plane_b</span> <span class="o">=</span> <span class="p">(</span><span class="n">combined_rotor</span><span class="o">*</span><span class="n">plane_a</span><span class="o">*~</span><span class="n">combined_rotor</span><span class="p">)</span><span class="o">.</span><span class="n">normal</span><span class="p">()</span>
+<span class="n">intermediary_list</span><span class="p">,</span> <span class="n">finished_scene</span> <span class="o">=</span> <span class="n">interpolate_objects_linearly</span><span class="p">(</span><span class="n">plane_a</span><span class="p">,</span> <span class="n">plane_b</span><span class="p">,</span> <span class="s1">&#39;planes&#39;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">finished_scene</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast container">
+<div class="prompt empty container">
+</div>
+<div class="output_area container">
+<div class="highlight"><pre>
+DrawPlane((1.45551^e1234) + (1.45551^e1235) - (0.70711^e1245) + (0.70711^e2345),rgb(0, 255, 0));
+DrawPlane((1.33292^e1234) + (1.33292^e1235) - (0.76202^e1245) + (0.64755^e2345),rgb(28, 226, 0));
+DrawPlane((1.19413^e1234) + (1.19413^e1235) - (0.81453^e1245) + (0.58012^e2345),rgb(56, 198, 0));
+DrawPlane((1.04042^e1234) + (1.04042^e1235) - (0.86286^e1245) + (0.50545^e2345),rgb(85, 170, 0));
+DrawPlane((0.87432^e1234) + (0.87432^e1235) - (0.90531^e1245) + (0.42475^e2345),rgb(113, 141, 0));
+DrawPlane((0.69945^e1234) + (0.69945^e1235) - (0.9405^e1245) + (0.3398^e2345),rgb(141, 113, 0));
+DrawPlane((0.52021^e1234) + (0.52021^e1235) - (0.96754^e1245) + (0.25272^e2345),rgb(170, 85, 0));
+DrawPlane((0.34118^e1234) + (0.34118^e1235) - (0.98617^e1245) + (0.16575^e2345),rgb(198, 56, 0));
+DrawPlane((0.16662^e1234) + (0.16662^e1235) - (0.99672^e1245) + (0.08094^e2345),rgb(226, 28, 0));
+DrawPlane(-(1.0^e1245),rgb(255, 0, 0));
+</pre></div></div>
+</div>
+<p>Spheres</p>
+<div class="nbinput container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">sphere_a</span> <span class="o">=</span> <span class="p">(</span><span class="n">up</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">^</span><span class="n">up</span><span class="p">(</span><span class="n">e1</span><span class="p">)</span><span class="o">^</span><span class="n">up</span><span class="p">(</span><span class="n">e2</span><span class="p">)</span><span class="o">^</span><span class="n">up</span><span class="p">(</span><span class="n">e3</span><span class="p">))</span><span class="o">.</span><span class="n">normal</span><span class="p">()</span>
+<span class="n">sphere_b</span> <span class="o">=</span> <span class="p">(</span><span class="n">combined_rotor</span><span class="o">*</span><span class="n">sphere_a</span><span class="o">*~</span><span class="n">combined_rotor</span><span class="p">)</span><span class="o">.</span><span class="n">normal</span><span class="p">()</span>
+<span class="n">intermediary_list</span><span class="p">,</span> <span class="n">finished_scene</span> <span class="o">=</span> <span class="n">interpolate_objects_linearly</span><span class="p">(</span><span class="n">sphere_a</span><span class="p">,</span> <span class="n">sphere_b</span><span class="p">,</span> <span class="s1">&#39;spheres&#39;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">finished_scene</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast container">
+<div class="prompt empty container">
+</div>
+<div class="output_area container">
+<div class="highlight"><pre>
+DrawSphere((26.25022^e1234) + (25.09552^e1235) + (2.8111^e1245) + (4.04145^e1345) + (6.00444^e2345),rgb(0, 255, 0));
+DrawSphere((9.88937^e1234) + (9.40131^e1235) + (1.02902^e1245) + (1.54549^e1345) + (2.22876^e2345),rgb(28, 226, 0));
+DrawSphere((6.32654^e1234) + (5.97097^e1235) + (0.63376^e1245) + (1.00745^e1345) + (1.39858^e2345),rgb(56, 198, 0));
+DrawSphere((4.75498^e1234) + (4.44464^e1235) + (0.45194^e1245) + (0.77583^e1345) + (1.02409^e2345),rgb(85, 170, 0));
+DrawSphere((3.77008^e1234) + (3.47673^e1235) + (0.33156^e1245) + (0.63559^e1345) + (0.78226^e2345),rgb(113, 141, 0));
+DrawSphere((3.0454^e1234) + (2.75205^e1235) + (0.23592^e1245) + (0.53781^e1345) + (0.59648^e2345),rgb(141, 113, 0));
+DrawSphere((2.45507^e1234) + (2.14474^e1235) + (0.14839^e1245) + (0.4655^e1345) + (0.43446^e2345),rgb(170, 85, 0));
+DrawSphere((1.93457^e1234) + (1.579^e1235) + (0.05409^e1245) + (0.41483^e1345) + (0.2726^e2345),rgb(198, 56, 0));
+DrawSphere((1.44969^e1234) + (0.96164^e1235) - (0.08489^e1245) + (0.40671^e1345) + (0.06507^e2345),rgb(226, 28, 0));
+DrawSphere((0.57735^e1234) - (0.57735^e1235) - (0.57735^e1245) + (0.57735^e1345) - (0.57735^e2345),rgb(255, 0, 0));
+</pre></div></div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Example 2 Clustering Geometric Objects.html" class="btn btn-neutral float-right" title="Example 2 Clustering Geometric Objects" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="PerformanceCliffordTutorial.html" class="btn btn-neutral" title="Writing high(ish) performance code with Clifford and Numba via Numpy" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Robert Kern and the Clifford Team.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.82',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: ''
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,27 @@
+clifford.cga.Rotation
+=====================
+
+.. currentmodule:: clifford.cga
+
+.. autoclass:: Rotation
+  :no-members:
+
+
+
+
+
+
+
+.. rubric:: Methods
+
+.. autosummary::
+  :toctree:
+  :nosignatures:
+
+  ~Rotation.__init__
+  ~Rotation.inverted
+  ~Rotation.involuted
+
+
+
+

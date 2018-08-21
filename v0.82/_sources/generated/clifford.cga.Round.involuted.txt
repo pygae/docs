@@ -1,0 +1,6 @@
+clifford.cga.Round.involuted
+============================
+
+.. currentmodule:: clifford.cga
+
+.. automethod:: Round.involuted

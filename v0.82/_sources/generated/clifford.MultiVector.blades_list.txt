@@ -1,0 +1,6 @@
+clifford.MultiVector.blades_list
+================================
+
+.. currentmodule:: clifford
+
+.. autoattribute:: MultiVector.blades_list

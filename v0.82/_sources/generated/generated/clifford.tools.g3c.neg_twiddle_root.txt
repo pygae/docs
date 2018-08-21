@@ -1,0 +1,6 @@
+clifford.tools.g3c.neg_twiddle_root
+===================================
+
+.. currentmodule:: clifford.tools.g3c
+
+.. autofunction:: neg_twiddle_root

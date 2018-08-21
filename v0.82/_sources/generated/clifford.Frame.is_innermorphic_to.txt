@@ -1,0 +1,6 @@
+clifford.Frame.is_innermorphic_to
+=================================
+
+.. currentmodule:: clifford
+
+.. automethod:: Frame.is_innermorphic_to

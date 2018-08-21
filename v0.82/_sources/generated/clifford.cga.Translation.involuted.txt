@@ -1,0 +1,6 @@
+clifford.cga.Translation.involuted
+==================================
+
+.. currentmodule:: clifford.cga
+
+.. automethod:: Translation.involuted

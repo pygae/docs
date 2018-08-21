@@ -1,0 +1,6 @@
+clifford.Layout.parse_multivector
+=================================
+
+.. currentmodule:: clifford
+
+.. automethod:: Layout.parse_multivector

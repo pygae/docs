@@ -1,0 +1,6 @@
+clifford.MultiVector.adjoint
+============================
+
+.. currentmodule:: clifford
+
+.. automethod:: MultiVector.adjoint

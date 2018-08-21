@@ -1,0 +1,6 @@
+clifford.cga.Dilation.involuted
+===============================
+
+.. currentmodule:: clifford.cga
+
+.. automethod:: Dilation.involuted

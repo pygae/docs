@@ -1,0 +1,6 @@
+clifford.tools.g3c.quaternion_and_vector_to_rotor
+=================================================
+
+.. currentmodule:: clifford.tools.g3c
+
+.. autofunction:: quaternion_and_vector_to_rotor

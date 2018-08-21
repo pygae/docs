@@ -1,0 +1,6 @@
+clifford.Frame.round
+====================
+
+.. currentmodule:: clifford
+
+.. automethod:: Frame.round

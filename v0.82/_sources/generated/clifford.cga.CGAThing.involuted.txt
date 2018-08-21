@@ -1,0 +1,6 @@
+clifford.cga.CGAThing.involuted
+===============================
+
+.. currentmodule:: clifford.cga
+
+.. automethod:: CGAThing.involuted

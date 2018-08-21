@@ -1,0 +1,312 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>clifford: Geometric Algebra for Python &mdash; Clifford 0.82 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="next" title="Tutorials" href="tutorials.html" />
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-85010051-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="#" class="icon icon-home"> Clifford
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.82
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Clifford</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>clifford: Geometric Algebra for Python</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/index.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+</style>
+<div class="section" id="clifford-geometric-algebra-for-python">
+<h1>clifford: Geometric Algebra for Python<a class="headerlink" href="#clifford-geometric-algebra-for-python" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-ipython"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">from</span> <span class="nn">clifford.g3</span> <span class="kn">import</span> <span class="o">*</span>  <span class="c1"># import GA for 3D space</span>
+
+<span class="gp">In [2]: </span><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">e</span><span class="p">,</span><span class="n">pi</span>
+
+<span class="gp">In [3]: </span><span class="n">a</span> <span class="o">=</span> <span class="n">e1</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">e2</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">e3</span> <span class="c1"># vector</span>
+
+<span class="gp">In [4]: </span><span class="n">R</span> <span class="o">=</span> <span class="n">e</span><span class="o">**</span><span class="p">(</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="o">*</span><span class="n">e12</span><span class="p">)</span>    <span class="c1"># rotor</span>
+
+<span class="gp">In [5]: </span><span class="n">R</span><span class="o">*</span><span class="n">a</span><span class="o">*~</span><span class="n">R</span>    <span class="c1"># rotate the vector</span>
+<span class="gh">Out[5]: </span><span class="go">(2.0^e1) - (1.0^e2) + (3.0^e3)</span>
+</pre></div>
+</div>
+<p>This module implements Geometric Algebras (a.k.a. Clifford algebras). Geometric Algebra (GA) is a universal algebra which subsumes complex algebra, quaternions, linear algebra and several other independent mathematical systems.  Scalars, vectors, and higher-grade entities can
+be mixed freely and consistently in the form of mixed-grade multivectors.</p>
+<a class="reference internal image-reference" href="_images/blades.png"><img alt="_images/blades.png" class="align-center" src="_images/blades.png" style="width: 500px;" /></a>
+<p>If you think Geometric Algebra looks interesting and want to learn more, check out the <a class="reference external" href="http://geometry.mrao.cam.ac.uk/">cambridge groups page</a>,  and here are some great introductory textbooks!</p>
+<ul class="simple">
+<li>Geometric Algebra for Physicists, by Doran and Lasenby</li>
+<li>Geometric Algebra for Computer Science, by Dorst, Fontijne and Mann</li>
+<li>New Foundations for Classical Mechanics, by David Hestenes</li>
+</ul>
+</div>
+<div class="section" id="docs">
+<h1>Docs<a class="headerlink" href="#docs" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="QuickStartG2.html">Quick Start (G2)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TheAlgebraOfSpaceG3.html">The Algebra Of Space (G3)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EulerAngles.html">Rotations in Space: Euler Angles, Matrices, and Quaternions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ConformalGeometricAlgebra.html">Conformal Geometric Algebra</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SpaceTimeAlgebra.html">Space Time Algebra</a></li>
+<li class="toctree-l2"><a class="reference internal" href="InterfacingOtherMathSystems.html">Interfacing Other Mathematical Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PredefinedGAs.html">Predefined Geometric Algebras</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PerformanceCliffordTutorial.html">Writing high(ish) performance code with Clifford and Numba via Numpy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Example 1 Interpolating Conformal Objects.html">Example 1 Interpolating Conformal Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Example 2 Clustering Geometric Objects.html">Example 2 Clustering Geometric Objects</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="clifford.html">clifford (<code class="docutils literal"><span class="pre">clifford</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cga.html">cga (<code class="docutils literal"><span class="pre">clifford.cga</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tools.html">tools (<code class="docutils literal"><span class="pre">clifford.tools</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="issues_and_changelog.html">Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="issues_and_changelog.html#changelog">ChangeLog</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="links">
+<h2>Links<a class="headerlink" href="#links" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Symbolic geometric alebra module for python:  <a class="reference external" href="https://github.com/brombo/galgebra">https://github.com/brombo/galgebra</a></li>
+<li>Cambridge GA group:   <a class="reference external" href="http://www.mrao.cam.ac.uk/~clifford">http://www.mrao.cam.ac.uk/~clifford</a></li>
+<li>David Hestenes&#8217; (The man)  website:  <a class="reference external" href="http://geocalc.clas.asu.edu/">http://geocalc.clas.asu.edu/</a></li>
+<li>GAOnline - Conformal Geometric Algebra visualiser: <a class="reference external" href="http://gaonline.azurewebsites.net/">http://gaonline.azurewebsites.net/</a></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="tutorials.html" class="btn btn-neutral float-right" title="Tutorials" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Robert Kern and the Clifford Team.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.82',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: ''
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

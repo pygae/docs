@@ -1,0 +1,6 @@
+clifford.Frame.dumps
+====================
+
+.. currentmodule:: clifford
+
+.. automethod:: Frame.dumps

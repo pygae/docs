@@ -1,0 +1,6 @@
+clifford.MultiVector.mag2
+=========================
+
+.. currentmodule:: clifford
+
+.. automethod:: MultiVector.mag2

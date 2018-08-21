@@ -1,0 +1,6 @@
+clifford.MultiVector.odd
+========================
+
+.. currentmodule:: clifford
+
+.. autoattribute:: MultiVector.odd

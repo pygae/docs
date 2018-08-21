@@ -1,0 +1,1096 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>clifford.tools.g3c &mdash; Clifford 0.82 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-85010051-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Clifford
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.82
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials.html">Tutorials</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Clifford</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../../clifford.html">clifford</a> &raquo;</li>
+        
+          <li><a href="../tools.html">clifford.tools</a> &raquo;</li>
+        
+      <li>clifford.tools.g3c</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for clifford.tools.g3c</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Tools for 3DCGA (g3c)</span>
+
+<span class="sd">3DCGA Tools</span>
+<span class="sd">==========================================================</span>
+
+<span class="sd">Generation Methods</span>
+<span class="sd">--------------------</span>
+
+<span class="sd">.. autosummary::</span>
+<span class="sd">    :toctree: generated/</span>
+
+<span class="sd">    generate_dilation_rotor</span>
+<span class="sd">    generate_translation_rotor</span>
+<span class="sd">    random_conformal_point</span>
+
+<span class="sd">Misc</span>
+<span class="sd">--------------------</span>
+
+<span class="sd">.. autosummary::</span>
+<span class="sd">    :toctree: generated/</span>
+<span class="sd">    </span>
+<span class="sd">    meet</span>
+<span class="sd">    intersect_line_and_plane_to_point</span>
+<span class="sd">    normalise_n_minus_1</span>
+<span class="sd">    quaternion_and_vector_to_rotor</span>
+<span class="sd">    get_center_from_sphere</span>
+<span class="sd">    get_radius_from_sphere</span>
+<span class="sd">    point_pair_to_end_points</span>
+<span class="sd">    euc_dist</span>
+<span class="sd">    dorst_norm_val</span>
+
+<span class="sd">Root Finding</span>
+<span class="sd">--------------------</span>
+
+<span class="sd">.. autosummary::</span>
+<span class="sd">    :toctree: generated/</span>
+<span class="sd">    </span>
+<span class="sd">    check_sigma_for_positive_root</span>
+<span class="sd">    check_sigma_for_negative_root</span>
+<span class="sd">    check_infinite_roots</span>
+<span class="sd">    positive_root</span>
+<span class="sd">    negative_root</span>
+<span class="sd">    pos_twiddle_root</span>
+<span class="sd">    neg_twiddle_root</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">numba</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">clifford.tools.g3</span> <span class="k">import</span> <span class="n">quaternion_to_rotor</span><span class="p">,</span> <span class="n">random_euc_mv</span><span class="p">,</span> \
+    <span class="n">random_rotation_rotor</span><span class="p">,</span> <span class="n">generate_rotation_rotor</span>
+<span class="kn">from</span> <span class="nn">clifford.g3c</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">clifford</span> <span class="k">as</span> <span class="nn">cf</span>
+<span class="kn">from</span> <span class="nn">clifford</span> <span class="k">import</span> <span class="n">get_mult_function</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="c1"># Allow sytactic alternatives to the standard included in the clifford package</span>
+<span class="n">ninf</span> <span class="o">=</span> <span class="n">einf</span>
+<span class="n">no</span> <span class="o">=</span> <span class="o">-</span><span class="n">eo</span>
+
+<span class="c1"># Define some useful objects</span>
+<span class="n">E</span> <span class="o">=</span> <span class="n">ninf</span> <span class="o">^</span> <span class="p">(</span><span class="n">no</span><span class="p">)</span>
+<span class="n">I5</span> <span class="o">=</span> <span class="n">e12345</span>
+<span class="n">I3</span> <span class="o">=</span> <span class="n">e123</span>
+<span class="n">E0</span> <span class="o">=</span> <span class="n">ninf</span> <span class="o">^</span> <span class="o">-</span><span class="n">no</span>
+<span class="n">E0_val</span> <span class="o">=</span> <span class="n">E0</span><span class="o">.</span><span class="n">value</span>
+<span class="n">I5_val</span> <span class="o">=</span> <span class="n">I5</span><span class="o">.</span><span class="n">value</span>
+<span class="n">ninf_val</span> <span class="o">=</span> <span class="n">ninf</span><span class="o">.</span><span class="n">value</span>
+<span class="n">no_val</span> <span class="o">=</span> <span class="n">no</span><span class="o">.</span><span class="n">value</span>
+<span class="n">I3_val</span> <span class="o">=</span> <span class="n">I3</span><span class="o">.</span><span class="n">value</span>
+
+<span class="n">unit_scalar_mv</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">+</span> <span class="mf">0.0</span><span class="o">*</span><span class="n">e1</span>
+<span class="n">unit_scalar_mv_val</span> <span class="o">=</span> <span class="n">unit_scalar_mv</span><span class="o">.</span><span class="n">value</span>
+
+<span class="n">adjoint_func</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">adjoint_func</span>
+<span class="n">gmt_func</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">gmt_func</span>
+<span class="n">omt_func</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">omt_func</span>
+<span class="n">imt_func</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">imt_func</span>
+<span class="n">rightLaInv</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">rightLaInv_func</span>
+
+
+
+<span class="k">def</span> <span class="nf">get_circle_in_euc</span><span class="p">(</span><span class="n">circle</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Extracts all the normal stuff for a circle &quot;&quot;&quot;</span>
+    <span class="n">Ic</span> <span class="o">=</span> <span class="p">(</span><span class="n">circle</span><span class="o">^</span><span class="n">ninf</span><span class="p">)</span><span class="o">.</span><span class="n">normal</span><span class="p">()</span>
+    <span class="n">GAnormal</span> <span class="o">=</span> <span class="n">get_plane_normal</span><span class="p">(</span><span class="n">Ic</span><span class="p">)</span>
+    <span class="n">inPlaneDual</span> <span class="o">=</span> <span class="n">circle</span><span class="o">*</span><span class="n">Ic</span>
+    <span class="n">mag</span> <span class="o">=</span> <span class="nb">float</span><span class="p">((</span><span class="n">inPlaneDual</span><span class="o">|</span><span class="n">ninf</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">inPlaneDual</span> <span class="o">=</span> <span class="o">-</span><span class="n">inPlaneDual</span><span class="o">/</span><span class="n">mag</span>
+    <span class="n">radius</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">inPlaneDual</span><span class="o">*</span><span class="n">inPlaneDual</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="c1">#GAcentre = down(circle*ninf*circle)</span>
+    <span class="n">GAcentre</span> <span class="o">=</span> <span class="n">down</span><span class="p">(</span><span class="n">inPlaneDual</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mf">0.5</span><span class="o">*</span><span class="n">inPlaneDual</span><span class="o">*</span><span class="n">ninf</span><span class="p">))</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">GAcentre</span><span class="p">,</span><span class="n">GAnormal</span><span class="p">,</span><span class="n">radius</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">line_to_point_and_direction</span><span class="p">(</span><span class="n">line</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">    converts a line to the conformal nearest point to the origin and a </span>
+<span class="sd">    euc direction vector in direction of the line </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">L_star</span> <span class="o">=</span> <span class="n">line</span><span class="o">*</span><span class="n">I5</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="n">L_star</span><span class="o">|</span><span class="n">no</span>
+    <span class="n">mhat</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">L_star</span> <span class="o">-</span> <span class="n">T</span><span class="o">*</span><span class="n">ninf</span><span class="p">)</span><span class="o">*</span><span class="n">I3</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="n">T</span><span class="o">^</span><span class="n">mhat</span><span class="p">)</span><span class="o">*</span><span class="n">I3</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">p</span><span class="p">,</span><span class="n">mhat</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">get_plane_origin_distance</span><span class="p">(</span><span class="n">plane</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Get the distance between a given plane and the origin &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">float</span><span class="p">(((</span><span class="n">plane</span><span class="o">*</span><span class="n">I5</span><span class="p">)</span><span class="o">|</span><span class="n">no</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="k">def</span> <span class="nf">get_plane_normal</span><span class="p">(</span><span class="n">plane</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Get the normal to the plane &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">plane</span><span class="o">*</span><span class="n">I5</span> <span class="o">-</span> <span class="n">get_plane_origin_distance</span><span class="p">(</span><span class="n">plane</span><span class="p">)</span><span class="o">*</span><span class="n">ninf</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">get_nearest_plane_point</span><span class="p">(</span><span class="n">plane</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Get the nearest point to the origin on the plane &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">get_plane_normal</span><span class="p">(</span><span class="n">plane</span><span class="p">)</span><span class="o">*</span><span class="n">get_plane_origin_distance</span><span class="p">(</span><span class="n">plane</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">disturb_object</span><span class="p">(</span><span class="n">mv_object</span><span class="p">,</span> <span class="n">maximum_translation</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">maximum_angle</span><span class="o">=</span><span class="mf">0.01</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Disturbs an object by a random rotor &quot;&quot;&quot;</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">random_rotation_translation_rotor</span><span class="p">(</span><span class="n">maximum_translation</span><span class="o">=</span><span class="n">maximum_translation</span><span class="p">,</span> <span class="n">maximum_angle</span><span class="o">=</span><span class="n">maximum_angle</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">r</span><span class="o">*</span><span class="n">mv_object</span><span class="o">*~</span><span class="n">r</span><span class="p">)</span><span class="o">.</span><span class="n">normal</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">generate_n_clusters</span><span class="p">(</span> <span class="n">object_generator</span><span class="p">,</span> <span class="n">n_clusters</span><span class="p">,</span> <span class="n">n_objects_per_cluster</span> <span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Creates n_clusters of random objects &quot;&quot;&quot;</span>
+    <span class="n">object_clusters</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_clusters</span><span class="p">):</span>
+        <span class="n">cluster_objects</span> <span class="o">=</span> <span class="n">generate_random_object_cluster</span><span class="p">(</span><span class="n">n_objects_per_cluster</span><span class="p">,</span> <span class="n">object_generator</span><span class="p">,</span>
+                                                         <span class="n">max_cluster_trans</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">max_cluster_rot</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">16</span><span class="p">)</span>
+        <span class="n">object_clusters</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cluster_objects</span><span class="p">)</span>
+    <span class="n">all_objects</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">sublist</span> <span class="ow">in</span> <span class="n">object_clusters</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">sublist</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">all_objects</span><span class="p">,</span> <span class="n">object_clusters</span>
+
+
+<span class="k">def</span> <span class="nf">generate_random_object_cluster</span><span class="p">(</span><span class="n">n_objects</span><span class="p">,</span> <span class="n">object_generator</span><span class="p">,</span> <span class="n">max_cluster_trans</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">max_cluster_rot</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">8</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Creates a cluster of random objects &quot;&quot;&quot;</span>
+    <span class="n">ref_obj</span> <span class="o">=</span> <span class="n">object_generator</span><span class="p">()</span>
+    <span class="n">cluster_objects</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_objects</span><span class="p">):</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">random_rotation_translation_rotor</span><span class="p">(</span><span class="n">maximum_translation</span><span class="o">=</span><span class="n">max_cluster_trans</span><span class="p">,</span> <span class="n">maximum_angle</span><span class="o">=</span><span class="n">max_cluster_rot</span><span class="p">)</span>
+        <span class="n">new_obj</span> <span class="o">=</span> <span class="n">apply_rotor</span><span class="p">(</span><span class="n">ref_obj</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+        <span class="n">cluster_objects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_obj</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">cluster_objects</span>
+
+
+<span class="k">def</span> <span class="nf">random_translation_rotor</span><span class="p">(</span><span class="n">maximum_translation</span><span class="o">=</span><span class="mf">10.0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; generate a random translation rotor &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">generate_translation_rotor</span><span class="p">(</span><span class="n">random_euc_mv</span><span class="p">(</span><span class="n">maximum_translation</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">random_rotation_translation_rotor</span><span class="p">(</span><span class="n">maximum_translation</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">maximum_angle</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; generate a random combined rotation and translation rotor &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">random_translation_rotor</span><span class="p">(</span><span class="n">maximum_translation</span><span class="p">)</span><span class="o">*</span><span class="n">random_rotation_rotor</span><span class="p">(</span><span class="n">maximum_angle</span><span class="p">))</span><span class="o">.</span><span class="n">normal</span><span class="p">()</span>
+
+
+<span class="nd">@numba</span><span class="o">.</span><span class="n">njit</span>
+<span class="k">def</span> <span class="nf">project_val</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">grade</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; fast grade projection &quot;&quot;&quot;</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">32</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">grade</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">grade</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">output</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">6</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">grade</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">output</span><span class="p">[</span><span class="mi">6</span><span class="p">:</span><span class="mi">16</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span><span class="p">[</span><span class="mi">6</span><span class="p">:</span><span class="mi">16</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">grade</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="n">output</span><span class="p">[</span><span class="mi">16</span><span class="p">:</span><span class="mi">26</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span><span class="p">[</span><span class="mi">16</span><span class="p">:</span><span class="mi">26</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">grade</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+        <span class="n">output</span><span class="p">[</span><span class="mi">26</span><span class="p">:</span><span class="mi">31</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span><span class="p">[</span><span class="mi">26</span><span class="p">:</span><span class="mi">31</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">grade</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="n">output</span><span class="p">[</span><span class="mi">31</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span><span class="p">[</span><span class="mi">31</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">output</span>
+
+
+<div class="viewcode-block" id="random_conformal_point"><a class="viewcode-back" href="../../../generated/generated/clifford.tools.g3c.random_conformal_point.html#clifford.tools.g3c.random_conformal_point">[docs]</a><span class="k">def</span> <span class="nf">random_conformal_point</span><span class="p">(</span><span class="n">l_max</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates a random conformal point</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">up</span><span class="p">(</span><span class="n">random_euc_mv</span><span class="p">(</span><span class="n">l_max</span><span class="o">=</span><span class="n">l_max</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="generate_dilation_rotor"><a class="viewcode-back" href="../../../generated/generated/clifford.tools.g3c.generate_dilation_rotor.html#clifford.tools.g3c.generate_dilation_rotor">[docs]</a><span class="k">def</span> <span class="nf">generate_dilation_rotor</span><span class="p">(</span><span class="n">scale</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generates a rotor that performs dilation about the origin</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">scale</span> <span class="o">-</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mf">0.00001</span><span class="p">:</span>
+        <span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">32</span><span class="p">)</span>
+        <span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="k">return</span> <span class="n">cf</span><span class="o">.</span><span class="n">MultiVector</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">u</span><span class="p">)</span>
+    <span class="n">gamma</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">scale</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">cosh</span><span class="p">(</span><span class="n">gamma</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">math</span><span class="o">.</span><span class="n">sinh</span><span class="p">(</span><span class="n">gamma</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">ninf</span><span class="o">^</span><span class="n">no</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="generate_translation_rotor"><a class="viewcode-back" href="../../../generated/generated/clifford.tools.g3c.generate_translation_rotor.html#clifford.tools.g3c.generate_translation_rotor">[docs]</a><span class="k">def</span> <span class="nf">generate_translation_rotor</span><span class="p">(</span><span class="n">euc_vector_a</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generates a rotor that translates objects along the euclidean vector euc_vector_a</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">ninf</span> <span class="o">*</span> <span class="n">euc_vector_a</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span></div>
+
+
+<span class="nd">@numba</span><span class="o">.</span><span class="n">njit</span>
+<span class="k">def</span> <span class="nf">meet_val</span><span class="p">(</span><span class="n">a_val</span><span class="p">,</span> <span class="n">b_val</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The meet algorithm as described in &quot;A Covariant Approach to Geometry&quot;</span>
+<span class="sd">    I5*((I5*A) ^ (I5*B))</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">dual_func</span><span class="p">(</span><span class="n">omt_func</span><span class="p">(</span><span class="n">dual_func</span><span class="p">(</span><span class="n">a_val</span><span class="p">),</span> <span class="n">dual_func</span><span class="p">(</span><span class="n">b_val</span><span class="p">)))</span>
+
+
+<div class="viewcode-block" id="meet"><a class="viewcode-back" href="../../../generated/generated/clifford.tools.g3c.meet.html#clifford.tools.g3c.meet">[docs]</a><span class="k">def</span> <span class="nf">meet</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The meet algorithm as described in &quot;A Covariant Approach to Geometry&quot;</span>
+<span class="sd">    I5*((I5*A) ^ (I5*B))</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">cf</span><span class="o">.</span><span class="n">MultiVector</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">meet_val</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">B</span><span class="o">.</span><span class="n">value</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="intersect_line_and_plane_to_point"><a class="viewcode-back" href="../../../generated/generated/clifford.tools.g3c.intersect_line_and_plane_to_point.html#clifford.tools.g3c.intersect_line_and_plane_to_point">[docs]</a><span class="k">def</span> <span class="nf">intersect_line_and_plane_to_point</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">plane</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the point at the intersection of a line and plane</span>
+<span class="sd">    If there is no intersection it returns None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">bivector</span> <span class="o">=</span> <span class="p">(</span><span class="n">meet</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">plane</span><span class="p">))</span><span class="o">.</span><span class="n">normal</span><span class="p">()</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">bivector</span><span class="o">*</span><span class="n">bivector</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">bivector</span> <span class="o">|</span> <span class="n">no</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="normalise_n_minus_1"><a class="viewcode-back" href="../../../generated/generated/clifford.tools.g3c.normalise_n_minus_1.html#clifford.tools.g3c.normalise_n_minus_1">[docs]</a><span class="k">def</span> <span class="nf">normalise_n_minus_1</span><span class="p">(</span><span class="n">mv</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Normalises a conformal point so that it has an inner product of -1 with einf</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">scale</span> <span class="o">=</span> <span class="p">(</span><span class="n">mv</span><span class="o">|</span><span class="n">ninf</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">scale</span> <span class="o">!=</span> <span class="mf">0.0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="o">-</span><span class="n">mv</span><span class="o">/</span><span class="n">scale</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ZeroDivisionError</span><span class="p">(</span><span class="s1">&#39;Multivector has 0 einf component&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="quaternion_and_vector_to_rotor"><a class="viewcode-back" href="../../../generated/generated/clifford.tools.g3c.quaternion_and_vector_to_rotor.html#clifford.tools.g3c.quaternion_and_vector_to_rotor">[docs]</a><span class="k">def</span> <span class="nf">quaternion_and_vector_to_rotor</span><span class="p">(</span><span class="n">quaternion</span><span class="p">,</span> <span class="n">vector</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Takes in a quaternion and a vector and returns a conformal rotor that</span>
+<span class="sd">    implements the transformation</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">rotation</span> <span class="o">=</span> <span class="n">quaternion_to_rotor</span><span class="p">(</span><span class="n">quaternion</span><span class="p">)</span>
+    <span class="n">translation</span> <span class="o">=</span> <span class="n">generate_translation_rotor</span><span class="p">(</span>
+        <span class="n">vector</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">e1</span> <span class="o">+</span> <span class="n">vector</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">e2</span> <span class="o">*</span> <span class="n">vector</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">*</span> <span class="n">e3</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">translation</span> <span class="o">*</span> <span class="n">rotation</span></div>
+
+
+<div class="viewcode-block" id="get_center_from_sphere"><a class="viewcode-back" href="../../../generated/generated/clifford.tools.g3c.get_center_from_sphere.html#clifford.tools.g3c.get_center_from_sphere">[docs]</a><span class="k">def</span> <span class="nf">get_center_from_sphere</span><span class="p">(</span><span class="n">sphere</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the conformal point at the centre of a sphere by reflecting the</span>
+<span class="sd">    point at infinity</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">center</span> <span class="o">=</span> <span class="n">sphere</span> <span class="o">*</span> <span class="n">ninf</span> <span class="o">*</span> <span class="n">sphere</span>
+    <span class="k">return</span> <span class="n">center</span></div>
+
+
+<div class="viewcode-block" id="get_radius_from_sphere"><a class="viewcode-back" href="../../../generated/generated/clifford.tools.g3c.get_radius_from_sphere.html#clifford.tools.g3c.get_radius_from_sphere">[docs]</a><span class="k">def</span> <span class="nf">get_radius_from_sphere</span><span class="p">(</span><span class="n">sphere</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the radius of a sphere</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">dual_sphere</span> <span class="o">=</span> <span class="n">sphere</span> <span class="o">*</span> <span class="n">I5</span>
+    <span class="n">dual_sphere</span> <span class="o">=</span> <span class="n">dual_sphere</span> <span class="o">/</span> <span class="p">(</span><span class="o">-</span><span class="n">dual_sphere</span> <span class="o">|</span> <span class="n">ninf</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">dual_sphere</span> <span class="o">*</span> <span class="n">dual_sphere</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="point_pair_to_end_points"><a class="viewcode-back" href="../../../generated/generated/clifford.tools.g3c.point_pair_to_end_points.html#clifford.tools.g3c.point_pair_to_end_points">[docs]</a><span class="k">def</span> <span class="nf">point_pair_to_end_points</span><span class="p">(</span><span class="n">T</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extracts the end points of a point pair bivector</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">beta</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">abs</span><span class="p">((</span><span class="n">T</span> <span class="o">*</span> <span class="n">T</span><span class="p">)[</span><span class="mi">0</span><span class="p">]))</span>
+    <span class="n">F</span> <span class="o">=</span> <span class="n">T</span> <span class="o">/</span> <span class="n">beta</span>
+    <span class="n">P</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">F</span><span class="p">)</span>
+    <span class="n">P_twiddle</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">F</span><span class="p">)</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">normalise_n_minus_1</span><span class="p">(</span><span class="o">-</span><span class="n">P_twiddle</span> <span class="o">*</span> <span class="p">(</span><span class="n">T</span> <span class="o">|</span> <span class="n">ninf</span><span class="p">))</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">normalise_n_minus_1</span><span class="p">(</span><span class="n">P</span> <span class="o">*</span> <span class="p">(</span><span class="n">T</span> <span class="o">|</span> <span class="n">ninf</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span></div>
+
+
+<div class="viewcode-block" id="euc_dist"><a class="viewcode-back" href="../../../generated/generated/clifford.tools.g3c.euc_dist.html#clifford.tools.g3c.euc_dist">[docs]</a><span class="k">def</span> <span class="nf">euc_dist</span><span class="p">(</span><span class="n">conf_mv_a</span><span class="p">,</span> <span class="n">conf_mv_b</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Returns the distance between two conformal points &quot;&quot;&quot;</span>
+    <span class="n">dot_result</span> <span class="o">=</span> <span class="p">(</span><span class="n">conf_mv_a</span><span class="o">|</span><span class="n">conf_mv_b</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">dot_result</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="o">-</span><span class="mf">2.0</span><span class="o">*</span><span class="n">dot_result</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">0.0</span></div>
+
+
+<span class="nd">@numba</span><span class="o">.</span><span class="n">jit</span>
+<span class="k">def</span> <span class="nf">dorst_norm_val</span><span class="p">(</span><span class="n">sigma_val</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Square Root of Rotors - Implements the norm of a rotor&quot;&quot;&quot;</span>
+    <span class="n">sigma_4</span> <span class="o">=</span> <span class="n">project_val</span><span class="p">(</span><span class="n">sigma_val</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="n">sqrd_ans</span> <span class="o">=</span> <span class="n">sigma_val</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">gmt_func</span><span class="p">(</span><span class="n">sigma_4</span><span class="p">,</span><span class="n">sigma_4</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">sqrd_ans</span><span class="p">)</span>
+
+
+<span class="nd">@numba</span><span class="o">.</span><span class="n">njit</span>
+<span class="k">def</span> <span class="nf">check_sigma_for_positive_root_val</span><span class="p">(</span><span class="n">sigma_val</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Square Root of Rotors - Checks for a positive root &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">sigma_val</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">dorst_norm_val</span><span class="p">(</span><span class="n">sigma_val</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">0</span>
+
+
+<div class="viewcode-block" id="check_sigma_for_positive_root"><a class="viewcode-back" href="../../../generated/generated/clifford.tools.g3c.check_sigma_for_positive_root.html#clifford.tools.g3c.check_sigma_for_positive_root">[docs]</a><span class="k">def</span> <span class="nf">check_sigma_for_positive_root</span><span class="p">(</span><span class="n">sigma</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Square Root of Rotors - Checks for a positive root &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">check_sigma_for_positive_root_val</span><span class="p">(</span><span class="n">sigma</span><span class="o">.</span><span class="n">value</span><span class="p">)</span></div>
+
+
+<span class="nd">@numba</span><span class="o">.</span><span class="n">njit</span>
+<span class="k">def</span> <span class="nf">check_sigma_for_negative_root_val</span><span class="p">(</span><span class="n">sigma_value</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Square Root of Rotors - Checks for a negative root &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">sigma_value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">dorst_norm_val</span><span class="p">(</span><span class="n">sigma_value</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mi">0</span>
+
+
+<div class="viewcode-block" id="check_sigma_for_negative_root"><a class="viewcode-back" href="../../../generated/generated/clifford.tools.g3c.check_sigma_for_negative_root.html#clifford.tools.g3c.check_sigma_for_negative_root">[docs]</a><span class="k">def</span> <span class="nf">check_sigma_for_negative_root</span><span class="p">(</span><span class="n">sigma</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Square Root of Rotors - Checks for a negative root &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">check_sigma_for_negative_root_val</span><span class="p">(</span><span class="n">sigma</span><span class="o">.</span><span class="n">value</span><span class="p">)</span></div>
+
+
+<span class="nd">@numba</span><span class="o">.</span><span class="n">njit</span>
+<span class="k">def</span> <span class="nf">check_infinite_roots_val</span><span class="p">(</span><span class="n">sigma_value</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Square Root of Rotors - Checks for a infinite roots &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">sigma_value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">dorst_norm_val</span><span class="p">(</span><span class="n">sigma_value</span><span class="p">))</span> <span class="o">&lt;</span> <span class="mf">0.0000000001</span>
+
+
+<div class="viewcode-block" id="check_infinite_roots"><a class="viewcode-back" href="../../../generated/generated/clifford.tools.g3c.check_infinite_roots.html#clifford.tools.g3c.check_infinite_roots">[docs]</a><span class="k">def</span> <span class="nf">check_infinite_roots</span><span class="p">(</span><span class="n">sigma</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Square Root of Rotors - Checks for a infinite roots &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">check_infinite_roots_val</span><span class="p">(</span><span class="n">sigma</span><span class="o">.</span><span class="n">value</span><span class="p">)</span></div>
+
+
+<span class="nd">@numba</span><span class="o">.</span><span class="n">njit</span>
+<span class="k">def</span> <span class="nf">positive_root_val</span><span class="p">(</span><span class="n">sigma_val</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Square Root of Rotors - Evaluates the positive root</span>
+<span class="sd">    Square Root of Rotors - Evaluates the positive root</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">norm_s</span> <span class="o">=</span> <span class="n">dorst_norm_val</span><span class="p">(</span><span class="n">sigma_val</span><span class="p">)</span>
+    <span class="n">denominator</span> <span class="o">=</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">sigma_val</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">norm_s</span><span class="p">))</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">sigma_val</span><span class="o">/</span><span class="n">denominator</span>
+    <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="n">norm_s</span><span class="o">/</span><span class="n">denominator</span>
+    <span class="k">return</span> <span class="n">result</span>
+
+
+<span class="nd">@numba</span><span class="o">.</span><span class="n">njit</span>
+<span class="k">def</span> <span class="nf">negative_root_val</span><span class="p">(</span><span class="n">sigma_val</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Square Root of Rotors - Evaluates the positive root</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">norm_s</span> <span class="o">=</span> <span class="n">dorst_norm_val</span><span class="p">(</span><span class="n">sigma_val</span><span class="p">)</span>
+    <span class="n">denominator</span> <span class="o">=</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">sigma_val</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">norm_s</span><span class="p">))</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">sigma_val</span><span class="o">/</span><span class="n">denominator</span>
+    <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-=</span> <span class="n">norm_s</span><span class="o">/</span><span class="n">denominator</span>
+    <span class="k">return</span> <span class="n">result</span>
+
+
+<div class="viewcode-block" id="positive_root"><a class="viewcode-back" href="../../../generated/generated/clifford.tools.g3c.positive_root.html#clifford.tools.g3c.positive_root">[docs]</a><span class="k">def</span> <span class="nf">positive_root</span><span class="p">(</span><span class="n">sigma</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Square Root of Rotors - Evaluates the positive root</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">res_val</span> <span class="o">=</span> <span class="n">positive_root_val</span><span class="p">(</span><span class="n">sigma</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">cf</span><span class="o">.</span><span class="n">MultiVector</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">res_val</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="negative_root"><a class="viewcode-back" href="../../../generated/generated/clifford.tools.g3c.negative_root.html#clifford.tools.g3c.negative_root">[docs]</a><span class="k">def</span> <span class="nf">negative_root</span><span class="p">(</span><span class="n">sigma</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Square Root of Rotors - Evaluates the negative root &quot;&quot;&quot;</span>
+    <span class="n">res_val</span> <span class="o">=</span> <span class="n">negative_root_val</span><span class="p">(</span><span class="n">sigma</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">cf</span><span class="o">.</span><span class="n">MultiVector</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">res_val</span><span class="p">)</span></div>
+
+
+<span class="nd">@numba</span><span class="o">.</span><span class="n">njit</span>
+<span class="k">def</span> <span class="nf">general_root_val</span><span class="p">(</span><span class="n">sigma_value</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Square Root and Logarithm of Rotors</span>
+<span class="sd">    in 3D Conformal Geometric Algebra</span>
+<span class="sd">    Using Polar Decomposition</span>
+<span class="sd">    Leo Dorst and Robert Valkenburg</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">check_sigma_for_positive_root_val</span><span class="p">(</span><span class="n">sigma_value</span><span class="p">):</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="n">positive_root_val</span><span class="p">(</span><span class="n">sigma_value</span><span class="p">)</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="n">sigma_value</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+        <span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">k</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">output</span>
+    <span class="k">elif</span> <span class="n">check_sigma_for_negative_root_val</span><span class="p">(</span><span class="n">sigma_value</span><span class="p">):</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="n">positive_root_val</span><span class="p">(</span><span class="n">sigma_value</span><span class="p">)</span>
+        <span class="n">k2</span> <span class="o">=</span> <span class="n">negative_root_val</span><span class="p">(</span><span class="n">sigma_value</span><span class="p">)</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="n">sigma_value</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+        <span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">k</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">output</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">k2</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">output</span>
+    <span class="k">elif</span> <span class="n">check_infinite_roots_val</span><span class="p">(</span><span class="n">sigma_value</span><span class="p">):</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="n">sigma_value</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+        <span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="k">return</span> <span class="n">output</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;No root exists&#39;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">general_root</span><span class="p">(</span><span class="n">sigma</span><span class="p">):</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">general_root_val</span><span class="p">(</span><span class="n">sigma</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">cf</span><span class="o">.</span><span class="n">MultiVector</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">copy</span><span class="p">()),</span> <span class="n">cf</span><span class="o">.</span><span class="n">MultiVector</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">output</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">copy</span><span class="p">())]</span>
+
+
+<span class="nd">@numba</span><span class="o">.</span><span class="n">njit</span>
+<span class="k">def</span> <span class="nf">val_annhilate_k</span><span class="p">(</span><span class="n">K_val</span><span class="p">,</span> <span class="n">C_val</span><span class="p">):</span>
+    <span class="n">k_4</span> <span class="o">=</span> <span class="o">-</span><span class="n">project_val</span><span class="p">(</span><span class="n">K_val</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="n">k_4</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="n">K_val</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">val_normalised</span><span class="p">(</span><span class="n">gmt_func</span><span class="p">(</span><span class="n">k_4</span><span class="p">,</span> <span class="n">C_val</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">annhilate_k</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">C</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">cf</span><span class="o">.</span><span class="n">MultiVector</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">val_annhilate_k</span><span class="p">(</span><span class="n">K</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">C</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
+
+
+<span class="nd">@numba</span><span class="o">.</span><span class="n">njit</span>
+<span class="k">def</span> <span class="nf">pos_twiddle_root_val</span><span class="p">(</span><span class="n">C_value</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Square Root and Logarithm of Rotors</span>
+<span class="sd">    in 3D Conformal Geometric Algebra</span>
+<span class="sd">    Using Polar Decomposition</span>
+<span class="sd">    Leo Dorst and Robert Valkenburg</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">sigma_val</span> <span class="o">=</span> <span class="n">gmt_func</span><span class="p">(</span><span class="n">C_value</span><span class="p">,</span> <span class="n">adjoint_func</span><span class="p">(</span><span class="n">C_value</span><span class="p">))</span>
+    <span class="n">k_value</span> <span class="o">=</span> <span class="n">general_root_val</span><span class="p">(</span><span class="n">sigma_val</span><span class="p">)</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span><span class="mi">32</span><span class="p">))</span>
+    <span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">val_annhilate_k</span><span class="p">(</span><span class="n">k_value</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:],</span> <span class="n">C_value</span><span class="p">)</span>
+    <span class="n">output</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">val_annhilate_k</span><span class="p">(</span><span class="n">k_value</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:],</span> <span class="n">C_value</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">output</span>
+
+
+<span class="nd">@numba</span><span class="o">.</span><span class="n">njit</span>
+<span class="k">def</span> <span class="nf">neg_twiddle_root_val</span><span class="p">(</span><span class="n">C_value</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Square Root and Logarithm of Rotors</span>
+<span class="sd">    in 3D Conformal Geometric Algebra</span>
+<span class="sd">    Using Polar Decomposition</span>
+<span class="sd">    Leo Dorst and Robert Valkenburg</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">sigma_val</span> <span class="o">=</span> <span class="o">-</span><span class="n">gmt_func</span><span class="p">(</span><span class="n">C_value</span><span class="p">,</span> <span class="n">adjoint_func</span><span class="p">(</span><span class="n">C_value</span><span class="p">))</span>
+    <span class="n">k_value</span> <span class="o">=</span> <span class="n">general_root_val</span><span class="p">(</span><span class="n">sigma_val</span><span class="p">)</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">32</span><span class="p">))</span>
+    <span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">val_annhilate_k</span><span class="p">(</span><span class="n">k_value</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:],</span> <span class="n">C_value</span><span class="p">)</span>
+    <span class="n">output</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">val_annhilate_k</span><span class="p">(</span><span class="n">k_value</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:],</span> <span class="n">C_value</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">output</span>
+
+
+<div class="viewcode-block" id="pos_twiddle_root"><a class="viewcode-back" href="../../../generated/generated/clifford.tools.g3c.pos_twiddle_root.html#clifford.tools.g3c.pos_twiddle_root">[docs]</a><span class="k">def</span> <span class="nf">pos_twiddle_root</span><span class="p">(</span><span class="n">C</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Square Root and Logarithm of Rotors</span>
+<span class="sd">    in 3D Conformal Geometric Algebra</span>
+<span class="sd">    Using Polar Decomposition</span>
+<span class="sd">    Leo Dorst and Robert Valkenburg</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">pos_twiddle_root_val</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">cf</span><span class="o">.</span><span class="n">MultiVector</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]),</span> <span class="n">cf</span><span class="o">.</span><span class="n">MultiVector</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">output</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:])]</span></div>
+
+
+<div class="viewcode-block" id="neg_twiddle_root"><a class="viewcode-back" href="../../../generated/generated/clifford.tools.g3c.neg_twiddle_root.html#clifford.tools.g3c.neg_twiddle_root">[docs]</a><span class="k">def</span> <span class="nf">neg_twiddle_root</span><span class="p">(</span><span class="n">C</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Square Root and Logarithm of Rotors</span>
+<span class="sd">    in 3D Conformal Geometric Algebra</span>
+<span class="sd">    Using Polar Decomposition</span>
+<span class="sd">    Leo Dorst and Robert Valkenburg</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">neg_twiddle_root_val</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">cf</span><span class="o">.</span><span class="n">MultiVector</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]),</span> <span class="n">cf</span><span class="o">.</span><span class="n">MultiVector</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">output</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:])]</span></div>
+
+
+<span class="k">def</span> <span class="nf">square_roots_of_rotor</span><span class="p">(</span><span class="n">R</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Square Root and Logarithm of Rotors</span>
+<span class="sd">    in 3D Conformal Geometric Algebra</span>
+<span class="sd">    Using Polar Decomposition</span>
+<span class="sd">    Leo Dorst and Robert Valkenburg</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">pos_twiddle_root</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">R</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">interp_objects_root</span><span class="p">(</span><span class="n">C1</span><span class="p">,</span> <span class="n">C2</span><span class="p">,</span> <span class="n">alpha</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Hadfield and Lasenby, Direct Linear Interpolation of Geometric Objects, AGACSE2018</span>
+<span class="sd">    Directly linearly interpolates conformal objects</span>
+<span class="sd">    Return a valid object from the addition result C</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">C</span> <span class="o">=</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">C1</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">alpha</span><span class="p">)</span> <span class="o">*</span> <span class="n">C2</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">neg_twiddle_root</span><span class="p">(</span><span class="n">C</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">normal</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">average_objects</span><span class="p">(</span><span class="n">obj_list</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="p">[]):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Hadfield and Lasenby, Direct Linear Interpolation of Geometric Objects, AGACSE2018</span>
+<span class="sd">    Directly averages conformal objects</span>
+<span class="sd">    Return a valid object from the addition result C</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">obj_list</span><span class="p">):</span>
+        <span class="n">C</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">o</span> <span class="o">*</span> <span class="n">w</span> <span class="k">for</span> <span class="n">o</span><span class="p">,</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">obj_list</span><span class="p">,</span> <span class="n">weights</span><span class="p">)])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">C</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">obj_list</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">obj_list</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">neg_twiddle_root</span><span class="p">(</span><span class="n">C</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">normal</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">rotor_between_objects</span><span class="p">(</span><span class="n">C1</span><span class="p">,</span> <span class="n">C2</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Hadfield and Lasenby AGACSE2018</span>
+<span class="sd">    For any two conformal objects C1 and C2 this returns a rotor that takes C1 to C2</span>
+<span class="sd">    Return a valid object from the addition result 1 + C2C1</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">float</span><span class="p">(</span><span class="n">gmt_func</span><span class="p">(</span><span class="n">C1</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">C1</span><span class="o">.</span><span class="n">value</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">C</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">cf</span><span class="o">.</span><span class="n">MultiVector</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span><span class="n">gmt_func</span><span class="p">(</span><span class="n">C2</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">C1</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
+        <span class="n">R</span> <span class="o">=</span> <span class="n">pos_twiddle_root</span><span class="p">(</span><span class="n">C</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">R</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">cf</span><span class="o">.</span><span class="n">MultiVector</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span><span class="n">gmt_func</span><span class="p">(</span><span class="n">C2</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">C1</span><span class="o">.</span><span class="n">value</span><span class="p">)))</span><span class="o">.</span><span class="n">normal</span><span class="p">()</span>
+
+
+<span class="n">sparse_line_gmt</span> <span class="o">=</span> <span class="n">get_mult_function</span><span class="p">(</span>
+    <span class="n">layout</span><span class="o">.</span><span class="n">gmt</span><span class="p">,</span> <span class="n">layout</span><span class="o">.</span><span class="n">gaDims</span><span class="p">,</span> <span class="n">layout</span><span class="o">.</span><span class="n">gradeList</span><span class="p">,</span> <span class="n">grades_a</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">grades_b</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+
+
+
+
+<span class="nd">@numba</span><span class="o">.</span><span class="n">njit</span>
+<span class="k">def</span> <span class="nf">val_norm</span><span class="p">(</span><span class="n">mv_val</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">gmt_func</span><span class="p">(</span><span class="n">adjoint_func</span><span class="p">(</span><span class="n">mv_val</span><span class="p">),</span> <span class="n">mv_val</span><span class="p">)[</span><span class="mi">0</span><span class="p">]))</span>
+
+
+<span class="k">def</span> <span class="nf">norm</span><span class="p">(</span><span class="n">mv</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">val_norm</span><span class="p">(</span><span class="n">mv</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+
+
+<span class="nd">@numba</span><span class="o">.</span><span class="n">njit</span>
+<span class="k">def</span> <span class="nf">val_normalised</span><span class="p">(</span><span class="n">mv_val</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">mv_val</span><span class="o">/</span><span class="n">val_norm</span><span class="p">(</span><span class="n">mv_val</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">normalised</span><span class="p">(</span><span class="n">mv</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">cf</span><span class="o">.</span><span class="n">MultiVector</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">val_normalised</span><span class="p">(</span><span class="n">mv</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
+
+
+<span class="nd">@numba</span><span class="o">.</span><span class="n">njit</span>
+<span class="k">def</span> <span class="nf">val_rotor_between_lines</span><span class="p">(</span><span class="n">L1_val</span><span class="p">,</span> <span class="n">L2_val</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Implements a very optimised rotor line to line extraction &quot;&quot;&quot;</span>
+    <span class="n">L21_val</span> <span class="o">=</span> <span class="n">sparse_line_gmt</span><span class="p">(</span><span class="n">L2_val</span><span class="p">,</span> <span class="n">L1_val</span><span class="p">)</span>
+    <span class="n">L12_val</span> <span class="o">=</span> <span class="n">sparse_line_gmt</span><span class="p">(</span><span class="n">L1_val</span><span class="p">,</span> <span class="n">L2_val</span><span class="p">)</span>
+    <span class="n">K_val</span> <span class="o">=</span> <span class="n">L21_val</span> <span class="o">+</span> <span class="n">L12_val</span>
+    <span class="n">K_val</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="mf">2.0</span>
+    <span class="n">beta_val</span> <span class="o">=</span> <span class="n">project_val</span><span class="p">(</span><span class="n">K_val</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">K_val</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">denominator</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">alpha</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">numerator_val</span> <span class="o">=</span> <span class="o">-</span><span class="n">beta_val</span><span class="o">/</span><span class="n">alpha</span>
+    <span class="n">numerator_val</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="mf">1.0</span>
+    <span class="n">normalisation_val</span> <span class="o">=</span> <span class="n">numerator_val</span><span class="o">/</span><span class="n">denominator</span>
+
+    <span class="n">output_val</span> <span class="o">=</span> <span class="n">L21_val</span>
+    <span class="n">output_val</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">gmt_func</span><span class="p">(</span><span class="n">normalisation_val</span><span class="p">,</span> <span class="n">output_val</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">rotor_between_lines</span><span class="p">(</span><span class="n">L1</span><span class="p">,</span> <span class="n">L2</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">cf</span><span class="o">.</span><span class="n">MultiVector</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">val_rotor_between_lines</span><span class="p">(</span><span class="n">L1</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">L2</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">rotor_between_planes</span><span class="p">(</span><span class="n">P1</span><span class="p">,</span> <span class="n">P2</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">cf</span><span class="o">.</span><span class="n">MultiVector</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">val_rotor_rotor_between_planes</span><span class="p">(</span><span class="n">P1</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">P2</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
+
+
+<span class="nd">@numba</span><span class="o">.</span><span class="n">njit</span>
+<span class="k">def</span> <span class="nf">val_rotor_rotor_between_planes</span><span class="p">(</span><span class="n">P1_val</span><span class="p">,</span> <span class="n">P2_val</span><span class="p">):</span>
+    <span class="n">P21_val</span> <span class="o">=</span> <span class="o">-</span><span class="n">gmt_func</span><span class="p">(</span><span class="n">P2_val</span><span class="p">,</span> <span class="n">P1_val</span><span class="p">)</span>
+    <span class="n">P21_val</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">val_normalised</span><span class="p">(</span><span class="n">P21_val</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">random_bivector</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates a random bivector on the form described by R. Wareham in</span>
+<span class="sd">    TODO: Dig out the name of the interpolation paper</span>
+
+<span class="sd">    $$ B =  ab + c*n_{\inf}$$ where $a, b, c \in \mathcal(R)^3$</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">random_euc_mv</span><span class="p">()</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">random_euc_mv</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">*</span> <span class="n">I3</span> <span class="o">+</span> <span class="n">c</span> <span class="o">*</span> <span class="n">ninf</span>
+
+
+<span class="k">def</span> <span class="nf">standard_point_pair_at_origin</span><span class="p">():</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">up</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="o">*</span><span class="n">e1</span><span class="p">)</span><span class="o">^</span><span class="n">up</span><span class="p">(</span><span class="mf">0.5</span><span class="o">*</span><span class="n">e1</span><span class="p">))</span><span class="o">.</span><span class="n">normal</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">random_point_pair_at_origin</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates a random point pair bivector object at the origin</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mv_a</span> <span class="o">=</span> <span class="n">random_euc_mv</span><span class="p">()</span>
+    <span class="n">plane_a</span> <span class="o">=</span> <span class="p">(</span><span class="n">mv_a</span><span class="o">*</span><span class="n">I3</span><span class="p">)</span><span class="o">.</span><span class="n">normal</span><span class="p">()</span>
+
+    <span class="n">mv_b</span> <span class="o">=</span> <span class="n">plane_a</span><span class="o">*</span><span class="n">mv_a</span><span class="o">*</span><span class="n">plane_a</span>
+    <span class="n">pp</span> <span class="o">=</span> <span class="p">(</span><span class="n">up</span><span class="p">(</span><span class="n">mv_a</span><span class="p">)</span> <span class="o">^</span> <span class="n">up</span><span class="p">(</span><span class="n">mv_b</span><span class="p">))</span><span class="o">.</span><span class="n">normal</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">pp</span>
+
+
+<span class="k">def</span> <span class="nf">random_point_pair</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates a random point pair bivector object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mv_a</span> <span class="o">=</span> <span class="n">random_euc_mv</span><span class="p">()</span>
+    <span class="n">mv_b</span> <span class="o">=</span> <span class="n">random_euc_mv</span><span class="p">()</span>
+    <span class="n">pp</span> <span class="o">=</span> <span class="p">(</span><span class="n">up</span><span class="p">(</span><span class="n">mv_a</span><span class="p">)</span> <span class="o">^</span> <span class="n">up</span><span class="p">(</span><span class="n">mv_b</span><span class="p">))</span><span class="o">.</span><span class="n">normal</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">pp</span>
+
+
+<span class="k">def</span> <span class="nf">standard_line_at_origin</span><span class="p">():</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">standard_point_pair_at_origin</span><span class="p">()</span><span class="o">^</span><span class="n">einf</span><span class="p">)</span><span class="o">.</span><span class="n">normal</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">random_line_at_origin</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates a random line at the origin</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">pp</span> <span class="o">=</span> <span class="p">(</span><span class="n">random_point_pair_at_origin</span><span class="p">()</span><span class="o">^</span><span class="n">einf</span><span class="p">)</span><span class="o">.</span><span class="n">normal</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">pp</span>
+
+
+<span class="k">def</span> <span class="nf">random_line</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates a random line</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mv_a</span> <span class="o">=</span> <span class="n">random_euc_mv</span><span class="p">()</span>
+    <span class="n">mv_b</span> <span class="o">=</span> <span class="n">random_euc_mv</span><span class="p">()</span>
+    <span class="n">line_a</span> <span class="o">=</span> <span class="p">((</span><span class="n">up</span><span class="p">(</span><span class="n">mv_a</span><span class="p">)</span> <span class="o">^</span> <span class="n">up</span><span class="p">(</span><span class="n">mv_b</span><span class="p">)</span> <span class="o">^</span> <span class="n">ninf</span><span class="p">))</span><span class="o">.</span><span class="n">normal</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">line_a</span>
+
+
+<span class="k">def</span> <span class="nf">random_circle_at_origin</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates a random circle at the origin</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mv_a</span> <span class="o">=</span> <span class="n">random_euc_mv</span><span class="p">()</span>
+    <span class="n">mv_r</span> <span class="o">=</span> <span class="n">random_euc_mv</span><span class="p">()</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">generate_rotation_rotor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">mv_a</span><span class="p">,</span> <span class="n">mv_r</span><span class="p">)</span>
+    <span class="n">mv_b</span> <span class="o">=</span> <span class="n">r</span><span class="o">*</span><span class="n">mv_a</span><span class="o">*~</span><span class="n">r</span>
+    <span class="n">mv_c</span> <span class="o">=</span> <span class="n">r</span> <span class="o">*</span> <span class="n">mv_b</span> <span class="o">*</span> <span class="o">~</span><span class="n">r</span>
+    <span class="n">pp</span> <span class="o">=</span> <span class="p">(</span><span class="n">up</span><span class="p">(</span><span class="n">mv_a</span><span class="p">)</span> <span class="o">^</span> <span class="n">up</span><span class="p">(</span><span class="n">mv_b</span><span class="p">)</span> <span class="o">^</span> <span class="n">up</span><span class="p">(</span><span class="n">mv_c</span><span class="p">)</span> <span class="p">)</span><span class="o">.</span><span class="n">normal</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">pp</span>
+
+
+<span class="k">def</span> <span class="nf">random_circle</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates a random circle</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mv_a</span> <span class="o">=</span> <span class="n">random_euc_mv</span><span class="p">()</span>
+    <span class="n">mv_b</span> <span class="o">=</span> <span class="n">random_euc_mv</span><span class="p">()</span>
+    <span class="n">mv_c</span> <span class="o">=</span> <span class="n">random_euc_mv</span><span class="p">()</span>
+    <span class="n">line_a</span> <span class="o">=</span> <span class="p">((</span><span class="n">up</span><span class="p">(</span><span class="n">mv_a</span><span class="p">)</span> <span class="o">^</span> <span class="n">up</span><span class="p">(</span><span class="n">mv_b</span><span class="p">)</span> <span class="o">^</span> <span class="n">up</span><span class="p">(</span><span class="n">mv_c</span><span class="p">)))</span><span class="o">.</span><span class="n">normal</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">line_a</span>
+
+
+<span class="k">def</span> <span class="nf">random_sphere_at_origin</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates a random sphere at the origin</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">pp</span> <span class="o">=</span> <span class="n">random_point_pair_at_origin</span><span class="p">()</span>
+    <span class="n">sphere</span> <span class="o">=</span> <span class="p">(</span><span class="n">I5</span><span class="o">*</span><span class="n">pp</span><span class="p">)</span><span class="o">.</span><span class="n">normal</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">sphere</span>
+
+
+<span class="k">def</span> <span class="nf">random_sphere</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates a random sphere</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">mv_a</span> <span class="o">=</span> <span class="n">random_euc_mv</span><span class="p">()</span>
+    <span class="n">mv_b</span> <span class="o">=</span> <span class="n">random_euc_mv</span><span class="p">()</span>
+    <span class="n">mv_c</span> <span class="o">=</span> <span class="n">random_euc_mv</span><span class="p">()</span>
+    <span class="n">mv_d</span> <span class="o">=</span> <span class="n">random_euc_mv</span><span class="p">()</span>
+    <span class="n">sphere</span> <span class="o">=</span> <span class="p">((</span><span class="n">up</span><span class="p">(</span><span class="n">mv_a</span><span class="p">)</span> <span class="o">^</span> <span class="n">up</span><span class="p">(</span><span class="n">mv_b</span><span class="p">)</span> <span class="o">^</span> <span class="n">up</span><span class="p">(</span><span class="n">mv_c</span><span class="p">)</span> <span class="o">^</span> <span class="n">up</span><span class="p">(</span><span class="n">mv_d</span><span class="p">)))</span><span class="o">.</span><span class="n">normal</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">sphere</span>
+
+
+<span class="k">def</span> <span class="nf">random_plane_at_origin</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates a random plane at the origin</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">random_circle_at_origin</span><span class="p">()</span>
+    <span class="n">plane</span> <span class="o">=</span> <span class="p">(</span><span class="n">c</span> <span class="o">^</span> <span class="n">einf</span><span class="p">)</span><span class="o">.</span><span class="n">normal</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">plane</span>
+
+
+<span class="k">def</span> <span class="nf">random_plane</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates a random plane</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">line_a</span> <span class="o">=</span> <span class="p">((</span><span class="n">random_circle</span><span class="p">()</span> <span class="o">^</span> <span class="n">ninf</span><span class="p">))</span><span class="o">.</span><span class="n">normal</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">line_a</span>
+
+
+<span class="nd">@numba</span><span class="o">.</span><span class="n">njit</span>
+<span class="k">def</span> <span class="nf">val_apply_rotor</span><span class="p">(</span><span class="n">mv_val</span><span class="p">,</span> <span class="n">rotor_val</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Applies rotor to multivector in a fast way - JITTED &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">gmt_func</span><span class="p">(</span><span class="n">rotor_val</span><span class="p">,</span> <span class="n">gmt_func</span><span class="p">(</span><span class="n">mv_val</span><span class="p">,</span> <span class="n">adjoint_func</span><span class="p">(</span><span class="n">rotor_val</span><span class="p">)))</span>
+
+
+<span class="k">def</span> <span class="nf">apply_rotor</span><span class="p">(</span><span class="n">mv_in</span><span class="p">,</span> <span class="n">rotor</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Applies rotor to multivector in a fast way &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">cf</span><span class="o">.</span><span class="n">MultiVector</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">val_apply_rotor</span><span class="p">(</span><span class="n">mv_in</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">rotor</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
+
+
+<span class="nd">@numba</span><span class="o">.</span><span class="n">njit</span>
+<span class="k">def</span> <span class="nf">val_apply_rotor_inv</span><span class="p">(</span><span class="n">mv_val</span><span class="p">,</span> <span class="n">rotor_val</span><span class="p">,</span> <span class="n">rotor_val_inv</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Applies rotor to multivector in a fast way takes pre computed adjoint&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">gmt_func</span><span class="p">(</span><span class="n">rotor_val</span><span class="p">,</span> <span class="n">gmt_func</span><span class="p">(</span><span class="n">mv_val</span><span class="p">,</span> <span class="n">rotor_val_inv</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">apply_rotor_inv</span><span class="p">(</span><span class="n">mv_in</span><span class="p">,</span> <span class="n">rotor</span><span class="p">,</span> <span class="n">rotor_inv</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Applies rotor to multivector in a fast way takes pre computed adjoint&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">cf</span><span class="o">.</span><span class="n">MultiVector</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">val_apply_rotor_inv</span><span class="p">(</span><span class="n">mv_in</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">rotor</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">rotor_inv</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
+
+
+
+<span class="nd">@numba</span><span class="o">.</span><span class="n">njit</span>
+<span class="k">def</span> <span class="nf">mult_with_ninf</span><span class="p">(</span><span class="n">mv</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Convenience function for multiplication with ninf &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">gmt_func</span><span class="p">(</span><span class="n">mv</span><span class="p">,</span> <span class="n">ninf_val</span><span class="p">)</span>
+
+<span class="c1"># def convert_2D_polar_line_to_conformal_line(rho, theta):</span>
+<span class="c1">#     a = np.cos(theta)</span>
+<span class="c1">#     b = np.sin(theta)</span>
+<span class="c1">#     x0 = a * rho</span>
+<span class="c1">#     y0 = b * rho</span>
+<span class="c1">#     x1 = int(x0 + 10000 * (-b))</span>
+<span class="c1">#     y1 = int(y0 + 10000 * (a))</span>
+<span class="c1">#     x2 = int(x0 - 10000 * (-b))</span>
+<span class="c1">#     y2 = int(y0 - 10000 * (a))</span>
+<span class="c1">#     return (convert_2D_point_to_conformal(x1,y1)^convert_2D_point_to_conformal(x2,y2)^ninf).normal()</span>
+
+
+<span class="c1">#@numba.njit</span>
+<span class="k">def</span> <span class="nf">val_convert_2D_polar_line_to_conformal_line</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">theta</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Converts a 2D polar line to a conformal line &quot;&quot;&quot;</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+    <span class="n">x0</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">rho</span>
+    <span class="n">y0</span> <span class="o">=</span> <span class="n">b</span> <span class="o">*</span> <span class="n">rho</span>
+    <span class="n">x1</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">x0</span> <span class="o">+</span> <span class="mi">10000</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="n">b</span><span class="p">))</span>
+    <span class="n">y1</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">y0</span> <span class="o">+</span> <span class="mi">10000</span> <span class="o">*</span> <span class="p">(</span><span class="n">a</span><span class="p">))</span>
+    <span class="n">x2</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">x0</span> <span class="o">-</span> <span class="mi">10000</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="n">b</span><span class="p">))</span>
+    <span class="n">y2</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">y0</span> <span class="o">-</span> <span class="mi">10000</span> <span class="o">*</span> <span class="p">(</span><span class="n">a</span><span class="p">))</span>
+    <span class="n">p1_val</span> <span class="o">=</span> <span class="n">val_convert_2D_point_to_conformal</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">y1</span><span class="p">)</span>
+    <span class="n">p2_val</span> <span class="o">=</span> <span class="n">val_convert_2D_point_to_conformal</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span><span class="n">y2</span><span class="p">)</span>
+    <span class="n">line_val</span> <span class="o">=</span> <span class="n">omt_func</span><span class="p">(</span><span class="n">omt_func</span><span class="p">(</span><span class="n">p1_val</span><span class="p">,</span><span class="n">p2_val</span><span class="p">),</span><span class="n">ninf_val</span><span class="p">)</span>
+    <span class="n">line_val</span> <span class="o">=</span> <span class="n">line_val</span><span class="o">/</span><span class="nb">abs</span><span class="p">(</span><span class="n">cf</span><span class="o">.</span><span class="n">MultiVector</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span><span class="n">line_val</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">line_val</span>
+
+
+<span class="k">def</span> <span class="nf">convert_2D_polar_line_to_conformal_line</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">theta</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Converts a 2D polar line to a conformal line &quot;&quot;&quot;</span>
+    <span class="n">line_val</span> <span class="o">=</span> <span class="n">val_convert_2D_polar_line_to_conformal_line</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">theta</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">cf</span><span class="o">.</span><span class="n">MultiVector</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">line_val</span><span class="p">)</span>
+
+
+<span class="nd">@numba</span><span class="o">.</span><span class="n">njit</span>
+<span class="k">def</span> <span class="nf">val_up</span><span class="p">(</span><span class="n">mv_val</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Fast up mapping &quot;&quot;&quot;</span>
+    <span class="n">temp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">32</span><span class="p">)</span>
+    <span class="n">temp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span>
+    <span class="k">return</span> <span class="n">mv_val</span> <span class="o">-</span> <span class="n">no_val</span> <span class="o">+</span> <span class="n">omt_func</span><span class="p">(</span><span class="n">temp</span><span class="p">,</span> <span class="n">gmt_func</span><span class="p">(</span><span class="n">gmt_func</span><span class="p">(</span><span class="n">mv_val</span><span class="p">,</span> <span class="n">mv_val</span><span class="p">),</span> <span class="n">ninf_val</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">fast_up</span><span class="p">(</span><span class="n">mv</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Fast up mapping &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">cf</span><span class="o">.</span><span class="n">MultiVector</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">val_up</span><span class="p">(</span><span class="n">mv</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
+
+
+<span class="nd">@numba</span><span class="o">.</span><span class="n">njit</span>
+<span class="k">def</span> <span class="nf">val_normalInv</span><span class="p">(</span><span class="n">mv_val</span><span class="p">):</span>
+    <span class="n">Madjoint_val</span> <span class="o">=</span> <span class="n">adjoint_func</span><span class="p">(</span><span class="n">mv_val</span><span class="p">)</span>
+    <span class="n">MadjointM</span> <span class="o">=</span> <span class="n">gmt_func</span><span class="p">(</span><span class="n">Madjoint_val</span><span class="p">,</span><span class="n">mv_val</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">Madjoint_val</span> <span class="o">/</span> <span class="n">MadjointM</span>
+
+
+<span class="nd">@numba</span><span class="o">.</span><span class="n">njit</span>
+<span class="k">def</span> <span class="nf">val_homo</span><span class="p">(</span><span class="n">mv_val</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">gmt_func</span><span class="p">(</span><span class="n">mv_val</span><span class="p">,</span> <span class="n">val_normalInv</span><span class="p">(</span><span class="n">imt_func</span><span class="p">(</span><span class="o">-</span><span class="n">mv_val</span><span class="p">,</span> <span class="n">ninf_val</span><span class="p">)))</span>
+
+
+<span class="nd">@numba</span><span class="o">.</span><span class="n">njit</span>
+<span class="k">def</span> <span class="nf">val_down</span><span class="p">(</span><span class="n">mv_val</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">gmt_func</span><span class="p">(</span><span class="n">omt_func</span><span class="p">(</span><span class="n">val_homo</span><span class="p">(</span><span class="n">mv_val</span><span class="p">),</span> <span class="n">E0_val</span><span class="p">),</span> <span class="n">E0_val</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">fast_down</span><span class="p">(</span><span class="n">mv</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">cf</span><span class="o">.</span><span class="n">MultiVector</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">val_down</span><span class="p">(</span><span class="n">mv</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">val_distance_point_to_line</span><span class="p">(</span><span class="n">point</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the euclidean distance between a point and a line</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span> <span class="n">cf</span><span class="o">.</span><span class="n">MultiVector</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">omt_func</span><span class="p">(</span><span class="n">point</span><span class="p">,</span><span class="n">line</span><span class="p">)</span> <span class="p">)</span>  <span class="p">))</span>
+
+
+<span class="nd">@numba</span><span class="o">.</span><span class="n">njit</span>
+<span class="k">def</span> <span class="nf">val_convert_2D_point_to_conformal</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Convert a 2D point to conformal &quot;&quot;&quot;</span>
+    <span class="n">mv_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">32</span><span class="p">)</span>
+    <span class="n">mv_val</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span>
+    <span class="n">mv_val</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span>
+    <span class="k">return</span> <span class="n">val_up</span><span class="p">(</span><span class="n">mv_val</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">convert_2D_point_to_conformal</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Convert a 2D point to conformal &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">cf</span><span class="o">.</span><span class="n">MultiVector</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span><span class="n">val_convert_2D_point_to_conformal</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">distance_polar_line_to_euc_point_2d</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Return the distance between a polar line and a euclidean point in 2D &quot;&quot;&quot;</span>
+    <span class="n">point</span> <span class="o">=</span> <span class="n">val_convert_2D_point_to_conformal</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="n">line</span> <span class="o">=</span> <span class="n">val_convert_2D_polar_line_to_conformal_line</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">theta</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">val_distance_point_to_line</span><span class="p">(</span><span class="n">point</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
+
+
+
+
+
+<span class="k">class</span> <span class="nc">ConformalMVArray</span><span class="p">(</span><span class="n">cf</span><span class="o">.</span><span class="n">MVArray</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">up</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">v_up</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">down</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">v_down</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">dual</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">v_dual</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">apply_rotor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">R</span><span class="p">):</span>
+        <span class="n">R_inv</span> <span class="o">=</span> <span class="o">~</span><span class="n">R</span>
+        <span class="k">return</span> <span class="n">v_apply_rotor_inv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="n">R_inv</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">apply_rotor_inv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="n">R_inv</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">v_apply_rotor_inv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="n">R_inv</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">mv</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">mv</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">])</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">from_value_array</span><span class="p">(</span><span class="n">value_array</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">ConformalMVArray</span><span class="p">(</span><span class="n">v_new_mv</span><span class="p">(</span><span class="n">value_array</span><span class="p">))</span>
+
+<span class="n">dual_gmt_func</span> <span class="o">=</span> <span class="n">get_mult_function</span><span class="p">(</span><span class="n">layout</span><span class="o">.</span><span class="n">gmt</span><span class="p">,</span> <span class="n">layout</span><span class="o">.</span><span class="n">gaDims</span><span class="p">,</span> <span class="n">layout</span><span class="o">.</span><span class="n">gradeList</span><span class="p">,</span> <span class="n">grades_a</span><span class="o">=</span><span class="p">[</span>
+                                  <span class="mi">5</span><span class="p">],</span> <span class="n">grades_b</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
+
+<span class="nd">@numba</span><span class="o">.</span><span class="n">njit</span>
+<span class="k">def</span> <span class="nf">dual_func</span><span class="p">(</span><span class="n">a_val</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">dual_gmt_func</span><span class="p">(</span><span class="n">I5_val</span><span class="p">,</span> <span class="n">a_val</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">fast_dual</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">cf</span><span class="o">.</span><span class="n">MultiVector</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">dual_func</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">v_dual = np.vectorize(fast_dual, otypes=[ConformalMVArray])</span>
+<span class="sd">v_new_mv = np.vectorize(lambda v: cf.MultiVector(layout, v), otypes=[ConformalMVArray], signature=&#39;(n)-&gt;()&#39;)</span>
+<span class="sd">v_up = np.vectorize(fast_up, otypes=[ConformalMVArray])</span>
+<span class="sd">v_down = np.vectorize(fast_down, otypes=[ConformalMVArray])</span>
+<span class="sd">v_apply_rotor_inv = np.vectorize(apply_rotor_inv, otypes=[ConformalMVArray])</span>
+<span class="sd">v_meet = np.vectorize(meet, otypes=[ConformalMVArray], signature=&#39;(),()-&gt;()&#39;)</span>
+<span class="sd">&#39;&#39;&#39;</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Robert Kern and the Clifford Team.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'0.82',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: ''
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,6 @@
+clifford.Frame.argmin
+=====================
+
+.. currentmodule:: clifford
+
+.. automethod:: Frame.argmin

@@ -1,0 +1,6 @@
+clifford.tools.g3c.euc_dist
+===========================
+
+.. currentmodule:: clifford.tools.g3c
+
+.. autofunction:: euc_dist

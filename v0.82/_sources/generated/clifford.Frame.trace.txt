@@ -1,0 +1,6 @@
+clifford.Frame.trace
+====================
+
+.. currentmodule:: clifford
+
+.. automethod:: Frame.trace

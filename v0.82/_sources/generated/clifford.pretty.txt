@@ -1,0 +1,6 @@
+clifford.pretty
+===============
+
+.. currentmodule:: clifford
+
+.. autofunction:: pretty

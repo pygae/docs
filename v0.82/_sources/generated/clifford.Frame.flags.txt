@@ -1,0 +1,6 @@
+clifford.Frame.flags
+====================
+
+.. currentmodule:: clifford
+
+.. autoattribute:: Frame.flags

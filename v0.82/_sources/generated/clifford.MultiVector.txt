@@ -1,0 +1,63 @@
+clifford.MultiVector
+====================
+
+.. currentmodule:: clifford
+
+.. autoclass:: MultiVector
+  :no-members:
+
+
+
+.. rubric:: Attributes
+
+.. autosummary::
+  :toctree:
+  :nosignatures:
+
+  ~MultiVector.I
+  ~MultiVector.blades_list
+  ~MultiVector.even
+  ~MultiVector.odd
+  ~MultiVector.pseudoScalar
+
+
+
+
+
+.. rubric:: Methods
+
+.. autosummary::
+  :toctree:
+  :nosignatures:
+
+  ~MultiVector.__init__
+  ~MultiVector.adjoint
+  ~MultiVector.anticommutator
+  ~MultiVector.basis
+  ~MultiVector.clean
+  ~MultiVector.commutator
+  ~MultiVector.conjugate
+  ~MultiVector.dual
+  ~MultiVector.gradeInvol
+  ~MultiVector.grades
+  ~MultiVector.inv
+  ~MultiVector.invPS
+  ~MultiVector.isBlade
+  ~MultiVector.isScalar
+  ~MultiVector.join
+  ~MultiVector.lc
+  ~MultiVector.leftInv
+  ~MultiVector.leftLaInv
+  ~MultiVector.mag2
+  ~MultiVector.meet
+  ~MultiVector.normal
+  ~MultiVector.normalInv
+  ~MultiVector.project
+  ~MultiVector.rightInv
+  ~MultiVector.rightLaInv
+  ~MultiVector.round
+  ~MultiVector.x
+
+
+
+

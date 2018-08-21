@@ -1,0 +1,6 @@
+clifford.MultiVector.rightInv
+=============================
+
+.. currentmodule:: clifford
+
+.. automethod:: MultiVector.rightInv

@@ -1,0 +1,27 @@
+clifford.cga.Transversion
+=========================
+
+.. currentmodule:: clifford.cga
+
+.. autoclass:: Transversion
+  :no-members:
+
+
+
+
+
+
+
+.. rubric:: Methods
+
+.. autosummary::
+  :toctree:
+  :nosignatures:
+
+  ~Transversion.__init__
+  ~Transversion.inverted
+  ~Transversion.involuted
+
+
+
+

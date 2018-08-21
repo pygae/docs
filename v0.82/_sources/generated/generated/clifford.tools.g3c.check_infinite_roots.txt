@@ -1,0 +1,6 @@
+clifford.tools.g3c.check_infinite_roots
+=======================================
+
+.. currentmodule:: clifford.tools.g3c
+
+.. autofunction:: check_infinite_roots

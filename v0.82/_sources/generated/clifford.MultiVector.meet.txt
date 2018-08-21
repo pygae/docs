@@ -1,0 +1,6 @@
+clifford.MultiVector.meet
+=========================
+
+.. currentmodule:: clifford
+
+.. automethod:: MultiVector.meet

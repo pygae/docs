@@ -1,0 +1,6 @@
+clifford.cga.Round.radius
+=========================
+
+.. currentmodule:: clifford.cga
+
+.. autoattribute:: Round.radius

@@ -1,0 +1,6 @@
+clifford.Frame.swapaxes
+=======================
+
+.. currentmodule:: clifford
+
+.. automethod:: Frame.swapaxes

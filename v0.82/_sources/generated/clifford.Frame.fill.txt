@@ -1,0 +1,6 @@
+clifford.Frame.fill
+===================
+
+.. currentmodule:: clifford
+
+.. automethod:: Frame.fill

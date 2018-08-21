@@ -1,0 +1,6 @@
+clifford.MultiVector.__init__
+=============================
+
+.. currentmodule:: clifford
+
+.. automethod:: MultiVector.__init__

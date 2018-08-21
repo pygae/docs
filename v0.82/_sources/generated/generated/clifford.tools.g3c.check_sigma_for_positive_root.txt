@@ -1,0 +1,6 @@
+clifford.tools.g3c.check_sigma_for_positive_root
+================================================
+
+.. currentmodule:: clifford.tools.g3c
+
+.. autofunction:: check_sigma_for_positive_root

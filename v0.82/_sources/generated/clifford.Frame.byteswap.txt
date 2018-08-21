@@ -1,0 +1,6 @@
+clifford.Frame.byteswap
+=======================
+
+.. currentmodule:: clifford
+
+.. automethod:: Frame.byteswap

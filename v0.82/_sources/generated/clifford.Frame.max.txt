@@ -1,0 +1,6 @@
+clifford.Frame.max
+==================
+
+.. currentmodule:: clifford
+
+.. automethod:: Frame.max

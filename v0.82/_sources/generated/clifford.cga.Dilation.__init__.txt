@@ -1,0 +1,6 @@
+clifford.cga.Dilation.__init__
+==============================
+
+.. currentmodule:: clifford.cga
+
+.. automethod:: Dilation.__init__

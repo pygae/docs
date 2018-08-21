@@ -1,0 +1,6 @@
+clifford.tools.g3c.random_conformal_point
+=========================================
+
+.. currentmodule:: clifford.tools.g3c
+
+.. autofunction:: random_conformal_point

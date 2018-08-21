@@ -1,0 +1,599 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>clifford.tools.g3c &mdash; Clifford 0.82 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="next" title="clifford.tools.g3c.generate_dilation_rotor" href="generated/clifford.tools.g3c.generate_dilation_rotor.html" />
+    <link rel="prev" title="clifford.tools.g3" href="clifford.tools.g3.html" />
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-85010051-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Clifford
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.82
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials.html">Tutorials</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../clifford.html">clifford (<code class="docutils literal"><span class="pre">clifford</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../cga.html">cga (<code class="docutils literal"><span class="pre">clifford.cga</span></code>)</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../tools.html">tools (<code class="docutils literal"><span class="pre">clifford.tools</span></code>)</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../tools.html#tools-for-specific-ga-s">Tools for specific ga&#8217;s</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="clifford.tools.g3.html">clifford.tools.g3</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">clifford.tools.g3c</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../tools.html#determining-rotors-from-frame-pairs-or-orthogonal-matrices">Determining Rotors From Frame Pairs or Orthogonal Matrices</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../issues_and_changelog.html">Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../issues_and_changelog.html#changelog">ChangeLog</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Clifford</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../api.html">API</a> &raquo;</li>
+        
+          <li><a href="../tools.html">tools (<code class="docutils literal"><span class="pre">clifford.tools</span></code>)</a> &raquo;</li>
+        
+      <li>clifford.tools.g3c</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/generated/clifford.tools.g3c.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+</style>
+<div class="section" id="module-clifford.tools.g3c">
+<span id="clifford-tools-g3c"></span><h1>clifford.tools.g3c<a class="headerlink" href="#module-clifford.tools.g3c" title="Permalink to this headline">¶</a></h1>
+<p>Tools for 3DCGA (g3c)</p>
+<div class="section" id="dcga-tools">
+<h2>3DCGA Tools<a class="headerlink" href="#dcga-tools" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="generation-methods">
+<h3>Generation Methods<a class="headerlink" href="#generation-methods" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="generated/clifford.tools.g3c.generate_dilation_rotor.html#clifford.tools.g3c.generate_dilation_rotor" title="clifford.tools.g3c.generate_dilation_rotor"><code class="xref py py-obj docutils literal"><span class="pre">generate_dilation_rotor</span></code></a>(scale)</td>
+<td>Generates a rotor that performs dilation about the origin</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/clifford.tools.g3c.generate_translation_rotor.html#clifford.tools.g3c.generate_translation_rotor" title="clifford.tools.g3c.generate_translation_rotor"><code class="xref py py-obj docutils literal"><span class="pre">generate_translation_rotor</span></code></a>(euc_vector_a)</td>
+<td>Generates a rotor that translates objects along the euclidean vector euc_vector_a</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/clifford.tools.g3c.random_conformal_point.html#clifford.tools.g3c.random_conformal_point" title="clifford.tools.g3c.random_conformal_point"><code class="xref py py-obj docutils literal"><span class="pre">random_conformal_point</span></code></a>([l_max])</td>
+<td>Creates a random conformal point</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="misc">
+<h3>Misc<a class="headerlink" href="#misc" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="generated/clifford.tools.g3c.meet.html#clifford.tools.g3c.meet" title="clifford.tools.g3c.meet"><code class="xref py py-obj docutils literal"><span class="pre">meet</span></code></a>(A,&nbsp;B)</td>
+<td>The meet algorithm as described in &#8220;A Covariant Approach to Geometry&#8221;</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/clifford.tools.g3c.intersect_line_and_plane_to_point.html#clifford.tools.g3c.intersect_line_and_plane_to_point" title="clifford.tools.g3c.intersect_line_and_plane_to_point"><code class="xref py py-obj docutils literal"><span class="pre">intersect_line_and_plane_to_point</span></code></a>(line,&nbsp;plane)</td>
+<td>Returns the point at the intersection of a line and plane</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/clifford.tools.g3c.normalise_n_minus_1.html#clifford.tools.g3c.normalise_n_minus_1" title="clifford.tools.g3c.normalise_n_minus_1"><code class="xref py py-obj docutils literal"><span class="pre">normalise_n_minus_1</span></code></a>(mv)</td>
+<td>Normalises a conformal point so that it has an inner product of -1 with einf</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/clifford.tools.g3c.quaternion_and_vector_to_rotor.html#clifford.tools.g3c.quaternion_and_vector_to_rotor" title="clifford.tools.g3c.quaternion_and_vector_to_rotor"><code class="xref py py-obj docutils literal"><span class="pre">quaternion_and_vector_to_rotor</span></code></a>(quaternion,&nbsp;...)</td>
+<td>Takes in a quaternion and a vector and returns a conformal rotor that</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/clifford.tools.g3c.get_center_from_sphere.html#clifford.tools.g3c.get_center_from_sphere" title="clifford.tools.g3c.get_center_from_sphere"><code class="xref py py-obj docutils literal"><span class="pre">get_center_from_sphere</span></code></a>(sphere)</td>
+<td>Returns the conformal point at the centre of a sphere by reflecting the</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/clifford.tools.g3c.get_radius_from_sphere.html#clifford.tools.g3c.get_radius_from_sphere" title="clifford.tools.g3c.get_radius_from_sphere"><code class="xref py py-obj docutils literal"><span class="pre">get_radius_from_sphere</span></code></a>(sphere)</td>
+<td>Returns the radius of a sphere</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/clifford.tools.g3c.point_pair_to_end_points.html#clifford.tools.g3c.point_pair_to_end_points" title="clifford.tools.g3c.point_pair_to_end_points"><code class="xref py py-obj docutils literal"><span class="pre">point_pair_to_end_points</span></code></a>(T)</td>
+<td>Extracts the end points of a point pair bivector</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/clifford.tools.g3c.euc_dist.html#clifford.tools.g3c.euc_dist" title="clifford.tools.g3c.euc_dist"><code class="xref py py-obj docutils literal"><span class="pre">euc_dist</span></code></a>(conf_mv_a,&nbsp;conf_mv_b)</td>
+<td>Returns the distance between two conformal points</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/clifford.tools.g3c.dorst_norm_val.html#clifford.tools.g3c.dorst_norm_val" title="clifford.tools.g3c.dorst_norm_val"><code class="xref py py-obj docutils literal"><span class="pre">dorst_norm_val</span></code></a></td>
+<td>Square Root of Rotors - Implements the norm of a rotor</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="root-finding">
+<h3>Root Finding<a class="headerlink" href="#root-finding" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="generated/clifford.tools.g3c.check_sigma_for_positive_root.html#clifford.tools.g3c.check_sigma_for_positive_root" title="clifford.tools.g3c.check_sigma_for_positive_root"><code class="xref py py-obj docutils literal"><span class="pre">check_sigma_for_positive_root</span></code></a>(sigma)</td>
+<td>Square Root of Rotors - Checks for a positive root</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/clifford.tools.g3c.check_sigma_for_negative_root.html#clifford.tools.g3c.check_sigma_for_negative_root" title="clifford.tools.g3c.check_sigma_for_negative_root"><code class="xref py py-obj docutils literal"><span class="pre">check_sigma_for_negative_root</span></code></a>(sigma)</td>
+<td>Square Root of Rotors - Checks for a negative root</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/clifford.tools.g3c.check_infinite_roots.html#clifford.tools.g3c.check_infinite_roots" title="clifford.tools.g3c.check_infinite_roots"><code class="xref py py-obj docutils literal"><span class="pre">check_infinite_roots</span></code></a>(sigma)</td>
+<td>Square Root of Rotors - Checks for a infinite roots</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/clifford.tools.g3c.positive_root.html#clifford.tools.g3c.positive_root" title="clifford.tools.g3c.positive_root"><code class="xref py py-obj docutils literal"><span class="pre">positive_root</span></code></a>(sigma)</td>
+<td>Square Root of Rotors - Evaluates the positive root</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/clifford.tools.g3c.negative_root.html#clifford.tools.g3c.negative_root" title="clifford.tools.g3c.negative_root"><code class="xref py py-obj docutils literal"><span class="pre">negative_root</span></code></a>(sigma)</td>
+<td>Square Root of Rotors - Evaluates the negative root</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/clifford.tools.g3c.pos_twiddle_root.html#clifford.tools.g3c.pos_twiddle_root" title="clifford.tools.g3c.pos_twiddle_root"><code class="xref py py-obj docutils literal"><span class="pre">pos_twiddle_root</span></code></a>(C)</td>
+<td>Square Root and Logarithm of Rotors</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/clifford.tools.g3c.neg_twiddle_root.html#clifford.tools.g3c.neg_twiddle_root" title="clifford.tools.g3c.neg_twiddle_root"><code class="xref py py-obj docutils literal"><span class="pre">neg_twiddle_root</span></code></a>(C)</td>
+<td>Square Root and Logarithm of Rotors</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Functions</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">Cl</span></code>([p,&nbsp;q,&nbsp;sig,&nbsp;names,&nbsp;firstIdx,&nbsp;mvClass])</td>
+<td>Returns a Layout and basis blades for the geometric algebra Cl_p,q.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">annhilate_k</span></code>(K,&nbsp;C)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">apply_rotor</span></code>(mv_in,&nbsp;rotor)</td>
+<td>Applies rotor to multivector in a fast way</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">apply_rotor_inv</span></code>(mv_in,&nbsp;rotor,&nbsp;rotor_inv)</td>
+<td>Applies rotor to multivector in a fast way takes pre computed adjoint</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">average_objects</span></code>(obj_list[,&nbsp;weights])</td>
+<td>Hadfield and Lasenby, Direct Linear Interpolation of Geometric Objects, AGACSE2018</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/clifford.tools.g3c.check_infinite_roots.html#clifford.tools.g3c.check_infinite_roots" title="clifford.tools.g3c.check_infinite_roots"><code class="xref py py-obj docutils literal"><span class="pre">check_infinite_roots</span></code></a>(sigma)</td>
+<td>Square Root of Rotors - Checks for a infinite roots</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/clifford.tools.g3c.check_sigma_for_negative_root.html#clifford.tools.g3c.check_sigma_for_negative_root" title="clifford.tools.g3c.check_sigma_for_negative_root"><code class="xref py py-obj docutils literal"><span class="pre">check_sigma_for_negative_root</span></code></a>(sigma)</td>
+<td>Square Root of Rotors - Checks for a negative root</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/clifford.tools.g3c.check_sigma_for_positive_root.html#clifford.tools.g3c.check_sigma_for_positive_root" title="clifford.tools.g3c.check_sigma_for_positive_root"><code class="xref py py-obj docutils literal"><span class="pre">check_sigma_for_positive_root</span></code></a>(sigma)</td>
+<td>Square Root of Rotors - Checks for a positive root</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">conformalize</span></code>(layout[,&nbsp;added_sig])</td>
+<td>Conformalize a Geometric Algebra</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">convert_2D_point_to_conformal</span></code>(x,&nbsp;y)</td>
+<td>Convert a 2D point to conformal</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">convert_2D_polar_line_to_conformal_line</span></code>(rho,&nbsp;...)</td>
+<td>Converts a 2D polar line to a conformal line</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">distance_polar_line_to_euc_point_2d</span></code>(rho,&nbsp;...)</td>
+<td>Return the distance between a polar line and a euclidean point in 2D</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">disturb_object</span></code>(mv_object[,&nbsp;...])</td>
+<td>Disturbs an object by a random rotor</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">down</span></code>(x)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/clifford.tools.g3c.euc_dist.html#clifford.tools.g3c.euc_dist" title="clifford.tools.g3c.euc_dist"><code class="xref py py-obj docutils literal"><span class="pre">euc_dist</span></code></a>(conf_mv_a,&nbsp;conf_mv_b)</td>
+<td>Returns the distance between two conformal points</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">fast_down</span></code>(mv)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">fast_dual</span></code>(a)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">fast_up</span></code>(mv)</td>
+<td>Fast up mapping</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">general_root</span></code>(sigma)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/clifford.tools.g3c.generate_dilation_rotor.html#clifford.tools.g3c.generate_dilation_rotor" title="clifford.tools.g3c.generate_dilation_rotor"><code class="xref py py-obj docutils literal"><span class="pre">generate_dilation_rotor</span></code></a>(scale)</td>
+<td>Generates a rotor that performs dilation about the origin</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">generate_n_clusters</span></code>(object_generator,&nbsp;...)</td>
+<td>Creates n_clusters of random objects</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">generate_random_object_cluster</span></code>(n_objects,&nbsp;...)</td>
+<td>Creates a cluster of random objects</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">generate_rotation_rotor</span></code>(theta,&nbsp;euc_vector_m,&nbsp;...)</td>
+<td>Generates a rotation of angle theta in the m, n plane</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/clifford.tools.g3c.generate_translation_rotor.html#clifford.tools.g3c.generate_translation_rotor" title="clifford.tools.g3c.generate_translation_rotor"><code class="xref py py-obj docutils literal"><span class="pre">generate_translation_rotor</span></code></a>(euc_vector_a)</td>
+<td>Generates a rotor that translates objects along the euclidean vector euc_vector_a</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/clifford.tools.g3c.get_center_from_sphere.html#clifford.tools.g3c.get_center_from_sphere" title="clifford.tools.g3c.get_center_from_sphere"><code class="xref py py-obj docutils literal"><span class="pre">get_center_from_sphere</span></code></a>(sphere)</td>
+<td>Returns the conformal point at the centre of a sphere by reflecting the</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">get_circle_in_euc</span></code>(circle)</td>
+<td>Extracts all the normal stuff for a circle</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">get_mult_function</span></code>(mult_table,&nbsp;n_dims,&nbsp;gradeList)</td>
+<td>Returns a function that implements the mult_table on two input multivectors</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">get_nearest_plane_point</span></code>(plane)</td>
+<td>Get the nearest point to the origin on the plane</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">get_plane_normal</span></code>(plane)</td>
+<td>Get the normal to the plane</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">get_plane_origin_distance</span></code>(plane)</td>
+<td>Get the distance between a given plane and the origin</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/clifford.tools.g3c.get_radius_from_sphere.html#clifford.tools.g3c.get_radius_from_sphere" title="clifford.tools.g3c.get_radius_from_sphere"><code class="xref py py-obj docutils literal"><span class="pre">get_radius_from_sphere</span></code></a>(sphere)</td>
+<td>Returns the radius of a sphere</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">homo</span></code>(x)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">interp_objects_root</span></code>(C1,&nbsp;C2,&nbsp;alpha)</td>
+<td>Hadfield and Lasenby, Direct Linear Interpolation of Geometric Objects, AGACSE2018</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/clifford.tools.g3c.intersect_line_and_plane_to_point.html#clifford.tools.g3c.intersect_line_and_plane_to_point" title="clifford.tools.g3c.intersect_line_and_plane_to_point"><code class="xref py py-obj docutils literal"><span class="pre">intersect_line_and_plane_to_point</span></code></a>(line,&nbsp;plane)</td>
+<td>Returns the point at the intersection of a line and plane</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">line_to_point_and_direction</span></code>(line)</td>
+<td>converts a line to the conformal nearest point to the origin and a</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/clifford.tools.g3c.meet.html#clifford.tools.g3c.meet" title="clifford.tools.g3c.meet"><code class="xref py py-obj docutils literal"><span class="pre">meet</span></code></a>(A,&nbsp;B)</td>
+<td>The meet algorithm as described in &#8220;A Covariant Approach to Geometry&#8221;</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/clifford.tools.g3c.neg_twiddle_root.html#clifford.tools.g3c.neg_twiddle_root" title="clifford.tools.g3c.neg_twiddle_root"><code class="xref py py-obj docutils literal"><span class="pre">neg_twiddle_root</span></code></a>(C)</td>
+<td>Square Root and Logarithm of Rotors</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/clifford.tools.g3c.negative_root.html#clifford.tools.g3c.negative_root" title="clifford.tools.g3c.negative_root"><code class="xref py py-obj docutils literal"><span class="pre">negative_root</span></code></a>(sigma)</td>
+<td>Square Root of Rotors - Evaluates the negative root</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">norm</span></code>(mv)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/clifford.tools.g3c.normalise_n_minus_1.html#clifford.tools.g3c.normalise_n_minus_1" title="clifford.tools.g3c.normalise_n_minus_1"><code class="xref py py-obj docutils literal"><span class="pre">normalise_n_minus_1</span></code></a>(mv)</td>
+<td>Normalises a conformal point so that it has an inner product of -1 with einf</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">normalised</span></code>(mv)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/clifford.tools.g3c.point_pair_to_end_points.html#clifford.tools.g3c.point_pair_to_end_points" title="clifford.tools.g3c.point_pair_to_end_points"><code class="xref py py-obj docutils literal"><span class="pre">point_pair_to_end_points</span></code></a>(T)</td>
+<td>Extracts the end points of a point pair bivector</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/clifford.tools.g3c.pos_twiddle_root.html#clifford.tools.g3c.pos_twiddle_root" title="clifford.tools.g3c.pos_twiddle_root"><code class="xref py py-obj docutils literal"><span class="pre">pos_twiddle_root</span></code></a>(C)</td>
+<td>Square Root and Logarithm of Rotors</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/clifford.tools.g3c.positive_root.html#clifford.tools.g3c.positive_root" title="clifford.tools.g3c.positive_root"><code class="xref py py-obj docutils literal"><span class="pre">positive_root</span></code></a>(sigma)</td>
+<td>Square Root of Rotors - Evaluates the positive root</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/clifford.tools.g3c.quaternion_and_vector_to_rotor.html#clifford.tools.g3c.quaternion_and_vector_to_rotor" title="clifford.tools.g3c.quaternion_and_vector_to_rotor"><code class="xref py py-obj docutils literal"><span class="pre">quaternion_and_vector_to_rotor</span></code></a>(quaternion,&nbsp;...)</td>
+<td>Takes in a quaternion and a vector and returns a conformal rotor that</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">quaternion_to_rotor</span></code>(quaternion)</td>
+<td>Converts a quaternion into a pure rotation rotor</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">random_bivector</span></code>()</td>
+<td>Creates a random bivector on the form described by R.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">random_circle</span></code>()</td>
+<td>Creates a random circle</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">random_circle_at_origin</span></code>()</td>
+<td>Creates a random circle at the origin</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/clifford.tools.g3c.random_conformal_point.html#clifford.tools.g3c.random_conformal_point" title="clifford.tools.g3c.random_conformal_point"><code class="xref py py-obj docutils literal"><span class="pre">random_conformal_point</span></code></a>([l_max])</td>
+<td>Creates a random conformal point</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">random_euc_mv</span></code>([l_max])</td>
+<td>Creates a random vector of length uniform up to l_max</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">random_line</span></code>()</td>
+<td>Creates a random line</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">random_line_at_origin</span></code>()</td>
+<td>Creates a random line at the origin</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">random_plane</span></code>()</td>
+<td>Creates a random plane</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">random_plane_at_origin</span></code>()</td>
+<td>Creates a random plane at the origin</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">random_point_pair</span></code>()</td>
+<td>Creates a random point pair bivector object</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">random_point_pair_at_origin</span></code>()</td>
+<td>Creates a random point pair bivector object at the origin</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">random_rotation_rotor</span></code>([max_angle])</td>
+<td>Creates a random rotation rotor</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">random_rotation_translation_rotor</span></code>([...])</td>
+<td>generate a random combined rotation and translation rotor</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">random_sphere</span></code>()</td>
+<td>Creates a random sphere</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">random_sphere_at_origin</span></code>()</td>
+<td>Creates a random sphere at the origin</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">random_translation_rotor</span></code>([maximum_translation])</td>
+<td>generate a random translation rotor</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">rotor_between_lines</span></code>(L1,&nbsp;L2)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">rotor_between_objects</span></code>(C1,&nbsp;C2)</td>
+<td>Hadfield and Lasenby AGACSE2018</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">rotor_between_planes</span></code>(P1,&nbsp;P2)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">square_roots_of_rotor</span></code>(R)</td>
+<td>Square Root and Logarithm of Rotors</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">standard_line_at_origin</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">standard_point_pair_at_origin</span></code>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">up</span></code>(x)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal"><span class="pre">val_convert_2D_polar_line_to_conformal_line</span></code>(...)</td>
+<td>Converts a 2D polar line to a conformal line</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">val_distance_point_to_line</span></code>(point,&nbsp;line)</td>
+<td>Returns the euclidean distance between a point and a line</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Classes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal"><span class="pre">ConformalMVArray</span></code></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="generated/clifford.tools.g3c.generate_dilation_rotor.html" class="btn btn-neutral float-right" title="clifford.tools.g3c.generate_dilation_rotor" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="clifford.tools.g3.html" class="btn btn-neutral" title="clifford.tools.g3" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Robert Kern and the Clifford Team.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.82',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: ''
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

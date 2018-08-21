@@ -1,0 +1,6 @@
+clifford.cga.Dilation.inverted
+==============================
+
+.. currentmodule:: clifford.cga
+
+.. automethod:: Dilation.inverted

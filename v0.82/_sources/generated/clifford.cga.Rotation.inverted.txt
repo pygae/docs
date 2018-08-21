@@ -1,0 +1,6 @@
+clifford.cga.Rotation.inverted
+==============================
+
+.. currentmodule:: clifford.cga
+
+.. automethod:: Rotation.inverted

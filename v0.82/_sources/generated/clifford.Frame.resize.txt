@@ -1,0 +1,6 @@
+clifford.Frame.resize
+=====================
+
+.. currentmodule:: clifford
+
+.. automethod:: Frame.resize

@@ -1,0 +1,6 @@
+clifford.Frame.any
+==================
+
+.. currentmodule:: clifford
+
+.. automethod:: Frame.any

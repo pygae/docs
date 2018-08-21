@@ -1,0 +1,6 @@
+clifford.tools.g3c.normalise_n_minus_1
+======================================
+
+.. currentmodule:: clifford.tools.g3c
+
+.. autofunction:: normalise_n_minus_1

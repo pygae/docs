@@ -1,0 +1,6 @@
+clifford.Layout.bases
+=====================
+
+.. currentmodule:: clifford
+
+.. automethod:: Layout.bases

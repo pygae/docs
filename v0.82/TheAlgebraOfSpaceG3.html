@@ -1,0 +1,1088 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>The Algebra Of Space (G3) &mdash; Clifford 0.82 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="next" title="Rotations in Space: Euler Angles, Matrices, and Quaternions" href="EulerAngles.html" />
+    <link rel="prev" title="Quick Start (G2)" href="QuickStartG2.html" />
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-85010051-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Clifford
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.82
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="tutorials.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="QuickStartG2.html">Quick Start (G2)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">The Algebra Of Space (G3)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Setup">Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Basics">Basics</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Products">Products</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Defects-in-Precidence">Defects in Precidence</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Multivectors">Multivectors</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Reversion">Reversion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Grade-Projection">Grade Projection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Magnitude">Magnitude</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Inverse">Inverse</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Dual">Dual</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Pretty,-Ugly,-and-Display-Precision">Pretty, Ugly, and Display Precision</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Applications">Applications</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Reflections">Reflections</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Rotations">Rotations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Some-Ways-to-use-Functions">Some Ways to use Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Changing-Basis-Names">Changing Basis Names</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="EulerAngles.html">Rotations in Space: Euler Angles, Matrices, and Quaternions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ConformalGeometricAlgebra.html">Conformal Geometric Algebra</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SpaceTimeAlgebra.html">Space Time Algebra</a></li>
+<li class="toctree-l2"><a class="reference internal" href="InterfacingOtherMathSystems.html">Interfacing Other Mathematical Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PredefinedGAs.html">Predefined Geometric Algebras</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PerformanceCliffordTutorial.html">Writing high(ish) performance code with Clifford and Numba via Numpy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Example 1 Interpolating Conformal Objects.html">Example 1 Interpolating Conformal Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Example 2 Clustering Geometric Objects.html">Example 2 Clustering Geometric Objects</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Clifford</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="tutorials.html">Tutorials</a> &raquo;</li>
+        
+      <li>The Algebra Of Space (G3)</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/TheAlgebraOfSpaceG3.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #303F9F;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #D84315;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 8ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #cfcfcf;
+    border-radius: 2px;
+    background: #f7f7f7;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.pngmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+</style>
+<div class="section" id="The-Algebra-Of-Space-(G3)">
+<h1>The Algebra Of Space (G3)<a class="headerlink" href="#The-Algebra-Of-Space-(G3)" title="Permalink to this headline">¶</a></h1>
+<p>In this notebook, we give a more detailed look at how to use
+<code class="docutils literal"><span class="pre">clifford</span></code>, using the algebra of three dimensional space as a context.</p>
+<div class="section" id="Setup">
+<h2>Setup<a class="headerlink" href="#Setup" title="Permalink to this headline">¶</a></h2>
+<p>First, we import clifford as <code class="docutils literal"><span class="pre">cf</span></code>, and instantiate a three dimensional
+geometric algebra using <code class="docutils literal"><span class="pre">Cl()</span></code></p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">e</span><span class="p">,</span><span class="n">pi</span>
+<span class="kn">import</span> <span class="nn">clifford</span> <span class="kn">as</span> <span class="nn">cf</span>
+
+<span class="n">layout</span><span class="p">,</span> <span class="n">blades</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">Cl</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="c1"># creates a 3-dimensional clifford algebra</span>
+</pre></div>
+</div>
+</div>
+<p>Given a three dimensional GA with the orthonormal basis,</p>
+<div class="math">
+\[e_{i}\cdot e_{j}=\delta_{ij}\]</div>
+<p>The basis consists of scalars, three vectors, three bivectors, and a
+trivector.</p>
+<div class="math">
+\[\{\underbrace{\alpha}_{\mbox{scalar}},\qquad\underbrace{e_{1},e_{2},e_{3}}_{\mbox{vectors}},\qquad\underbrace{e_{12},e_{23},e_{13}}_{\mbox{bivectors}},\qquad\underbrace{e_{123}}_{\mbox{trivector}}\}\]</div>
+<p><code class="docutils literal"><span class="pre">Cl()</span></code> creates the algebra and returns a <code class="docutils literal"><span class="pre">layout</span></code> and <code class="docutils literal"><span class="pre">blades</span></code>.
+The <code class="docutils literal"><span class="pre">layout</span></code> holds information and functions related this instance of
+<code class="docutils literal"><span class="pre">G3</span></code>, and the <code class="docutils literal"><span class="pre">blades</span></code> is a dictionary which contains the basis
+blades, indexed by their string representations,</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">blades</span>
+</pre></div>
+</div>
+</div>
+<p>You may wish to explicitly assign the blades to variables like so,</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">e1</span> <span class="o">=</span> <span class="n">blades</span><span class="p">[</span><span class="s1">&#39;e1&#39;</span><span class="p">]</span>
+<span class="n">e2</span> <span class="o">=</span> <span class="n">blades</span><span class="p">[</span><span class="s1">&#39;e2&#39;</span><span class="p">]</span>
+<span class="c1"># etc ...</span>
+</pre></div>
+</div>
+</div>
+<p>Or, if you&#8217;re lazy and just working in an interactive session you can
+use <code class="docutils literal"><span class="pre">locals()</span></code> to update your namespace with all of the blades at
+once.</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="nb">locals</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">blades</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Now, all the blades have been defined in the local namespace</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">e3</span><span class="p">,</span> <span class="n">e123</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Basics">
+<h2>Basics<a class="headerlink" href="#Basics" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="Products">
+<h3>Products<a class="headerlink" href="#Products" title="Permalink to this headline">¶</a></h3>
+<p>The basic products are available</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">e1</span><span class="o">*</span><span class="n">e2</span> <span class="c1"># geometric product</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">e1</span><span class="o">|</span><span class="n">e2</span> <span class="c1"># inner product</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">e1</span><span class="o">^</span><span class="n">e2</span> <span class="c1"># outer product</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">e1</span><span class="o">^</span><span class="n">e2</span><span class="o">^</span><span class="n">e3</span> <span class="c1"># even more outer products</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Defects-in-Precidence">
+<h3>Defects in Precidence<a class="headerlink" href="#Defects-in-Precidence" title="Permalink to this headline">¶</a></h3>
+<p>Python&#8217;s operator precidence makes the outer product evaluate after
+addition. This requires the use of parenthesis when using outer
+products. For example</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">e1</span><span class="o">^</span><span class="n">e2</span><span class="o">+</span><span class="n">e2</span><span class="o">^</span><span class="n">e3</span> <span class="c1"># fail</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="p">(</span><span class="n">e1</span><span class="o">^</span><span class="n">e2</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">e2</span><span class="o">^</span><span class="n">e3</span><span class="p">)</span> <span class="c1"># correct</span>
+</pre></div>
+</div>
+</div>
+<p>Also the inner product of a scalar and a Multivector is 0,</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="mi">4</span><span class="o">|</span><span class="n">e1</span>
+</pre></div>
+</div>
+</div>
+<p>So for scalars, use the outer product or geometric product instead</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="mi">4</span><span class="o">*</span><span class="n">e1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Multivectors">
+<h3>Multivectors<a class="headerlink" href="#Multivectors" title="Permalink to this headline">¶</a></h3>
+<p>Multivectors can be defined in terms of the basis blades. For example
+you can construct a rotor as a sum of a scalar and bivector, like so</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">cos</span><span class="p">,</span> <span class="n">sin</span>
+
+<span class="n">theta</span> <span class="o">=</span> <span class="n">pi</span><span class="o">/</span><span class="mi">4</span>
+<span class="n">R</span> <span class="o">=</span> <span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">-</span> <span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span><span class="o">*</span><span class="n">e23</span>
+<span class="n">R</span>
+</pre></div>
+</div>
+</div>
+<p>You can also mix grades without any reason</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">A</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">e1</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">e12</span> <span class="o">+</span> <span class="mi">4</span><span class="o">*</span><span class="n">e123</span>
+<span class="n">A</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Reversion">
+<h3>Reversion<a class="headerlink" href="#Reversion" title="Permalink to this headline">¶</a></h3>
+<p>The reversion operator is accomplished with the tilde <code class="docutils literal"><span class="pre">~</span></code> in front of
+the Multivector on which it acts</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="o">~</span><span class="n">A</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Grade-Projection">
+<h3>Grade Projection<a class="headerlink" href="#Grade-Projection" title="Permalink to this headline">¶</a></h3>
+<p>Taking a projection onto a specific grade <span class="math">\(n\)</span> of a Multivector is
+usually written</p>
+<div class="math">
+\[\langle A \rangle _n\]</div>
+<p>can be done by using soft brackets, like so</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">A</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># get grade-0 elements of R</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">A</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># get grade-1 elements of R</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">A</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>  <span class="c1">#  you get it</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Magnitude">
+<h3>Magnitude<a class="headerlink" href="#Magnitude" title="Permalink to this headline">¶</a></h3>
+<p>Using the reversion and grade projection operators, we can define the
+magnitude of <span class="math">\(A\)</span></p>
+<div class="math">
+\[|A|^2 = \langle A\tilde{A}\rangle\]</div>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="p">(</span><span class="n">A</span><span class="o">*~</span><span class="n">A</span><span class="p">)(</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>This is done in the <code class="docutils literal"><span class="pre">abs()</span></code> operator</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="nb">abs</span><span class="p">(</span><span class="n">A</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Inverse">
+<h3>Inverse<a class="headerlink" href="#Inverse" title="Permalink to this headline">¶</a></h3>
+<p>The inverse of a Multivector is defined as <span class="math">\(A^{-1}A=1\)</span></p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">A</span><span class="o">.</span><span class="n">inv</span><span class="p">()</span><span class="o">*</span><span class="n">A</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">A</span><span class="o">.</span><span class="n">inv</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Dual">
+<h3>Dual<a class="headerlink" href="#Dual" title="Permalink to this headline">¶</a></h3>
+<p>The dual of a multivector <span class="math">\(A\)</span> can be defined as</p>
+<div class="math">
+\[AI^{-1}\]</div>
+<p>Where, <span class="math">\(I\)</span> is the psuedoscalar for the GA. In <span class="math">\(G_3\)</span>, the
+dual of a vector is a bivector,</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">a</span> <span class="o">=</span> <span class="mi">1</span><span class="o">*</span><span class="n">e1</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">e2</span> <span class="o">+</span> <span class="mi">3</span><span class="o">*</span><span class="n">e3</span>
+<span class="n">a</span><span class="o">.</span><span class="n">dual</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Pretty,-Ugly,-and-Display-Precision">
+<h3>Pretty, Ugly, and Display Precision<a class="headerlink" href="#Pretty,-Ugly,-and-Display-Precision" title="Permalink to this headline">¶</a></h3>
+<p>You can toggle pretty printing with with <code class="docutils literal"><span class="pre">pretty()</span></code> or <code class="docutils literal"><span class="pre">ugly()</span></code>.
+<code class="docutils literal"><span class="pre">ugly</span></code> returns an eval-able string.</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">cf</span><span class="o">.</span><span class="n">ugly</span><span class="p">()</span>
+<span class="n">A</span><span class="o">.</span><span class="n">inv</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>You can also change the displayed precision</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">cf</span><span class="o">.</span><span class="n">pretty</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">A</span><span class="o">.</span><span class="n">inv</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>This does not effect the internal precision used for computations.</p>
+</div>
+</div>
+<div class="section" id="Applications">
+<h2>Applications<a class="headerlink" href="#Applications" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="Reflections">
+<h3>Reflections<a class="headerlink" href="#Reflections" title="Permalink to this headline">¶</a></h3>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="n">Image</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s1">&#39;_static/reflection_on_vector.svg&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Reflecting a vector <span class="math">\(c\)</span> about a normalized vector <span class="math">\(n\)</span> is
+pretty simple,</p>
+<div class="math">
+\[c \rightarrow ncn\]</div>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">c</span> <span class="o">=</span> <span class="n">e1</span><span class="o">+</span><span class="n">e2</span><span class="o">+</span><span class="n">e3</span>    <span class="c1"># a vector</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">e1</span>          <span class="c1"># the reflector</span>
+<span class="n">n</span><span class="o">*</span><span class="n">c</span><span class="o">*</span><span class="n">n</span>          <span class="c1"># reflect `a` in hyperplane normal to `n`</span>
+</pre></div>
+</div>
+</div>
+<p>Because we have the <code class="docutils literal"><span class="pre">inv()</span></code> available, we can equally well reflect in
+un-normalized vectors using,</p>
+<div class="math">
+\[a \rightarrow nan^{-1}\]</div>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">a</span> <span class="o">=</span> <span class="n">e1</span><span class="o">+</span><span class="n">e2</span><span class="o">+</span><span class="n">e3</span>    <span class="c1"># the vector</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">3</span><span class="o">*</span><span class="n">e1</span>          <span class="c1"># the reflector</span>
+<span class="n">n</span><span class="o">*</span><span class="n">a</span><span class="o">*</span><span class="n">n</span><span class="o">.</span><span class="n">inv</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>Refelections can also be made with repsect to the a &#8216;hyperplane normal
+to the vector <span class="math">\(n\)</span>&#8216;, in this case the formula is negated</p>
+<div class="math">
+\[c \rightarrow -ncn^{-1}\]</div>
+</div>
+<div class="section" id="Rotations">
+<h3>Rotations<a class="headerlink" href="#Rotations" title="Permalink to this headline">¶</a></h3>
+<p>A vector can be rotated using the formula</p>
+<div class="math">
+\[a \rightarrow Ra\tilde{R}\]</div>
+<p>Where <span class="math">\(R\)</span> is a rotor. A rotor can be defined by multiple
+reflections,</p>
+<div class="math">
+\[R=mn\]</div>
+<p>or by a plane and an angle,</p>
+<div class="math">
+\[R = e^{-\frac{\theta}{2}\hat{B}}\]</div>
+<p>For example</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">pi</span>
+
+<span class="n">R</span> <span class="o">=</span> <span class="n">e</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="o">*</span><span class="n">e12</span><span class="p">)</span> <span class="c1"># enacts rotation by pi/2</span>
+<span class="n">R</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">R</span><span class="o">*</span><span class="n">e1</span><span class="o">*~</span><span class="n">R</span>    <span class="c1"># rotate e1 by pi/2 in the e12-plane</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Some-Ways-to-use-Functions">
+<h3>Some Ways to use Functions<a class="headerlink" href="#Some-Ways-to-use-Functions" title="Permalink to this headline">¶</a></h3>
+<p>Maybe we want to define a function which can return rotor of some angle
+<span class="math">\(\theta\)</span> in the <span class="math">\(e_{12}\)</span>-plane,</p>
+<div class="math">
+\[R_{12} = e^{-\frac{\theta}{2}e_{12}}\]</div>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">R12</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">theta</span><span class="p">:</span> <span class="n">e</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="n">theta</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="n">e12</span><span class="p">)</span>
+<span class="n">R12</span><span class="p">(</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>And use it like this</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">a</span> <span class="o">=</span> <span class="n">e1</span><span class="o">+</span><span class="n">e2</span><span class="o">+</span><span class="n">e3</span>
+<span class="n">R</span> <span class="o">=</span> <span class="n">R12</span><span class="p">(</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">R</span><span class="o">*</span><span class="n">a</span><span class="o">*~</span><span class="n">R</span>
+
+</pre></div>
+</div>
+</div>
+<p>You might as well make the angle arugment a bivector, so that you can
+control the plane of rotation as well as the angle</p>
+<div class="math">
+\[R_B = e^{-\frac{B}{2}}\]</div>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">R_B</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">B</span><span class="p">:</span> <span class="n">e</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="n">B</span><span class="o">/</span><span class="mf">2.</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Then you could do</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">R12</span> <span class="o">=</span> <span class="n">R_B</span><span class="p">(</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="o">*</span><span class="n">e12</span><span class="p">)</span>
+<span class="n">R23</span> <span class="o">=</span> <span class="n">R_B</span><span class="p">(</span><span class="n">pi</span><span class="o">/</span><span class="mi">5</span><span class="o">*</span><span class="n">e23</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>or</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">R_B</span><span class="p">(</span><span class="n">pi</span><span class="o">/</span><span class="mi">6</span><span class="o">*</span><span class="p">(</span><span class="n">e23</span><span class="o">+</span><span class="n">e12</span><span class="p">))</span>  <span class="c1"># rotor enacting a pi/6-rotation in the e23+e12-plane</span>
+</pre></div>
+</div>
+</div>
+<p>Maybe you want to define a function which returns a <em>function</em> that
+enacts a specified rotation,</p>
+<div class="math">
+\[f(B) \rightarrow \underline{R_B}(a) = R_Ba\tilde{R_B}\]</div>
+<p>This just saves you having to write out the sandwhich product, which is
+nice if you are cascading a bunch of rotors, like so</p>
+<div class="math">
+\[\underline{R_C}( \underline{R_B}( \underline{R_A}(a)))\]</div>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">R_factory</span><span class="p">(</span> <span class="n">B</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">dummy_f</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+        <span class="n">R</span> <span class="o">=</span> <span class="n">e</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="n">B</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">R</span><span class="o">*</span><span class="n">a</span><span class="o">*~</span><span class="n">R</span>
+    <span class="k">return</span> <span class="n">dummy_f</span>
+
+<span class="n">R</span> <span class="o">=</span> <span class="n">R_factory</span><span class="p">(</span><span class="n">pi</span><span class="o">/</span><span class="mi">6</span><span class="o">*</span><span class="p">(</span><span class="n">e23</span><span class="o">+</span><span class="n">e12</span><span class="p">))</span> <span class="c1"># this returns a function</span>
+<span class="n">R</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="c1"># which acts on a vector</span>
+</pre></div>
+</div>
+</div>
+<p>Then you can do things like</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">R12</span> <span class="o">=</span> <span class="n">R_factory</span><span class="p">(</span><span class="n">pi</span><span class="o">/</span><span class="mi">3</span><span class="o">*</span><span class="n">e12</span><span class="p">)</span>
+<span class="n">R23</span> <span class="o">=</span> <span class="n">R_factory</span><span class="p">(</span><span class="n">pi</span><span class="o">/</span><span class="mi">3</span><span class="o">*</span><span class="n">e23</span><span class="p">)</span>
+<span class="n">R13</span> <span class="o">=</span> <span class="n">R_factory</span><span class="p">(</span><span class="n">pi</span><span class="o">/</span><span class="mi">3</span><span class="o">*</span><span class="n">e13</span><span class="p">)</span>
+
+<span class="n">R12</span><span class="p">(</span><span class="n">R23</span><span class="p">(</span><span class="n">R13</span><span class="p">(</span><span class="n">a</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<p>To make cascading a sequence of rotations as concise as possible, we
+could define a function which takes a list of bivectors <span class="math">\(A,B,C,..\)</span>
+, and enacts the sequence of rotations which they represent on a some
+vector <span class="math">\(x\)</span>.</p>
+<div class="math">
+\[f(A,B,C,x) = \underline{R_A}  (\underline{R_B} (\underline{R_C}(x)))\]</div>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="nb">reduce</span>
+
+<span class="c1"># a sequence of rotations</span>
+<span class="k">def</span> <span class="nf">R_seq</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+    <span class="n">Bs</span><span class="p">,</span><span class="n">a</span> <span class="o">=</span> <span class="n">args</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">args</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">R_lst</span> <span class="o">=</span>  <span class="p">[</span><span class="n">e</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="n">B</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">B</span> <span class="ow">in</span> <span class="n">Bs</span><span class="p">]</span>  <span class="c1"># create list of Rotors from list of Bivectors</span>
+    <span class="n">R</span> <span class="o">=</span> <span class="nb">reduce</span><span class="p">(</span><span class="n">cf</span><span class="o">.</span><span class="n">gp</span><span class="p">,</span> <span class="n">R_lst</span><span class="p">)</span>          <span class="c1"># apply the geometric product to list of Rotors</span>
+    <span class="k">return</span> <span class="k">lambda</span> <span class="n">a</span><span class="p">:</span> <span class="n">R</span><span class="o">*</span><span class="n">a</span><span class="o">*~</span><span class="n">R</span>
+
+
+
+<span class="c1"># rotation sequence by  pi/2-in-e12 THEN pi/2-in-e23</span>
+<span class="n">R</span> <span class="o">=</span> <span class="n">R_seq</span><span class="p">(</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="n">e23</span><span class="p">,</span> <span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="n">e12</span><span class="p">,</span> <span class="n">e1</span><span class="p">)</span>
+
+<span class="n">R</span><span class="p">(</span><span class="n">e1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="Changing-Basis-Names">
+<h2>Changing Basis Names<a class="headerlink" href="#Changing-Basis-Names" title="Permalink to this headline">¶</a></h2>
+<p>If you want to use different names for your basis as opposed to e&#8217;s with
+numbers, supply the <code class="docutils literal"><span class="pre">Cl()</span></code> with a list of <code class="docutils literal"><span class="pre">names</span></code>. For example for a
+two dimensional GA,</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">layout</span><span class="p">,</span><span class="n">blades</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">Cl</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="s1">&#39;i&#39;</span><span class="p">])</span>
+
+<span class="n">blades</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="nb">locals</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">blades</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="mi">1</span><span class="o">*</span><span class="n">x</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">y</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mi">4</span><span class="o">*</span><span class="n">i</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="EulerAngles.html" class="btn btn-neutral float-right" title="Rotations in Space: Euler Angles, Matrices, and Quaternions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="QuickStartG2.html" class="btn btn-neutral" title="Quick Start (G2)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Robert Kern and the Clifford Team.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.82',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: ''
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

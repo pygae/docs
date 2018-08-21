@@ -1,0 +1,6 @@
+clifford.cga.Rotation.involuted
+===============================
+
+.. currentmodule:: clifford.cga
+
+.. automethod:: Rotation.involuted

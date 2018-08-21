@@ -1,0 +1,6 @@
+clifford.MultiVector.gradeInvol
+===============================
+
+.. currentmodule:: clifford
+
+.. automethod:: MultiVector.gradeInvol

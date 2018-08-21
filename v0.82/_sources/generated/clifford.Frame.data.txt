@@ -1,0 +1,6 @@
+clifford.Frame.data
+===================
+
+.. currentmodule:: clifford
+
+.. autoattribute:: Frame.data

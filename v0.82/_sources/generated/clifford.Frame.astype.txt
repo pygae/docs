@@ -1,0 +1,6 @@
+clifford.Frame.astype
+=====================
+
+.. currentmodule:: clifford
+
+.. automethod:: Frame.astype

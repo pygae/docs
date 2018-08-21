@@ -1,0 +1,6 @@
+clifford.cga.CGA.translation
+============================
+
+.. currentmodule:: clifford.cga
+
+.. automethod:: CGA.translation

@@ -1,0 +1,6 @@
+clifford.cga.Flat.inverted
+==========================
+
+.. currentmodule:: clifford.cga
+
+.. automethod:: Flat.inverted

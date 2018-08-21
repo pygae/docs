@@ -1,0 +1,6 @@
+clifford.MultiVector.anticommutator
+===================================
+
+.. currentmodule:: clifford
+
+.. automethod:: MultiVector.anticommutator

@@ -1,0 +1,6 @@
+clifford.Frame.tofile
+=====================
+
+.. currentmodule:: clifford
+
+.. automethod:: Frame.tofile

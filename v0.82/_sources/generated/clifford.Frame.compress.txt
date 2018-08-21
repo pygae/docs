@@ -1,0 +1,6 @@
+clifford.Frame.compress
+=======================
+
+.. currentmodule:: clifford
+
+.. automethod:: Frame.compress

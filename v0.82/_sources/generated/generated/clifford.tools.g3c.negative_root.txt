@@ -1,0 +1,6 @@
+clifford.tools.g3c.negative_root
+================================
+
+.. currentmodule:: clifford.tools.g3c
+
+.. autofunction:: negative_root

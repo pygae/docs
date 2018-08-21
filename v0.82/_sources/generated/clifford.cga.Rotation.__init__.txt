@@ -1,0 +1,6 @@
+clifford.cga.Rotation.__init__
+==============================
+
+.. currentmodule:: clifford.cga
+
+.. automethod:: Rotation.__init__

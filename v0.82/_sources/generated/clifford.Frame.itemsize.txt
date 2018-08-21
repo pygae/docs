@@ -1,0 +1,6 @@
+clifford.Frame.itemsize
+=======================
+
+.. currentmodule:: clifford
+
+.. autoattribute:: Frame.itemsize

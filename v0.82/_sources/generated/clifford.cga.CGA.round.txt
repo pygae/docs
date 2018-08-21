@@ -1,0 +1,6 @@
+clifford.cga.CGA.round
+======================
+
+.. currentmodule:: clifford.cga
+
+.. automethod:: CGA.round

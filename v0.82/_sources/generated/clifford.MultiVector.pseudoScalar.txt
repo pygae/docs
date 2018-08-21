@@ -1,0 +1,6 @@
+clifford.MultiVector.pseudoScalar
+=================================
+
+.. currentmodule:: clifford
+
+.. autoattribute:: MultiVector.pseudoScalar

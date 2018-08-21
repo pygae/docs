@@ -1,0 +1,6 @@
+clifford.Frame.clip
+===================
+
+.. currentmodule:: clifford
+
+.. automethod:: Frame.clip

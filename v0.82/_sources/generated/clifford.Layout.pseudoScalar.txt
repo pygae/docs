@@ -1,0 +1,6 @@
+clifford.Layout.pseudoScalar
+============================
+
+.. currentmodule:: clifford
+
+.. autoattribute:: Layout.pseudoScalar

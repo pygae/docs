@@ -1,0 +1,6 @@
+clifford.cga.CGA.straight_up
+============================
+
+.. currentmodule:: clifford.cga
+
+.. automethod:: CGA.straight_up

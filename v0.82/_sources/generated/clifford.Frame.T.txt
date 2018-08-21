@@ -1,0 +1,6 @@
+clifford.Frame.T
+================
+
+.. currentmodule:: clifford
+
+.. autoattribute:: Frame.T

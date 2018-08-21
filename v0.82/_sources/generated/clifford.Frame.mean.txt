@@ -1,0 +1,6 @@
+clifford.Frame.mean
+===================
+
+.. currentmodule:: clifford
+
+.. automethod:: Frame.mean

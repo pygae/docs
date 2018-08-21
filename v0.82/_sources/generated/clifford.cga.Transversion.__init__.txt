@@ -1,0 +1,6 @@
+clifford.cga.Transversion.__init__
+==================================
+
+.. currentmodule:: clifford.cga
+
+.. automethod:: Transversion.__init__

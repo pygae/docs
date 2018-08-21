@@ -1,0 +1,6 @@
+clifford.Frame.std
+==================
+
+.. currentmodule:: clifford
+
+.. automethod:: Frame.std

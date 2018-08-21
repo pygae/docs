@@ -1,0 +1,6 @@
+clifford.Frame.sort
+===================
+
+.. currentmodule:: clifford
+
+.. automethod:: Frame.sort

@@ -1,0 +1,105 @@
+clifford.Frame
+==============
+
+.. currentmodule:: clifford
+
+.. autoclass:: Frame
+  :no-members:
+
+
+
+.. rubric:: Attributes
+
+.. autosummary::
+  :toctree:
+  :nosignatures:
+
+  ~Frame.En
+  ~Frame.T
+  ~Frame.base
+  ~Frame.ctypes
+  ~Frame.data
+  ~Frame.dtype
+  ~Frame.flags
+  ~Frame.flat
+  ~Frame.imag
+  ~Frame.inv
+  ~Frame.itemsize
+  ~Frame.nbytes
+  ~Frame.ndim
+  ~Frame.real
+  ~Frame.shape
+  ~Frame.size
+  ~Frame.strides
+
+
+
+
+
+.. rubric:: Methods
+
+.. autosummary::
+  :toctree:
+  :nosignatures:
+
+  ~Frame.all
+  ~Frame.any
+  ~Frame.argmax
+  ~Frame.argmin
+  ~Frame.argpartition
+  ~Frame.argsort
+  ~Frame.astype
+  ~Frame.byteswap
+  ~Frame.choose
+  ~Frame.clip
+  ~Frame.compress
+  ~Frame.conj
+  ~Frame.conjugate
+  ~Frame.copy
+  ~Frame.cumprod
+  ~Frame.cumsum
+  ~Frame.diagonal
+  ~Frame.dot
+  ~Frame.dump
+  ~Frame.dumps
+  ~Frame.fill
+  ~Frame.flatten
+  ~Frame.getfield
+  ~Frame.is_innermorphic_to
+  ~Frame.item
+  ~Frame.itemset
+  ~Frame.max
+  ~Frame.mean
+  ~Frame.min
+  ~Frame.newbyteorder
+  ~Frame.nonzero
+  ~Frame.partition
+  ~Frame.prod
+  ~Frame.ptp
+  ~Frame.put
+  ~Frame.ravel
+  ~Frame.repeat
+  ~Frame.reshape
+  ~Frame.resize
+  ~Frame.round
+  ~Frame.searchsorted
+  ~Frame.setfield
+  ~Frame.setflags
+  ~Frame.sort
+  ~Frame.squeeze
+  ~Frame.std
+  ~Frame.sum
+  ~Frame.swapaxes
+  ~Frame.take
+  ~Frame.tobytes
+  ~Frame.tofile
+  ~Frame.tolist
+  ~Frame.tostring
+  ~Frame.trace
+  ~Frame.transpose
+  ~Frame.var
+  ~Frame.view
+
+
+
+

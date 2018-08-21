@@ -1,0 +1,968 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# The  Algebra Of Space (G3)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "In this notebook, we give a more detailed look at how to use `clifford`, using the algebra of three dimensional  space as a context."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "##  Setup"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "First, we import clifford as `cf`,  and  instantiate a three dimensional geometric algebra using `Cl()`"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "from numpy import e,pi\n",
+    "import clifford as cf\n",
+    "\n",
+    "layout, blades = cf.Cl(3) # creates a 3-dimensional clifford algebra"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "\n",
+    "Given a three dimensional GA with the orthonormal basis,\n",
+    "\n",
+    "$$e_{i}\\cdot e_{j}=\\delta_{ij}$$\n",
+    " \n",
+    "\n",
+    "The basis consists of scalars, three vectors, three bivectors, and a trivector. \n",
+    "\n",
+    "$$\\{\\underbrace{\\alpha}_{\\mbox{scalar}},\\qquad\\underbrace{e_{1},e_{2},e_{3}}_{\\mbox{vectors}},\\qquad\\underbrace{e_{12},e_{23},e_{13}}_{\\mbox{bivectors}},\\qquad\\underbrace{e_{123}}_{\\mbox{trivector}}\\}$$\n",
+    "\n",
+    "`Cl()`  creates the algebra and returns a `layout` and `blades`. The `layout` holds information and functions related this instance of `G3`,  and the `blades` is a dictionary which contains the basis blades, indexed by their string representations,\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "blades "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "You may wish to explicitly assign the blades to variables like so, "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "e1 = blades['e1']\n",
+    "e2 = blades['e2']\n",
+    "# etc ..."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Or, if you're lazy and just working in an interactive session you can use `locals()` to update your namespace with all of the blades at once."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "locals().update(blades)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Now, all the blades have been defined in the local namespace"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "e3, e123"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "##  Basics"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "###  Products"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "The basic products   are available"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "e1*e2 # geometric product"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "e1|e2 # inner product "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "e1^e2 # outer product"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "e1^e2^e3 # even more outer products"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "###  Defects in Precidence"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Python's operator precidence makes the outer product evaluate after addition. This requires the use of parenthesis when using outer products. For example"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "e1^e2+e2^e3 # fail"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "(e1^e2) + (e2^e3) # correct"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Also the inner product of a scalar and a Multivector is  0, "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "4|e1"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "So for scalars, use the outer product or geometric product instead"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "4*e1"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Multivectors"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Multivectors can be defined in terms of the basis blades. For example you can construct a rotor as a sum of a scalar and bivector, like so "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "from scipy import cos, sin  \n",
+    "\n",
+    "theta = pi/4\n",
+    "R = cos(theta) - sin(theta)*e23\n",
+    "R"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "You can also mix grades without any reason\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "A = 1 + 2*e1 + 3*e12 + 4*e123\n",
+    "A"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Reversion"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "The reversion operator is accomplished with the tilde `~` in front of the Multivector on which it acts"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "~A"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Grade Projection"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Taking a projection onto a specific grade $n$  of a Multivector is usually written \n",
+    "\n",
+    "$$\\langle A \\rangle _n$$\n",
+    "\n",
+    "can be done by using soft brackets, like so"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "A(0) # get grade-0 elements of R"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "A(1) # get grade-1 elements of R"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "A(2)  #  you get it"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Magnitude"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Using the reversion and grade projection operators, we can define the magnitude of $A$\n",
+    "\n",
+    "$$|A|^2 = \\langle A\\tilde{A}\\rangle$$"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "(A*~A)(0)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "This is  done in the `abs()` operator"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "abs(A)**2"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Inverse"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "The inverse of a Multivector is defined as $A^{-1}A=1$"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "A.inv()*A"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "A.inv()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Dual"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "The dual of a multivector $A$ can be defined as \n",
+    "$$AI^{-1}$$\n",
+    "\n",
+    "Where, $I$ is the psuedoscalar for the GA. In $G_3$, the dual of a vector is a bivector, "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "a = 1*e1 + 2*e2 + 3*e3 \n",
+    "a.dual()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "###  Pretty, Ugly, and  Display Precision"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "You can toggle pretty printing with with `pretty()`  or `ugly()`. `ugly` returns an eval-able string."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "cf.ugly()\n",
+    "A.inv() "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "You can also change the displayed precision"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "cf.pretty(precision=2)\n",
+    "\n",
+    "A.inv()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "This does not effect the internal precision used for computations."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Applications"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Reflections"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "from IPython.display import Image\n",
+    "Image(url='_static/reflection_on_vector.svg')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Reflecting a vector $c$ about a normalized vector $n$ is pretty simple, \n",
+    "\n",
+    "$$ c \\rightarrow ncn$$\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "c = e1+e2+e3    # a vector\n",
+    "n = e1          # the reflector\n",
+    "n*c*n          # reflect `a` in hyperplane normal to `n`"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Because we have the `inv()` available, we can equally well reflect in un-normalized vectors using, \n",
+    "$$ a \\rightarrow nan^{-1}$$"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "a = e1+e2+e3    # the vector\n",
+    "n = 3*e1          # the reflector\n",
+    "n*a*n.inv()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Refelections can also be made with repsect to the a 'hyperplane normal to the vector $n$', in this case the formula is negated\n",
+    "$$c \\rightarrow -ncn^{-1}$$"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "collapsed": false
+   },
+   "source": [
+    "### Rotations"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "A vector can be rotated using the formula\n",
+    "$$ a \\rightarrow Ra\\tilde{R}$$\n",
+    "\n",
+    "Where $R$ is a rotor. A rotor can be defined by multiple reflections, \n",
+    "\n",
+    "$$R=mn$$ \n",
+    "\n",
+    "or by a plane and an angle,\n",
+    "\n",
+    "$$R = e^{-\\frac{\\theta}{2}\\hat{B}}$$\n",
+    "\n",
+    "For example"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "from numpy import pi\n",
+    "\n",
+    "R = e**(-pi/4*e12) # enacts rotation by pi/2 \n",
+    "R"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "R*e1*~R    # rotate e1 by pi/2 in the e12-plane"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Some Ways to use Functions "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {
+    "collapsed": false
+   },
+   "source": [
+    "Maybe we want to define a function which can return rotor of some angle $\\theta$ in the $e_{12}$-plane,\n",
+    "\n",
+    "$$ R_{12} = e^{-\\frac{\\theta}{2}e_{12}} $$"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "R12 = lambda theta: e**(-theta/2*e12)\n",
+    "R12(pi/2)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "And use it like this"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "a = e1+e2+e3\n",
+    "R = R12(pi/2)\n",
+    "R*a*~R\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "You might as well make the angle arugment a bivector, so that you can control the plane of rotation as well as the angle\n",
+    "\n",
+    "$$ R_B = e^{-\\frac{B}{2}}$$\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "R_B = lambda B: e**(-B/2.)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Then you could do "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "R12 = R_B(pi/4*e12)\n",
+    "R23 = R_B(pi/5*e23)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "or"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "R_B(pi/6*(e23+e12))  # rotor enacting a pi/6-rotation in the e23+e12-plane"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Maybe you want to define a function which returns a *function* that enacts a specified rotation,  \n",
+    "\n",
+    "$$f(B) \\rightarrow \\underline{R_B}(a) = R_Ba\\tilde{R_B}$$\n",
+    "\n",
+    "This just saves you having to write out the sandwhich product, which is nice if you are cascading a bunch of rotors, like so\n",
+    "$$ \\underline{R_C}( \\underline{R_B}( \\underline{R_A}(a)))$$\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "def R_factory( B):\n",
+    "    def dummy_f(a):\n",
+    "        R = e**(-B/2)\n",
+    "        return R*a*~R\n",
+    "    return dummy_f\n",
+    "    \n",
+    "R = R_factory(pi/6*(e23+e12)) # this returns a function \n",
+    "R(a) # which acts on a vector "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Then you can do things like "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "R12 = R_factory(pi/3*e12)\n",
+    "R23 = R_factory(pi/3*e23)\n",
+    "R13 = R_factory(pi/3*e13)\n",
+    "\n",
+    "R12(R23(R13(a)))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "To make cascading a sequence of rotations  as concise as possible, we could define a function which takes a list of bivectors $A,B,C,..$ , and enacts the sequence of rotations which they represent on a some vector $x$. \n",
+    "\n",
+    "$$f(A,B,C,x) = \\underline{R_A}  (\\underline{R_B} (\\underline{R_C}(x)))$$"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "from functools import reduce  \n",
+    "\n",
+    "# a sequence of rotations\n",
+    "def R_seq(*args):\n",
+    "    Bs,a = args[:-1],args[-1]\n",
+    "    R_lst =  [e**(-B/2) for B in Bs]  # create list of Rotors from list of Bivectors\n",
+    "    R = reduce(cf.gp, R_lst)          # apply the geometric product to list of Rotors\n",
+    "    return lambda a: R*a*~R\n",
+    "\n",
+    "\n",
+    "\n",
+    "# rotation sequence by  pi/2-in-e12 THEN pi/2-in-e23\n",
+    "R = R_seq(pi/2*e23, pi/2*e12, e1)\n",
+    "                  \n",
+    "R(e1)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "##  Changing Basis Names"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "If you want to use different names for your basis as opposed to e's with numbers, supply the `Cl()` with a list of `names`. For example for a two dimensional GA,"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "layout,blades = cf.Cl(2, names = ['','x','y','i'])\n",
+    "\n",
+    "blades"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "locals().update(blades)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "1*x+2*y"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "(1+4*i)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "anaconda-cloud": {},
+  "kernelspec": {
+   "display_name": "Python [default]",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.5.2"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 0
+}

@@ -1,0 +1,6 @@
+clifford.MultiVector.invPS
+==========================
+
+.. currentmodule:: clifford
+
+.. automethod:: MultiVector.invPS

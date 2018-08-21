@@ -1,0 +1,6 @@
+clifford.Frame.view
+===================
+
+.. currentmodule:: clifford
+
+.. automethod:: Frame.view

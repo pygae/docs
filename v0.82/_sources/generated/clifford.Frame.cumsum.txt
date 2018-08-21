@@ -1,0 +1,6 @@
+clifford.Frame.cumsum
+=====================
+
+.. currentmodule:: clifford
+
+.. automethod:: Frame.cumsum

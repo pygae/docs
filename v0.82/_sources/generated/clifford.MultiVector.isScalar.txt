@@ -1,0 +1,6 @@
+clifford.MultiVector.isScalar
+=============================
+
+.. currentmodule:: clifford
+
+.. automethod:: MultiVector.isScalar

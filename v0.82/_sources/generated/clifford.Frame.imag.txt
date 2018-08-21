@@ -1,0 +1,6 @@
+clifford.Frame.imag
+===================
+
+.. currentmodule:: clifford
+
+.. autoattribute:: Frame.imag

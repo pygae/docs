@@ -1,0 +1,6 @@
+clifford.cga.CGA.base_vector
+============================
+
+.. currentmodule:: clifford.cga
+
+.. automethod:: CGA.base_vector

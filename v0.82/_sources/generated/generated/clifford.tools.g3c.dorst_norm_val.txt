@@ -1,0 +1,6 @@
+clifford.tools.g3c.dorst_norm_val
+=================================
+
+.. currentmodule:: clifford.tools
+
+.. autoattribute:: g3c.dorst_norm_val

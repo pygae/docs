@@ -1,0 +1,6 @@
+clifford.Layout.dict_to_multivector
+===================================
+
+.. currentmodule:: clifford
+
+.. automethod:: Layout.dict_to_multivector

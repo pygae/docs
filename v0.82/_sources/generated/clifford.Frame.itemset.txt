@@ -1,0 +1,6 @@
+clifford.Frame.itemset
+======================
+
+.. currentmodule:: clifford
+
+.. automethod:: Frame.itemset

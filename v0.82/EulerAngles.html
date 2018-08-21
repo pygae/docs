@@ -1,0 +1,654 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Rotations in Space: Euler Angles, Matrices, and Quaternions &mdash; Clifford 0.82 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="next" title="Conformal Geometric Algebra" href="ConformalGeometricAlgebra.html" />
+    <link rel="prev" title="The Algebra Of Space (G3)" href="TheAlgebraOfSpaceG3.html" />
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-85010051-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Clifford
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.82
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="tutorials.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="QuickStartG2.html">Quick Start (G2)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TheAlgebraOfSpaceG3.html">The Algebra Of Space (G3)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Rotations in Space: Euler Angles, Matrices, and Quaternions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Euler-Angles-with-Rotors">Euler Angles with Rotors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Implementation-of-Euler-Angles">Implementation of Euler Angles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Convert-to-Quaternions">Convert to Quaternions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Convert-to-Rotation-Matrix">Convert to Rotation Matrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Convert-a-Rotation-Matrix-to-a-Rotor">Convert a Rotation Matrix to a Rotor</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ConformalGeometricAlgebra.html">Conformal Geometric Algebra</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SpaceTimeAlgebra.html">Space Time Algebra</a></li>
+<li class="toctree-l2"><a class="reference internal" href="InterfacingOtherMathSystems.html">Interfacing Other Mathematical Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PredefinedGAs.html">Predefined Geometric Algebras</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PerformanceCliffordTutorial.html">Writing high(ish) performance code with Clifford and Numba via Numpy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Example 1 Interpolating Conformal Objects.html">Example 1 Interpolating Conformal Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Example 2 Clustering Geometric Objects.html">Example 2 Clustering Geometric Objects</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Clifford</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="tutorials.html">Tutorials</a> &raquo;</li>
+        
+      <li>Rotations in Space: Euler Angles, Matrices, and Quaternions</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/EulerAngles.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #303F9F;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #D84315;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 8ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #cfcfcf;
+    border-radius: 2px;
+    background: #f7f7f7;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.pngmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+</style>
+<div class="section" id="Rotations-in-Space:-Euler-Angles,-Matrices,-and-Quaternions">
+<h1>Rotations in Space: Euler Angles, Matrices, and Quaternions<a class="headerlink" href="#Rotations-in-Space:-Euler-Angles,-Matrices,-and-Quaternions" title="Permalink to this headline">¶</a></h1>
+<p>This notebook demonstrates how to use <code class="docutils literal"><span class="pre">clifford</span></code> to implement
+rotations in three dimensions using euler angles, rotation matices and
+quaternions. All of these forms are derived from the more general rotor
+form, which is provided by GA. Conversion from the rotor form to a
+matrix reprentation is shown, and takes about three lines of code. We
+start with euler angles.</p>
+<div class="section" id="Euler-Angles-with-Rotors">
+<h2>Euler Angles with Rotors<a class="headerlink" href="#Euler-Angles-with-Rotors" title="Permalink to this headline">¶</a></h2>
+<p>A common way to parameterize rotations in three dimensions is through
+<a class="reference external" href="https://en.wikipedia.org/wiki/Euler_angles">Euler Angles</a>.</p>
+<p>&#8220;Any orientation can be achieved by composing three elemental rotations.
+The elemental rotations can either occur about the axes of the fixed
+coordinate system (<em>extrinsic rotations</em>) or about the axes of a
+rotating coordinate system, which is initially aligned with the fixed
+one, and modifies its orientation after each elemental rotation
+(<em>intrinsic rotations</em>). &#8221; -wikipedia</p>
+<p>The animation below shows an intrinsic rotation model as each elemental
+rotation is applied. Label the left, right, and vertical blue-axes as
+<span class="math">\(e_1, e_2,\)</span> and <span class="math">\(e_3\)</span>, respectively. The series of rotations
+can be described:</p>
+<ol class="arabic simple">
+<li>rotate about <span class="math">\(e_3\)</span>-axis</li>
+<li>rotate about the rotated <span class="math">\(e_1\)</span>-axis, call it <span class="math">\(e_1^{'}\)</span></li>
+<li>rotate about the twice rotated axis of <span class="math">\(e_3\)</span>-axis, call it
+<span class="math">\(e_3^{''}\)</span></li>
+</ol>
+<p>So the elemental rotations are about
+<span class="math">\(e_3, e_{1}^{'}, e_3^{''}\)</span>-axes, respectively.</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span><span class="p">,</span><span class="n">SVG</span>
+<span class="n">Image</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s1">&#39;_static/Euler2a.gif&#39;</span><span class="p">)</span> <span class="c1"># taken from wikipedia</span>
+</pre></div>
+</div>
+</div>
+<p>Following Sec. 2.7.5 from &#8220;Geometric Algebra for Physicists&#8221;, we first
+rotate an angle <span class="math">\(\phi\)</span> about the <span class="math">\(e_3\)</span>-axis, which is
+equivalent to rotating in the <span class="math">\(e_{12}\)</span>-plane. This is done with
+the rotor</p>
+<div class="math">
+\[R_{\phi} = e^{-\frac{\phi}{2} e_{12}}\]</div>
+<p>Next we rotate about the rotated <span class="math">\(e_1\)</span>-axis, which we label
+<span class="math">\(e_1^{'}\)</span>. To find where this is, we can rotate the axis,</p>
+<div class="math">
+\[e_1^{'} =R_{\phi} e_1 \tilde{R_{\phi}}\]</div>
+<p>The plane corresponding to this axis is found by taking the dual of
+<span class="math">\(e_1^{'}\)</span></p>
+<div class="math">
+\[I R_{\phi} e_1 \tilde{R_{\phi}} = R_{\phi} e_{23} \tilde{R_{\phi}}\]</div>
+<p>Where we have made use of the fact that the psuedo-scalar commutes in
+G3. Using this result, the second roation by angle <span class="math">\(\theta\)</span> about
+the <span class="math">\(e_1^{'}\)</span>-axis is then ,</p>
+<div class="math">
+\[R_{\theta} = e^{\frac{\theta}{2} R_{\phi} e_{23} \tilde{R_{\phi}}}\]</div>
+<p>However, noting that</p>
+<div class="math">
+\[e^{R_{\phi} e_{23} \tilde{R_{\phi}}} =R_{\phi} e^{e_{23}} \tilde{R_{\phi}}\]</div>
+<p>Allows us to write the second rotation by angle <span class="math">\(\theta\)</span> about the
+<span class="math">\(e_1^{'}\)</span>-axis as</p>
+<div class="math">
+\[R_{\theta} = R_{\phi} e^{\frac{\theta}{2}e_{23}} \tilde{R_{\phi}}\]</div>
+<p>So, the combonation of the first two elemental rotations equals,</p>
+<div class="math">
+\begin{align*}
+R_{\theta} R_{\phi} &amp;= R_{\phi} e^{\frac{\theta}{2}e_{23}} \tilde{R_{\phi}} R_{\phi} \\
+&amp;= e^{-\frac{\phi}{2} e_{12}}e^{-\frac{\theta}{2} e_{23}}
+\end{align*}</div><p>This pattern can be extended to the third elemental rotation of angle
+<span class="math">\(\psi\)</span> in the twice-rotated <span class="math">\(e_1\)</span>-axis, creating the total
+rotor</p>
+<div class="math">
+\[R = e^{-\frac{\phi}{2} e_{12}} e^{-\frac{\theta}{2} e_{23}} e^{-\frac{\psi}{2} e_{12}}\]</div>
+</div>
+<div class="section" id="Implementation-of-Euler-Angles">
+<h2>Implementation of Euler Angles<a class="headerlink" href="#Implementation-of-Euler-Angles" title="Permalink to this headline">¶</a></h2>
+<p>First, we initialize the algbera and assign the variables</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">e</span><span class="p">,</span><span class="n">pi</span>
+<span class="kn">from</span> <span class="nn">clifford</span> <span class="kn">import</span> <span class="n">Cl</span>
+
+<span class="n">layout</span><span class="p">,</span> <span class="n">blades</span> <span class="o">=</span> <span class="n">Cl</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>   <span class="c1"># create a 3-dimensional clifford algebra</span>
+
+<span class="nb">locals</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">blades</span><span class="p">)</span> <span class="c1"># lazy way to put entire basis in the namespace</span>
+</pre></div>
+</div>
+</div>
+<p>Next we define a function to produce a rotor given euler angles</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">R_euler</span><span class="p">(</span><span class="n">phi</span><span class="p">,</span> <span class="n">theta</span><span class="p">,</span><span class="n">psi</span><span class="p">):</span>
+    <span class="n">Rphi</span> <span class="o">=</span> <span class="n">e</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="n">phi</span><span class="o">/</span><span class="mf">2.</span><span class="o">*</span><span class="n">e12</span><span class="p">)</span>
+    <span class="n">Rtheta</span> <span class="o">=</span> <span class="n">e</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="n">theta</span><span class="o">/</span><span class="mf">2.</span><span class="o">*</span><span class="n">e23</span><span class="p">)</span>
+    <span class="n">Rpsi</span> <span class="o">=</span> <span class="n">e</span><span class="o">**</span><span class="p">(</span><span class="o">-</span><span class="n">psi</span><span class="o">/</span><span class="mf">2.</span><span class="o">*</span><span class="n">e12</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">Rphi</span><span class="o">*</span><span class="n">Rtheta</span><span class="o">*</span><span class="n">Rpsi</span>
+</pre></div>
+</div>
+</div>
+<p>For example, using this to create a rotation similar to that shown in
+the animation above,</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">R</span> <span class="o">=</span> <span class="n">R_euler</span><span class="p">(</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="n">pi</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">R</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Convert-to-Quaternions">
+<h2>Convert to Quaternions<a class="headerlink" href="#Convert-to-Quaternions" title="Permalink to this headline">¶</a></h2>
+<p>A Rotor in 3D space <strong>is</strong> a <em>unit quaternion</em>, and so we have
+essentially created a function that converts Euler angles to
+quaternions. All you need to do is interpret the bivectors as
+<span class="math">\(i,j,\)</span> and <span class="math">\(k\)</span>&#8216;s. See the page <em>&#8220;Interfacing Other
+Mathematical Systems&#8221;</em>, for more on quaternions.</p>
+</div>
+<div class="section" id="Convert-to-Rotation-Matrix">
+<h2>Convert to Rotation Matrix<a class="headerlink" href="#Convert-to-Rotation-Matrix" title="Permalink to this headline">¶</a></h2>
+<p>The matrix representation for a rotation can defined as the result of
+rotating an ortho-normal frame. Rotating an ortho-normal frame can be
+done easily,</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">A</span> <span class="o">=</span> <span class="p">[</span><span class="n">e1</span><span class="p">,</span><span class="n">e2</span><span class="p">,</span><span class="n">e3</span><span class="p">]</span>          <span class="c1"># initial ortho-normal frame</span>
+<span class="n">B</span> <span class="o">=</span> <span class="p">[</span><span class="n">R</span><span class="o">*</span><span class="n">a</span><span class="o">*~</span><span class="n">R</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">A</span><span class="p">]</span> <span class="c1"># resultant frame after rotation</span>
+
+<span class="n">B</span>
+</pre></div>
+</div>
+</div>
+<p>The components of this frame <strong>are</strong> the rotation matrix, so we just
+enter the frame componenets into a matrix.</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span>
+
+<span class="n">M</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">b</span><span class="o">|</span><span class="n">a</span><span class="p">)</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">B</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">A</span><span class="p">]</span> <span class="c1"># you need float() due to bug in clifford</span>
+<span class="n">M</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="n">M</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="n">M</span>
+</pre></div>
+</div>
+</div>
+<p>Thats a rotation matrix.</p>
+</div>
+<div class="section" id="Convert-a-Rotation-Matrix-to-a-Rotor">
+<h2>Convert a Rotation Matrix to a Rotor<a class="headerlink" href="#Convert-a-Rotation-Matrix-to-a-Rotor" title="Permalink to this headline">¶</a></h2>
+<p>In 3 Dimenions, there is a simple formula which can be used to directly
+transform a rotations matrix into a rotor. For arbitrary dimensions you
+have to use a different algorithm (see <code class="docutils literal"><span class="pre">orthoMat2Verser()</span></code> in
+<code class="docutils literal"><span class="pre">clifford.tools</span></code>). Anyway, in 3 dimensions there is a closed form
+solution, as described in Sec. 4.3.3 of &#8220;Geometric Algebra for
+Physicists&#8221;. Given a rotor <span class="math">\(R\)</span> which transforms an orthonormal
+frame <span class="math">\(A={a_k}\)</span> into <span class="math">\(B={b_k}\)</span> as such,</p>
+<div class="math">
+\[b_k = Ra_k\tilde{R}\]</div>
+<p><span class="math">\(R\)</span> is given by</p>
+<div class="math">
+\[R= \frac{1+a_kb_k}{|1+a_kb_k|}\]</div>
+<p>So, if you want to convert from a rotation matrix into a rotor, start by
+converting the matrix <code class="docutils literal"><span class="pre">M</span></code> into a frame <span class="math">\(B\)</span>. (You could do this
+with loop if you want.)</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">B</span> <span class="o">=</span> <span class="p">[</span><span class="n">M</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">e1</span> <span class="o">+</span> <span class="n">M</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">e2</span> <span class="o">+</span> <span class="n">M</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">e3</span><span class="p">,</span>
+     <span class="n">M</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">e1</span> <span class="o">+</span> <span class="n">M</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">e2</span> <span class="o">+</span> <span class="n">M</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">e3</span><span class="p">,</span>
+     <span class="n">M</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="n">e1</span> <span class="o">+</span> <span class="n">M</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="n">e2</span> <span class="o">+</span> <span class="n">M</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="n">e3</span><span class="p">]</span>
+<span class="n">B</span>
+</pre></div>
+</div>
+</div>
+<p>Then implement the formula</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">A</span> <span class="o">=</span> <span class="p">[</span><span class="n">e1</span><span class="p">,</span><span class="n">e2</span><span class="p">,</span><span class="n">e3</span><span class="p">]</span>
+<span class="n">R</span> <span class="o">=</span> <span class="mi">1</span><span class="o">+</span><span class="nb">sum</span><span class="p">([</span><span class="n">A</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">*</span><span class="n">B</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)])</span>
+<span class="n">R</span> <span class="o">=</span> <span class="n">R</span><span class="o">/</span><span class="nb">abs</span><span class="p">(</span><span class="n">R</span><span class="p">)</span>
+
+<span class="n">R</span>
+</pre></div>
+</div>
+</div>
+<p>blam.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ConformalGeometricAlgebra.html" class="btn btn-neutral float-right" title="Conformal Geometric Algebra" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="TheAlgebraOfSpaceG3.html" class="btn btn-neutral" title="The Algebra Of Space (G3)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Robert Kern and the Clifford Team.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.82',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: ''
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

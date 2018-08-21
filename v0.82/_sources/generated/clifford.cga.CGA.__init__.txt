@@ -1,0 +1,6 @@
+clifford.cga.CGA.__init__
+=========================
+
+.. currentmodule:: clifford.cga
+
+.. automethod:: CGA.__init__

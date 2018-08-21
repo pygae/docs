@@ -1,0 +1,6 @@
+clifford.tools.mat2Frame
+========================
+
+.. currentmodule:: clifford.tools
+
+.. autofunction:: mat2Frame

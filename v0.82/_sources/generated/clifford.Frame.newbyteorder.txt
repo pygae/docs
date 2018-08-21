@@ -1,0 +1,6 @@
+clifford.Frame.newbyteorder
+===========================
+
+.. currentmodule:: clifford
+
+.. automethod:: Frame.newbyteorder

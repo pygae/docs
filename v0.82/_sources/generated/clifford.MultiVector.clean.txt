@@ -1,0 +1,6 @@
+clifford.MultiVector.clean
+==========================
+
+.. currentmodule:: clifford
+
+.. automethod:: MultiVector.clean

@@ -1,0 +1,6 @@
+clifford.Frame.ravel
+====================
+
+.. currentmodule:: clifford
+
+.. automethod:: Frame.ravel

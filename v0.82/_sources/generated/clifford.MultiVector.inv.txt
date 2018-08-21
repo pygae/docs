@@ -1,0 +1,6 @@
+clifford.MultiVector.inv
+========================
+
+.. currentmodule:: clifford
+
+.. automethod:: MultiVector.inv

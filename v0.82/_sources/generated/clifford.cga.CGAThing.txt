@@ -1,0 +1,26 @@
+clifford.cga.CGAThing
+=====================
+
+.. currentmodule:: clifford.cga
+
+.. autoclass:: CGAThing
+  :no-members:
+
+
+
+
+
+
+
+.. rubric:: Methods
+
+.. autosummary::
+  :toctree:
+  :nosignatures:
+
+  ~CGAThing.inverted
+  ~CGAThing.involuted
+
+
+
+

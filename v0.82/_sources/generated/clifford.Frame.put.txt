@@ -1,0 +1,6 @@
+clifford.Frame.put
+==================
+
+.. currentmodule:: clifford
+
+.. automethod:: Frame.put

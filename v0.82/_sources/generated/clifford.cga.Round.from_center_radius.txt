@@ -1,0 +1,6 @@
+clifford.cga.Round.from_center_radius
+=====================================
+
+.. currentmodule:: clifford.cga
+
+.. automethod:: Round.from_center_radius

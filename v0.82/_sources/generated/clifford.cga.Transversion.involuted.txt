@@ -1,0 +1,6 @@
+clifford.cga.Transversion.involuted
+===================================
+
+.. currentmodule:: clifford.cga
+
+.. automethod:: Transversion.involuted

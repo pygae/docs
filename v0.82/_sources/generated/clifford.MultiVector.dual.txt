@@ -1,0 +1,6 @@
+clifford.MultiVector.dual
+=========================
+
+.. currentmodule:: clifford
+
+.. automethod:: MultiVector.dual

@@ -1,0 +1,45 @@
+clifford.tools.g3
+=================
+
+.. automodule:: clifford.tools.g3
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      Cl
+      GA_SVD
+      angle_between_vectors
+      conformalize
+      correlation_matrix
+      down
+      euc_cross_prod
+      euc_mv_to_np
+      generate_rotation_rotor
+      homo
+      np_to_euc_mv
+      quaternion_to_matrix
+      quaternion_to_rotor
+      random_euc_mv
+      random_rotation_rotor
+      random_unit_vector
+      rotation_matrix_align_vecs
+      rotation_matrix_to_quaternion
+      rotation_matrix_to_rotor
+      rotor_align_vecs
+      rotor_to_quaternion
+      rotor_to_rotation_matrix
+      rotor_vector_to_vector
+      up
+   
+   
+
+   
+   
+   
+
+   
+   
+   

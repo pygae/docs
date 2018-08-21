@@ -1,0 +1,427 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>clifford.MultiVector &mdash; Clifford 0.82 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="next" title="clifford.MultiVector.I" href="clifford.MultiVector.I.html" />
+    <link rel="prev" title="clifford (clifford)" href="../clifford.html" />
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-85010051-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Clifford
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.82
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials.html">Tutorials</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../clifford.html">clifford (<code class="docutils literal"><span class="pre">clifford</span></code>)</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../clifford.html#classes">Classes</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">clifford.MultiVector</a></li>
+<li class="toctree-l4"><a class="reference internal" href="clifford.Layout.html">clifford.Layout</a></li>
+<li class="toctree-l4"><a class="reference internal" href="clifford.Frame.html">clifford.Frame</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../clifford.html#functions">Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../cga.html">cga (<code class="docutils literal"><span class="pre">clifford.cga</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tools.html">tools (<code class="docutils literal"><span class="pre">clifford.tools</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../issues_and_changelog.html">Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../issues_and_changelog.html#changelog">ChangeLog</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Clifford</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../api.html">API</a> &raquo;</li>
+        
+          <li><a href="../clifford.html">clifford (<code class="docutils literal"><span class="pre">clifford</span></code>)</a> &raquo;</li>
+        
+      <li>clifford.MultiVector</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/generated/clifford.MultiVector.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+</style>
+<div class="section" id="clifford-multivector">
+<h1>clifford.MultiVector<a class="headerlink" href="#clifford-multivector" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="clifford.MultiVector">
+<em class="property">class </em><code class="descclassname">clifford.</code><code class="descname">MultiVector</code><span class="sig-paren">(</span><em>layout</em>, <em>value=None</em>, <em>string=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/clifford.html#MultiVector"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#clifford.MultiVector" title="Permalink to this definition">¶</a></dt>
+<dd><p>An  element of the algebra</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>layout</strong> (instance of <cite>clifford.Layout</cite>) &#8211; the layout of the algebra</li>
+<li><strong>value</strong> (<em>sequence of length layout.gaDims</em>) &#8211; the coefficients of the base blades</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>The following operators are overloaded as follows:</p>
+<ul>
+<li><ul class="first simple">
+<li>: geometric product</li>
+</ul>
+</li>
+<li><p class="first">^ : outer product</p>
+</li>
+<li><div class="first line-block">
+<div class="line">: inner product</div>
+</div>
+</li>
+<li><p class="first">~ : reversion</p>
+</li>
+<li><p class="first">||: abs value, this is  sqrt(abs(~M*M))</p>
+</li>
+</ul>
+<p>sequence method</p>
+<ul class="simple">
+<li>M(N) : grade or subspace projection</li>
+<li>M[N] : blade projection</li>
+</ul>
+</dd></dl>
+
+<p class="rubric">Attributes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="clifford.MultiVector.I.html#clifford.MultiVector.I" title="clifford.MultiVector.I"><code class="xref py py-obj docutils literal"><span class="pre">I</span></code></a></td>
+<td>Returns a MultiVector that is the pseudoscalar of this space.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.MultiVector.blades_list.html#clifford.MultiVector.blades_list" title="clifford.MultiVector.blades_list"><code class="xref py py-obj docutils literal"><span class="pre">blades_list</span></code></a></td>
+<td>ordered list of blades present in this MV</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.MultiVector.even.html#clifford.MultiVector.even" title="clifford.MultiVector.even"><code class="xref py py-obj docutils literal"><span class="pre">even</span></code></a></td>
+<td>Even part of this mulivector</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.MultiVector.odd.html#clifford.MultiVector.odd" title="clifford.MultiVector.odd"><code class="xref py py-obj docutils literal"><span class="pre">odd</span></code></a></td>
+<td>Odd part of this mulivector</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.MultiVector.pseudoScalar.html#clifford.MultiVector.pseudoScalar" title="clifford.MultiVector.pseudoScalar"><code class="xref py py-obj docutils literal"><span class="pre">pseudoScalar</span></code></a></td>
+<td>Returns a MultiVector that is the pseudoscalar of this space.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="clifford.MultiVector.__init__.html#clifford.MultiVector.__init__" title="clifford.MultiVector.__init__"><code class="xref py py-obj docutils literal"><span class="pre">__init__</span></code></a></td>
+<td>Constructor.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.MultiVector.adjoint.html#clifford.MultiVector.adjoint" title="clifford.MultiVector.adjoint"><code class="xref py py-obj docutils literal"><span class="pre">adjoint</span></code></a></td>
+<td>Adjoint / reversion</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.MultiVector.anticommutator.html#clifford.MultiVector.anticommutator" title="clifford.MultiVector.anticommutator"><code class="xref py py-obj docutils literal"><span class="pre">anticommutator</span></code></a></td>
+<td>Returns the anti-commutator product of two multivectors.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.MultiVector.basis.html#clifford.MultiVector.basis" title="clifford.MultiVector.basis"><code class="xref py py-obj docutils literal"><span class="pre">basis</span></code></a></td>
+<td>Finds a vector basis of this subspace.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.MultiVector.clean.html#clifford.MultiVector.clean" title="clifford.MultiVector.clean"><code class="xref py py-obj docutils literal"><span class="pre">clean</span></code></a></td>
+<td>Sets coefficients whose absolute value is &lt; eps to exactly 0.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.MultiVector.commutator.html#clifford.MultiVector.commutator" title="clifford.MultiVector.commutator"><code class="xref py py-obj docutils literal"><span class="pre">commutator</span></code></a></td>
+<td>Returns the commutator product of two multivectors.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.MultiVector.conjugate.html#clifford.MultiVector.conjugate" title="clifford.MultiVector.conjugate"><code class="xref py py-obj docutils literal"><span class="pre">conjugate</span></code></a></td>
+<td>Returns the Clifford conjugate (reversion and grade involution).</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.MultiVector.dual.html#clifford.MultiVector.dual" title="clifford.MultiVector.dual"><code class="xref py py-obj docutils literal"><span class="pre">dual</span></code></a></td>
+<td>Returns the dual of the multivector against the given subspace I.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.MultiVector.gradeInvol.html#clifford.MultiVector.gradeInvol" title="clifford.MultiVector.gradeInvol"><code class="xref py py-obj docutils literal"><span class="pre">gradeInvol</span></code></a></td>
+<td>Returns the grade involution of the multivector.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.MultiVector.grades.html#clifford.MultiVector.grades" title="clifford.MultiVector.grades"><code class="xref py py-obj docutils literal"><span class="pre">grades</span></code></a></td>
+<td>Return the grades contained in the multivector.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.MultiVector.inv.html#clifford.MultiVector.inv" title="clifford.MultiVector.inv"><code class="xref py py-obj docutils literal"><span class="pre">inv</span></code></a></td>
+<td>Return right-inverse using a computational linear algebra method proposed by Christian Perwass.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.MultiVector.invPS.html#clifford.MultiVector.invPS" title="clifford.MultiVector.invPS"><code class="xref py py-obj docutils literal"><span class="pre">invPS</span></code></a></td>
+<td>Returns the inverse of the pseudoscalar of the algebra.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.MultiVector.isBlade.html#clifford.MultiVector.isBlade" title="clifford.MultiVector.isBlade"><code class="xref py py-obj docutils literal"><span class="pre">isBlade</span></code></a></td>
+<td>Returns true if multivector is a blade.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.MultiVector.isScalar.html#clifford.MultiVector.isScalar" title="clifford.MultiVector.isScalar"><code class="xref py py-obj docutils literal"><span class="pre">isScalar</span></code></a></td>
+<td>Returns true iff self is a scalar.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.MultiVector.join.html#clifford.MultiVector.join" title="clifford.MultiVector.join"><code class="xref py py-obj docutils literal"><span class="pre">join</span></code></a></td>
+<td>Returns the join of two blades.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.MultiVector.lc.html#clifford.MultiVector.lc" title="clifford.MultiVector.lc"><code class="xref py py-obj docutils literal"><span class="pre">lc</span></code></a></td>
+<td>Returns the left-contraction of two multivectors.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.MultiVector.leftInv.html#clifford.MultiVector.leftInv" title="clifford.MultiVector.leftInv"><code class="xref py py-obj docutils literal"><span class="pre">leftInv</span></code></a></td>
+<td>Return left-inverse using a computational linear algebra method proposed by Christian Perwass.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.MultiVector.leftLaInv.html#clifford.MultiVector.leftLaInv" title="clifford.MultiVector.leftLaInv"><code class="xref py py-obj docutils literal"><span class="pre">leftLaInv</span></code></a></td>
+<td>Return left-inverse using a computational linear algebra method proposed by Christian Perwass.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.MultiVector.mag2.html#clifford.MultiVector.mag2" title="clifford.MultiVector.mag2"><code class="xref py py-obj docutils literal"><span class="pre">mag2</span></code></a></td>
+<td>Magnitude (modulus) squared</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.MultiVector.meet.html#clifford.MultiVector.meet" title="clifford.MultiVector.meet"><code class="xref py py-obj docutils literal"><span class="pre">meet</span></code></a></td>
+<td>Returns the meet of two blades.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.MultiVector.normal.html#clifford.MultiVector.normal" title="clifford.MultiVector.normal"><code class="xref py py-obj docutils literal"><span class="pre">normal</span></code></a></td>
+<td>Return the (mostly) normalized multivector.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.MultiVector.normalInv.html#clifford.MultiVector.normalInv" title="clifford.MultiVector.normalInv"><code class="xref py py-obj docutils literal"><span class="pre">normalInv</span></code></a></td>
+<td>Returns the inverse of itself if M*~M == <a href="#id1"><span class="problematic" id="id2">|</span></a>M|**2.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.MultiVector.project.html#clifford.MultiVector.project" title="clifford.MultiVector.project"><code class="xref py py-obj docutils literal"><span class="pre">project</span></code></a></td>
+<td>Projects the multivector onto the subspace represented by this blade.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.MultiVector.rightInv.html#clifford.MultiVector.rightInv" title="clifford.MultiVector.rightInv"><code class="xref py py-obj docutils literal"><span class="pre">rightInv</span></code></a></td>
+<td>Return right-inverse using a computational linear algebra method proposed by Christian Perwass.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.MultiVector.rightLaInv.html#clifford.MultiVector.rightLaInv" title="clifford.MultiVector.rightLaInv"><code class="xref py py-obj docutils literal"><span class="pre">rightLaInv</span></code></a></td>
+<td>Return right-inverse using a computational linear algebra method proposed by Christian Perwass.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.MultiVector.round.html#clifford.MultiVector.round" title="clifford.MultiVector.round"><code class="xref py py-obj docutils literal"><span class="pre">round</span></code></a></td>
+<td>Rounds all coefficients according to Python&#8217;s rounding rules.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.MultiVector.x.html#clifford.MultiVector.x" title="clifford.MultiVector.x"><code class="xref py py-obj docutils literal"><span class="pre">x</span></code></a></td>
+<td>Returns the commutator product of two multivectors.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="clifford.MultiVector.I.html" class="btn btn-neutral float-right" title="clifford.MultiVector.I" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../clifford.html" class="btn btn-neutral" title="clifford (clifford)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Robert Kern and the Clifford Team.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.82',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: ''
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

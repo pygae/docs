@@ -1,0 +1,6 @@
+clifford.Frame.sum
+==================
+
+.. currentmodule:: clifford
+
+.. automethod:: Frame.sum

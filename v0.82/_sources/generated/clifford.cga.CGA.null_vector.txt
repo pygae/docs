@@ -1,0 +1,6 @@
+clifford.cga.CGA.null_vector
+============================
+
+.. currentmodule:: clifford.cga
+
+.. automethod:: CGA.null_vector

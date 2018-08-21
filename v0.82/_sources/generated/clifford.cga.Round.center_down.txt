@@ -1,0 +1,6 @@
+clifford.cga.Round.center_down
+==============================
+
+.. currentmodule:: clifford.cga
+
+.. autoattribute:: Round.center_down

@@ -1,0 +1,6 @@
+clifford.tools.g3c.meet
+=======================
+
+.. currentmodule:: clifford.tools.g3c
+
+.. autofunction:: meet

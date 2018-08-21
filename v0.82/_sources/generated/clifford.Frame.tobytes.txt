@@ -1,0 +1,6 @@
+clifford.Frame.tobytes
+======================
+
+.. currentmodule:: clifford
+
+.. automethod:: Frame.tobytes

@@ -1,0 +1,6 @@
+clifford.Frame.searchsorted
+===========================
+
+.. currentmodule:: clifford
+
+.. automethod:: Frame.searchsorted

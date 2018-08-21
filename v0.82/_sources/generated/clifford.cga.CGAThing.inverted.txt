@@ -1,0 +1,6 @@
+clifford.cga.CGAThing.inverted
+==============================
+
+.. currentmodule:: clifford.cga
+
+.. automethod:: CGAThing.inverted

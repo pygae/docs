@@ -1,0 +1,6 @@
+clifford.cga.Translation.inverted
+=================================
+
+.. currentmodule:: clifford.cga
+
+.. automethod:: Translation.inverted

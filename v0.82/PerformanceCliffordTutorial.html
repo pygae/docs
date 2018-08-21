@@ -1,0 +1,1002 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Writing high(ish) performance code with Clifford and Numba via Numpy &mdash; Clifford 0.82 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="next" title="Example 1 Interpolating Conformal Objects" href="Example 1 Interpolating Conformal Objects.html" />
+    <link rel="prev" title="Predefined Geometric Algebras" href="PredefinedGAs.html" />
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-85010051-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Clifford
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.82
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="tutorials.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="QuickStartG2.html">Quick Start (G2)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TheAlgebraOfSpaceG3.html">The Algebra Of Space (G3)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EulerAngles.html">Rotations in Space: Euler Angles, Matrices, and Quaternions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ConformalGeometricAlgebra.html">Conformal Geometric Algebra</a></li>
+<li class="toctree-l2"><a class="reference internal" href="SpaceTimeAlgebra.html">Space Time Algebra</a></li>
+<li class="toctree-l2"><a class="reference internal" href="InterfacingOtherMathSystems.html">Interfacing Other Mathematical Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PredefinedGAs.html">Predefined Geometric Algebras</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Writing high(ish) performance code with Clifford and Numba via Numpy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#First-import-the-Clifford-library-as-well-as-numpy-and-numba">First import the Clifford library as well as numpy and numba</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Choose-a-specific-space">Choose a specific space</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Performance-of-mathematically-iodmatic-Clifford-algorithms">Performance of mathematically iodmatic Clifford algorithms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Canonical-blade-coeficient-representation-in-Clifford">Canonical blade coeficient representation in Clifford</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Exploiting-blade-representation-to-write-a-fast-function">Exploiting blade representation to write a fast function</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Composing-larger-functions">Composing larger functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Algorithms-exploiting-known-sparseness-of-MultiVector-value-array">Algorithms exploiting known sparseness of MultiVector value array</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Future-work-on-performance">Future work on performance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Example 1 Interpolating Conformal Objects.html">Example 1 Interpolating Conformal Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Example 2 Clustering Geometric Objects.html">Example 2 Clustering Geometric Objects</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Clifford</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="tutorials.html">Tutorials</a> &raquo;</li>
+        
+      <li>Writing high(ish) performance code with Clifford and Numba via Numpy</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/PerformanceCliffordTutorial.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #303F9F;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #D84315;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 8ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #cfcfcf;
+    border-radius: 2px;
+    background: #f7f7f7;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.pngmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+</style>
+<div class="section" id="Writing-high(ish)-performance-code-with-Clifford-and-Numba-via-Numpy">
+<h1>Writing high(ish) performance code with Clifford and Numba via Numpy<a class="headerlink" href="#Writing-high(ish)-performance-code-with-Clifford-and-Numba-via-Numpy" title="Permalink to this headline">¶</a></h1>
+<p>This document describes how to take algorithms developed in the clifford
+package with notation that is close to the maths and convert it into
+numerically efficient and fast running code. To do this we will expose
+the underlying representation of multivector as a numpy array of
+canonical basis vector coeficients and operate directly on these arrays
+in a manner that is conducive to JIT compilation with numba.</p>
+<div class="section" id="First-import-the-Clifford-library-as-well-as-numpy-and-numba">
+<h2>First import the Clifford library as well as numpy and numba<a class="headerlink" href="#First-import-the-Clifford-library-as-well-as-numpy-and-numba" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">clifford</span> <span class="kn">as</span> <span class="nn">cf</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">numba</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Choose-a-specific-space">
+<h2>Choose a specific space<a class="headerlink" href="#Choose-a-specific-space" title="Permalink to this headline">¶</a></h2>
+<p>For this document we will use 3d euclidean space embedded in the
+conformal framework giving a Cl(4,1) algebra. We will also rename some
+of the variables to match the notation that used by Lasenby et al. in &#8220;A
+Covariant Approach to Geometry using Geometric Algebra&#8221;</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">clifford</span> <span class="kn">import</span> <span class="n">g3c</span>
+<span class="c1"># Get the layout in our local namespace etc etc</span>
+<span class="n">layout</span> <span class="o">=</span> <span class="n">g3c</span><span class="o">.</span><span class="n">layout</span>
+<span class="nb">locals</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">g3c</span><span class="o">.</span><span class="n">blades</span><span class="p">)</span>
+
+<span class="n">ep</span><span class="p">,</span> <span class="n">en</span><span class="p">,</span> <span class="n">up</span><span class="p">,</span> <span class="n">down</span><span class="p">,</span> <span class="n">homo</span><span class="p">,</span> <span class="n">E0</span><span class="p">,</span> <span class="n">ninf</span><span class="p">,</span> <span class="n">no</span> <span class="o">=</span> <span class="p">(</span><span class="n">g3c</span><span class="o">.</span><span class="n">stuff</span><span class="p">[</span><span class="s2">&quot;ep&quot;</span><span class="p">],</span> <span class="n">g3c</span><span class="o">.</span><span class="n">stuff</span><span class="p">[</span><span class="s2">&quot;en&quot;</span><span class="p">],</span>
+                                        <span class="n">g3c</span><span class="o">.</span><span class="n">stuff</span><span class="p">[</span><span class="s2">&quot;up&quot;</span><span class="p">],</span> <span class="n">g3c</span><span class="o">.</span><span class="n">stuff</span><span class="p">[</span><span class="s2">&quot;down&quot;</span><span class="p">],</span> <span class="n">g3c</span><span class="o">.</span><span class="n">stuff</span><span class="p">[</span><span class="s2">&quot;homo&quot;</span><span class="p">],</span>
+                                        <span class="n">g3c</span><span class="o">.</span><span class="n">stuff</span><span class="p">[</span><span class="s2">&quot;E0&quot;</span><span class="p">],</span> <span class="n">g3c</span><span class="o">.</span><span class="n">stuff</span><span class="p">[</span><span class="s2">&quot;einf&quot;</span><span class="p">],</span> <span class="o">-</span><span class="n">g3c</span><span class="o">.</span><span class="n">stuff</span><span class="p">[</span><span class="s2">&quot;eo&quot;</span><span class="p">])</span>
+<span class="c1"># Define a few useful terms</span>
+<span class="n">E</span> <span class="o">=</span> <span class="n">ninf</span><span class="o">^</span><span class="p">(</span><span class="n">no</span><span class="p">)</span>
+<span class="n">I5</span> <span class="o">=</span> <span class="n">e12345</span>
+<span class="n">I3</span> <span class="o">=</span> <span class="n">e123</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Performance-of-mathematically-iodmatic-Clifford-algorithms">
+<h2>Performance of mathematically iodmatic Clifford algorithms<a class="headerlink" href="#Performance-of-mathematically-iodmatic-Clifford-algorithms" title="Permalink to this headline">¶</a></h2>
+<p>By default the Clifford library sacrifices performance for syntactic
+convenience.</p>
+<p>Consider a function that applies a rotor to a multivector:</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">apply_rotor</span><span class="p">(</span><span class="n">R</span><span class="p">,</span><span class="n">mv</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">R</span><span class="o">*</span><span class="n">mv</span><span class="o">*~</span><span class="n">R</span>
+</pre></div>
+</div>
+</div>
+<p>We will define a rotor that takes one line to another:</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">line_one</span> <span class="o">=</span> <span class="p">(</span><span class="n">up</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">^</span><span class="n">up</span><span class="p">(</span><span class="n">e1</span><span class="p">)</span><span class="o">^</span><span class="n">ninf</span><span class="p">)</span><span class="o">.</span><span class="n">normal</span><span class="p">()</span>
+<span class="n">line_two</span> <span class="o">=</span> <span class="p">(</span><span class="n">up</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">^</span><span class="n">up</span><span class="p">(</span><span class="n">e2</span><span class="p">)</span><span class="o">^</span><span class="n">ninf</span><span class="p">)</span><span class="o">.</span><span class="n">normal</span><span class="p">()</span>
+<span class="n">R</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">line_two</span><span class="o">*</span><span class="n">line_one</span>
+</pre></div>
+</div>
+</div>
+<p>Check that this works</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="k">print</span><span class="p">(</span><span class="n">line_two</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">apply_rotor</span><span class="p">(</span><span class="n">R</span><span class="p">,</span><span class="n">line_one</span><span class="p">)</span><span class="o">.</span><span class="n">normal</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<p>We would like to improve the speed of our algorithm, first we will
+profile it and see where it spends its time</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#%%prun -s cumtime</span>
+<span class="c1">#for i in range(1000000):</span>
+<span class="c1">#    apply_rotor(R,line_one)</span>
+</pre></div>
+</div>
+</div>
+<p>An example profile output from running this notebook on the author&#8217;s
+laptop is as follows:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span> <span class="n">ncalls</span>  <span class="n">tottime</span>  <span class="n">percall</span>  <span class="n">cumtime</span>  <span class="n">percall</span> <span class="n">filename</span><span class="p">:</span><span class="n">lineno</span><span class="p">(</span><span class="n">function</span><span class="p">)</span>
+      <span class="mi">1</span>    <span class="mf">0.000</span>    <span class="mf">0.000</span>   <span class="mf">66.290</span>   <span class="mf">66.290</span> <span class="p">{</span><span class="n">built</span><span class="o">-</span><span class="ow">in</span> <span class="n">method</span> <span class="n">builtins</span><span class="o">.</span><span class="n">exec</span><span class="p">}</span>
+      <span class="mi">1</span>    <span class="mf">0.757</span>    <span class="mf">0.757</span>   <span class="mf">66.290</span>   <span class="mf">66.290</span> <span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">:</span><span class="mi">2</span><span class="p">(</span><span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span><span class="p">)</span>
+<span class="mi">1000000</span>    <span class="mf">3.818</span>    <span class="mf">0.000</span>   <span class="mf">65.534</span>    <span class="mf">0.000</span> <span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">13</span><span class="o">-</span><span class="mi">70</span><span class="n">a01003bf51</span><span class="o">&gt;</span><span class="p">:</span><span class="mi">1</span><span class="p">(</span><span class="n">apply_rotor</span><span class="p">)</span>
+<span class="mi">2000000</span>    <span class="mf">9.269</span>    <span class="mf">0.000</span>   <span class="mf">55.641</span>    <span class="mf">0.000</span> <span class="n">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">751</span><span class="p">(</span><span class="n">__mul__</span><span class="p">)</span>
+<span class="mi">2000000</span>    <span class="mf">3.167</span>    <span class="mf">0.000</span>   <span class="mf">29.900</span>    <span class="mf">0.000</span> <span class="n">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">717</span><span class="p">(</span><span class="n">_checkOther</span><span class="p">)</span>
+<span class="mi">2000000</span>    <span class="mf">1.371</span>    <span class="mf">0.000</span>   <span class="mf">19.906</span>    <span class="mf">0.000</span> <span class="n">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">420</span><span class="p">(</span><span class="n">__ne__</span><span class="p">)</span>
+<span class="mi">2000000</span>    <span class="mf">6.000</span>    <span class="mf">0.000</span>   <span class="mf">18.535</span>    <span class="mf">0.000</span> <span class="n">numeric</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">2565</span><span class="p">(</span><span class="n">array_equal</span><span class="p">)</span>
+<span class="mi">2000000</span>   <span class="mf">10.505</span>    <span class="mf">0.000</span>   <span class="mf">10.505</span>    <span class="mf">0.000</span> <span class="n">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">260</span><span class="p">(</span><span class="n">mv_mult</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We can see that the function spends almost all of its time in
+<code class="docutils literal"><span class="pre">__mul__</span></code> and within <code class="docutils literal"><span class="pre">__mul__</span></code> it spends most of its time in
+<code class="docutils literal"><span class="pre">_checkOther</span></code>. In fact it only spends a small fraction of its time in
+<code class="docutils literal"><span class="pre">mv_mult</span></code> which does the numerical multivector multiplication. To
+write more performant code we need to strip away the high level
+abstractions and deal with the underlying representations of the blade
+component data.</p>
+</div>
+<div class="section" id="Canonical-blade-coeficient-representation-in-Clifford">
+<h2>Canonical blade coeficient representation in Clifford<a class="headerlink" href="#Canonical-blade-coeficient-representation-in-Clifford" title="Permalink to this headline">¶</a></h2>
+<p>In Clifford a multivector is internally represented as a numpy array of
+the coefficients of the canonical basis vectors, they are arranged in
+order of grade. So for our 4,1 algebra the first element is the scalar
+part, the next 5 are the vector coeficients, the next 10 are the
+bivectors, the next 10 the triectors, the next 5 the quadvectors and the
+final value is the pseudoscalar coefficient.</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="p">(</span><span class="mf">5.0</span><span class="o">*</span><span class="n">e1</span> <span class="o">-</span> <span class="n">e2</span> <span class="o">+</span> <span class="n">e12</span> <span class="o">+</span> <span class="n">e135</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">e1234</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Exploiting-blade-representation-to-write-a-fast-function">
+<h2>Exploiting blade representation to write a fast function<a class="headerlink" href="#Exploiting-blade-representation-to-write-a-fast-function" title="Permalink to this headline">¶</a></h2>
+<p>We can rewrite our rotor application function using the functions that
+the layout exposes for operations on the numpy arrays themselves.</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">apply_rotor_faster</span><span class="p">(</span><span class="n">R</span><span class="p">,</span><span class="n">mv</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">cf</span><span class="o">.</span><span class="n">MultiVector</span><span class="p">(</span> <span class="n">layout</span><span class="p">,</span> <span class="n">layout</span><span class="o">.</span><span class="n">gmt_func</span><span class="p">(</span><span class="n">R</span><span class="o">.</span><span class="n">value</span><span class="p">,</span><span class="n">layout</span><span class="o">.</span><span class="n">gmt_func</span><span class="p">(</span><span class="n">mv</span><span class="o">.</span><span class="n">value</span><span class="p">,</span><span class="n">layout</span><span class="o">.</span><span class="n">adjoint_func</span><span class="p">(</span><span class="n">R</span><span class="o">.</span><span class="n">value</span><span class="p">)))</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#%%prun -s cumtime</span>
+<span class="c1">#for i in range(1000000):</span>
+<span class="c1">#    apply_rotor_faster(R,line_one)</span>
+</pre></div>
+</div>
+</div>
+<p>This gives a much faster function</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span> <span class="n">ncalls</span>  <span class="n">tottime</span>  <span class="n">percall</span>  <span class="n">cumtime</span>  <span class="n">percall</span> <span class="n">filename</span><span class="p">:</span><span class="n">lineno</span><span class="p">(</span><span class="n">function</span><span class="p">)</span>
+      <span class="mi">1</span>    <span class="mf">0.000</span>    <span class="mf">0.000</span>   <span class="mf">19.567</span>   <span class="mf">19.567</span> <span class="p">{</span><span class="n">built</span><span class="o">-</span><span class="ow">in</span> <span class="n">method</span> <span class="n">builtins</span><span class="o">.</span><span class="n">exec</span><span class="p">}</span>
+      <span class="mi">1</span>    <span class="mf">0.631</span>    <span class="mf">0.631</span>   <span class="mf">19.567</span>   <span class="mf">19.567</span> <span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">:</span><span class="mi">2</span><span class="p">(</span><span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span><span class="p">)</span>
+<span class="mi">1000000</span>    <span class="mf">7.373</span>    <span class="mf">0.000</span>   <span class="mf">18.936</span>    <span class="mf">0.000</span> <span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">35</span><span class="o">-</span><span class="mi">6</span><span class="n">a5344d83bdb</span><span class="o">&gt;</span><span class="p">:</span><span class="mi">1</span><span class="p">(</span><span class="n">apply_rotor_faster</span><span class="p">)</span>
+<span class="mi">2000000</span>    <span class="mf">9.125</span>    <span class="mf">0.000</span>    <span class="mf">9.125</span>    <span class="mf">0.000</span> <span class="n">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">260</span><span class="p">(</span><span class="n">mv_mult</span><span class="p">)</span>
+<span class="mi">1000000</span>    <span class="mf">1.021</span>    <span class="mf">0.000</span>    <span class="mf">1.619</span>    <span class="mf">0.000</span> <span class="n">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">677</span><span class="p">(</span><span class="n">__init__</span><span class="p">)</span>
+<span class="mi">1000000</span>    <span class="mf">0.819</span>    <span class="mf">0.000</span>    <span class="mf">0.819</span>    <span class="mf">0.000</span> <span class="n">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">244</span><span class="p">(</span><span class="n">adjoint_func</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We have successfully skipped past the higher level checks on the
+multivectors while maintaining extactly the same function signature. It
+is important to check that we still have the correct answer:</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="k">print</span><span class="p">(</span><span class="n">line_two</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">apply_rotor_faster</span><span class="p">(</span><span class="n">R</span><span class="p">,</span><span class="n">line_one</span><span class="p">)</span><span class="o">.</span><span class="n">normal</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<p>The performance improvements gained by rewriting our function are
+significant but it comes at the cost of readibility.</p>
+<p>By loading the layouts gmt_func and adjoint_func into the global
+namespace before the function is defined and separating the value
+operations from the multivector wrapper we can make our code more
+concise.</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">gmt_func</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">gmt_func</span>
+<span class="n">adjoint_func</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">adjoint_func</span>
+
+<span class="k">def</span> <span class="nf">apply_rotor_val</span><span class="p">(</span><span class="n">R_val</span><span class="p">,</span><span class="n">mv_val</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">gmt_func</span><span class="p">(</span><span class="n">R_val</span><span class="p">,</span><span class="n">gmt_func</span><span class="p">(</span><span class="n">mv_val</span><span class="p">,</span><span class="n">adjoint_func</span><span class="p">(</span><span class="n">R_val</span><span class="p">)))</span>
+
+<span class="k">def</span> <span class="nf">apply_rotor_wrapped</span><span class="p">(</span><span class="n">R</span><span class="p">,</span><span class="n">mv</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">cf</span><span class="o">.</span><span class="n">MultiVector</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span><span class="n">apply_rotor_val</span><span class="p">(</span><span class="n">R</span><span class="o">.</span><span class="n">value</span><span class="p">,</span><span class="n">mv</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#%%prun -s cumtime</span>
+<span class="c1">#for i in range(1000000):</span>
+<span class="c1">#    apply_rotor_wrapped(R,line_one)</span>
+</pre></div>
+</div>
+</div>
+<p>The time cost is essentially the same, there is probably some minor
+overhead from the function call itself</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ncalls</span>  <span class="n">tottime</span>  <span class="n">percall</span>  <span class="n">cumtime</span>  <span class="n">percall</span> <span class="n">filename</span><span class="p">:</span><span class="n">lineno</span><span class="p">(</span><span class="n">function</span><span class="p">)</span>
+      <span class="mi">1</span>    <span class="mf">0.000</span>    <span class="mf">0.000</span>   <span class="mf">19.621</span>   <span class="mf">19.621</span> <span class="p">{</span><span class="n">built</span><span class="o">-</span><span class="ow">in</span> <span class="n">method</span> <span class="n">builtins</span><span class="o">.</span><span class="n">exec</span><span class="p">}</span>
+      <span class="mi">1</span>    <span class="mf">0.557</span>    <span class="mf">0.557</span>   <span class="mf">19.621</span>   <span class="mf">19.621</span> <span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">:</span><span class="mi">2</span><span class="p">(</span><span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span><span class="p">)</span>
+<span class="mi">1000000</span>    <span class="mf">1.421</span>    <span class="mf">0.000</span>   <span class="mf">19.064</span>    <span class="mf">0.000</span> <span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">38</span><span class="o">-</span><span class="n">a1e0b5c53cdc</span><span class="o">&gt;</span><span class="p">:</span><span class="mi">7</span><span class="p">(</span><span class="n">apply_rotor_wrapped</span><span class="p">)</span>
+<span class="mi">1000000</span>    <span class="mf">6.079</span>    <span class="mf">0.000</span>   <span class="mf">16.033</span>    <span class="mf">0.000</span> <span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">38</span><span class="o">-</span><span class="n">a1e0b5c53cdc</span><span class="o">&gt;</span><span class="p">:</span><span class="mi">4</span><span class="p">(</span><span class="n">apply_rotor_val</span><span class="p">)</span>
+<span class="mi">2000000</span>    <span class="mf">9.154</span>    <span class="mf">0.000</span>    <span class="mf">9.154</span>    <span class="mf">0.000</span> <span class="n">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">260</span><span class="p">(</span><span class="n">mv_mult</span><span class="p">)</span>
+<span class="mi">1000000</span>    <span class="mf">1.017</span>    <span class="mf">0.000</span>    <span class="mf">1.610</span>    <span class="mf">0.000</span> <span class="n">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">677</span><span class="p">(</span><span class="n">__init__</span><span class="p">)</span>
+<span class="mi">1000000</span>    <span class="mf">0.800</span>    <span class="mf">0.000</span>    <span class="mf">0.800</span>    <span class="mf">0.000</span> <span class="n">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">244</span><span class="p">(</span><span class="n">adjoint_func</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="k">print</span><span class="p">(</span><span class="n">line_two</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">apply_rotor_wrapped</span><span class="p">(</span><span class="n">R</span><span class="p">,</span><span class="n">line_one</span><span class="p">)</span><span class="o">.</span><span class="n">normal</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<p>The additional advantage of splitting the function like this is that the
+numba JIT compiler can reason about the memory layout of numpy arrays in
+no python mode as long as no pure python objects are operated upon
+within the function. This means we can JIT our function that operates on
+the value directly.</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="nd">@numba.njit</span>
+<span class="k">def</span> <span class="nf">apply_rotor_val_numba</span><span class="p">(</span><span class="n">R_val</span><span class="p">,</span><span class="n">mv_val</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">gmt_func</span><span class="p">(</span><span class="n">R_val</span><span class="p">,</span><span class="n">gmt_func</span><span class="p">(</span><span class="n">mv_val</span><span class="p">,</span><span class="n">adjoint_func</span><span class="p">(</span><span class="n">R_val</span><span class="p">)))</span>
+
+<span class="k">def</span> <span class="nf">apply_rotor_wrapped_numba</span><span class="p">(</span><span class="n">R</span><span class="p">,</span><span class="n">mv</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">cf</span><span class="o">.</span><span class="n">MultiVector</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span><span class="n">apply_rotor_val_numba</span><span class="p">(</span><span class="n">R</span><span class="o">.</span><span class="n">value</span><span class="p">,</span><span class="n">mv</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#%%prun -s cumtime</span>
+<span class="c1">#for i in range(1000000):</span>
+<span class="c1">#    apply_rotor_wrapped_numba(R,line_one)</span>
+</pre></div>
+</div>
+</div>
+<p>This gives a small improvement in performance but more importantly it
+allows us to write larger functions that also use the jitted
+<code class="docutils literal"><span class="pre">apply_rotor_val_numba</span></code> and are themselves jitted.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ncalls</span>  <span class="n">tottime</span>  <span class="n">percall</span>  <span class="n">cumtime</span>  <span class="n">percall</span> <span class="n">filename</span><span class="p">:</span><span class="n">lineno</span><span class="p">(</span><span class="n">function</span><span class="p">)</span>
+       <span class="mi">1</span>    <span class="mf">0.000</span>    <span class="mf">0.000</span>   <span class="mf">16.033</span>   <span class="mf">16.033</span> <span class="p">{</span><span class="n">built</span><span class="o">-</span><span class="ow">in</span> <span class="n">method</span> <span class="n">builtins</span><span class="o">.</span><span class="n">exec</span><span class="p">}</span>
+       <span class="mi">1</span>    <span class="mf">0.605</span>    <span class="mf">0.605</span>   <span class="mf">16.033</span>   <span class="mf">16.033</span> <span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">:</span><span class="mi">2</span><span class="p">(</span><span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span><span class="p">)</span>
+ <span class="mi">1000000</span>    <span class="mf">2.585</span>    <span class="mf">0.000</span>   <span class="mf">15.428</span>    <span class="mf">0.000</span> <span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">42</span><span class="o">-</span><span class="mi">1142126</span><span class="n">d93ca</span><span class="o">&gt;</span><span class="p">:</span><span class="mi">5</span><span class="p">(</span><span class="n">apply_rotor_wrapped_numba</span><span class="p">)</span>
+ <span class="mi">1000000</span>    <span class="mf">8.606</span>    <span class="mf">0.000</span>    <span class="mf">8.606</span>    <span class="mf">0.000</span> <span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">42</span><span class="o">-</span><span class="mi">1142126</span><span class="n">d93ca</span><span class="o">&gt;</span><span class="p">:</span><span class="mi">1</span><span class="p">(</span><span class="n">apply_rotor_val_numba</span><span class="p">)</span>
+       <span class="mi">1</span>    <span class="mf">0.000</span>    <span class="mf">0.000</span>    <span class="mf">2.716</span>    <span class="mf">2.716</span> <span class="n">dispatcher</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">294</span><span class="p">(</span><span class="n">_compile_for_args</span><span class="p">)</span>
+     <span class="mi">7</span><span class="o">/</span><span class="mi">1</span>    <span class="mf">0.000</span>    <span class="mf">0.000</span>    <span class="mf">2.716</span>    <span class="mf">2.716</span> <span class="n">dispatcher</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">554</span><span class="p">(</span><span class="nb">compile</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="Composing-larger-functions">
+<h2>Composing larger functions<a class="headerlink" href="#Composing-larger-functions" title="Permalink to this headline">¶</a></h2>
+<p>By chaining together functions that operate on the value arrays of
+multivectors it is easy to construct fast and readable code</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">I5_val</span> <span class="o">=</span> <span class="n">I5</span><span class="o">.</span><span class="n">value</span>
+<span class="n">omt_func</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">omt_func</span>
+
+<span class="k">def</span> <span class="nf">dual_mv</span><span class="p">(</span><span class="n">mv</span><span class="p">):</span>
+    <span class="k">return</span> <span class="o">-</span><span class="n">I5</span><span class="o">*</span><span class="n">mv</span>
+
+<span class="k">def</span> <span class="nf">meet_unwrapped</span><span class="p">(</span><span class="n">mv_a</span><span class="p">,</span><span class="n">mv_b</span><span class="p">):</span>
+    <span class="k">return</span> <span class="o">-</span><span class="n">dual_mv</span><span class="p">(</span><span class="n">dual_mv</span><span class="p">(</span><span class="n">mv_a</span><span class="p">)</span><span class="o">^</span><span class="n">dual_mv</span><span class="p">(</span><span class="n">mv_b</span><span class="p">))</span>
+
+<span class="nd">@numba.njit</span>
+<span class="k">def</span> <span class="nf">dual_val</span><span class="p">(</span><span class="n">mv_val</span><span class="p">):</span>
+    <span class="k">return</span> <span class="o">-</span><span class="n">gmt_func</span><span class="p">(</span><span class="n">I5_val</span><span class="p">,</span><span class="n">mv_val</span><span class="p">)</span>
+
+<span class="nd">@numba.njit</span>
+<span class="k">def</span> <span class="nf">meet_val</span><span class="p">(</span><span class="n">mv_a_val</span><span class="p">,</span><span class="n">mv_b_val</span><span class="p">):</span>
+    <span class="k">return</span> <span class="o">-</span><span class="n">dual_val</span><span class="p">(</span> <span class="n">omt_func</span><span class="p">(</span> <span class="n">dual_val</span><span class="p">(</span><span class="n">mv_a_val</span><span class="p">)</span> <span class="p">,</span> <span class="n">dual_val</span><span class="p">(</span><span class="n">mv_b_val</span><span class="p">))</span> <span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">meet_wrapped</span><span class="p">(</span><span class="n">mv_a</span><span class="p">,</span><span class="n">mv_b</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">cf</span><span class="o">.</span><span class="n">MultiVector</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">meet_val</span><span class="p">(</span><span class="n">mv_a</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">mv_b</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
+
+<span class="n">sphere</span> <span class="o">=</span> <span class="p">(</span><span class="n">up</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">^</span><span class="n">up</span><span class="p">(</span><span class="n">e1</span><span class="p">)</span><span class="o">^</span><span class="n">up</span><span class="p">(</span><span class="n">e2</span><span class="p">)</span><span class="o">^</span><span class="n">up</span><span class="p">(</span><span class="n">e3</span><span class="p">))</span><span class="o">.</span><span class="n">normal</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">sphere</span><span class="o">.</span><span class="n">meet</span><span class="p">(</span><span class="n">line_one</span><span class="p">)</span><span class="o">.</span><span class="n">normal</span><span class="p">()</span><span class="o">.</span><span class="n">normal</span><span class="p">())</span>
+<span class="k">print</span><span class="p">(</span><span class="n">meet_unwrapped</span><span class="p">(</span><span class="n">sphere</span><span class="p">,</span><span class="n">line_one</span><span class="p">)</span><span class="o">.</span><span class="n">normal</span><span class="p">())</span>
+<span class="k">print</span><span class="p">(</span><span class="n">meet_wrapped</span><span class="p">(</span><span class="n">line_one</span><span class="p">,</span><span class="n">sphere</span><span class="p">)</span><span class="o">.</span><span class="n">normal</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#%%prun -s cumtime</span>
+<span class="c1">#for i in range(100000):</span>
+<span class="c1">#    meet_unwrapped(sphere,line_one)</span>
+</pre></div>
+</div>
+</div>
+<p><code class="docutils literal"><span class="pre">ncalls</span>&#160; <span class="pre">tottime</span>&#160; <span class="pre">percall</span>&#160; <span class="pre">cumtime</span>&#160; <span class="pre">percall</span> <span class="pre">filename:lineno(function)</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">1</span>&#160;&#160;&#160; <span class="pre">0.000</span>&#160;&#160;&#160; <span class="pre">0.000</span>&#160;&#160; <span class="pre">13.216</span>&#160;&#160; <span class="pre">13.216</span> <span class="pre">{built-in</span> <span class="pre">method</span> <span class="pre">builtins.exec}</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">1</span>&#160;&#160;&#160; <span class="pre">0.085</span>&#160;&#160;&#160; <span class="pre">0.085</span>&#160;&#160; <span class="pre">13.216</span>&#160;&#160; <span class="pre">13.216</span> <span class="pre">&lt;string&gt;:2(&lt;module&gt;)</span>&#160;&#160;&#160; <span class="pre">100000</span>&#160;&#160;&#160; <span class="pre">0.418</span>&#160;&#160;&#160; <span class="pre">0.000</span>&#160;&#160; <span class="pre">13.131</span>&#160;&#160;&#160; <span class="pre">0.000</span> <span class="pre">&lt;ipython-input-98-f91457c8741a&gt;:7(meet_unwrapped)</span>&#160;&#160;&#160; <span class="pre">300000</span>&#160;&#160;&#160; <span class="pre">0.681</span>&#160;&#160;&#160; <span class="pre">0.000</span>&#160;&#160;&#160; <span class="pre">9.893</span>&#160;&#160;&#160; <span class="pre">0.000</span> <span class="pre">&lt;ipython-input-98-f91457c8741a&gt;:4(dual_mv)</span>&#160;&#160;&#160; <span class="pre">300000</span>&#160;&#160;&#160; <span class="pre">1.383</span>&#160;&#160;&#160; <span class="pre">0.000</span>&#160;&#160;&#160; <span class="pre">8.127</span>&#160;&#160;&#160; <span class="pre">0.000</span> <span class="pre">__init__.py:751(__mul__)</span>&#160;&#160;&#160; <span class="pre">400000</span>&#160;&#160;&#160; <span class="pre">0.626</span>&#160;&#160;&#160; <span class="pre">0.000</span>&#160;&#160;&#160; <span class="pre">5.762</span>&#160;&#160;&#160; <span class="pre">0.000</span> <span class="pre">__init__.py:717(_checkOther)</span>&#160;&#160;&#160; <span class="pre">400000</span>&#160;&#160;&#160; <span class="pre">0.270</span>&#160;&#160;&#160; <span class="pre">0.000</span>&#160;&#160;&#160; <span class="pre">3.815</span>&#160;&#160;&#160; <span class="pre">0.000</span> <span class="pre">__init__.py:420(__ne__)</span>&#160;&#160;&#160; <span class="pre">400000</span>&#160;&#160;&#160; <span class="pre">1.106</span>&#160;&#160;&#160; <span class="pre">0.000</span>&#160;&#160;&#160; <span class="pre">3.544</span>&#160;&#160;&#160; <span class="pre">0.000</span> <span class="pre">numeric.py:2565(array_equal)</span>&#160;&#160;&#160; <span class="pre">100000</span>&#160;&#160;&#160; <span class="pre">0.460</span>&#160;&#160;&#160; <span class="pre">0.000</span>&#160;&#160;&#160; <span class="pre">2.439</span>&#160;&#160;&#160; <span class="pre">0.000</span> <span class="pre">__init__.py:783(__xor__)</span>&#160;&#160;&#160; <span class="pre">800000</span>&#160;&#160;&#160; <span class="pre">0.662</span>&#160;&#160;&#160; <span class="pre">0.000</span>&#160;&#160;&#160; <span class="pre">2.053</span>&#160;&#160;&#160; <span class="pre">0.000</span> <span class="pre">__init__.py:740(_newMV)</span>&#160;&#160;&#160; <span class="pre">400000</span>&#160;&#160;&#160; <span class="pre">1.815</span>&#160;&#160;&#160; <span class="pre">0.000</span>&#160;&#160;&#160; <span class="pre">1.815</span>&#160;&#160;&#160; <span class="pre">0.000</span> <span class="pre">__init__.py:260(mv_mult)</span></code></p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#%%prun -s cumtime</span>
+<span class="c1">#for i in range(100000):</span>
+<span class="c1">#    meet_wrapped(sphere,line_one)</span>
+</pre></div>
+</div>
+</div>
+<p><code class="docutils literal"><span class="pre">ncalls</span>&#160; <span class="pre">tottime</span>&#160; <span class="pre">percall</span>&#160; <span class="pre">cumtime</span>&#160; <span class="pre">percall</span> <span class="pre">filename:lineno(function)</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">1</span>&#160;&#160;&#160; <span class="pre">0.000</span>&#160;&#160;&#160; <span class="pre">0.000</span>&#160;&#160;&#160; <span class="pre">1.951</span>&#160;&#160;&#160; <span class="pre">1.951</span> <span class="pre">{built-in</span> <span class="pre">method</span> <span class="pre">builtins.exec}</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">1</span>&#160;&#160;&#160; <span class="pre">0.063</span>&#160;&#160;&#160; <span class="pre">0.063</span>&#160;&#160;&#160; <span class="pre">1.951</span>&#160;&#160;&#160; <span class="pre">1.951</span> <span class="pre">&lt;string&gt;:2(&lt;module&gt;)</span>&#160;&#160;&#160; <span class="pre">100000</span>&#160;&#160;&#160; <span class="pre">0.274</span>&#160;&#160;&#160; <span class="pre">0.000</span>&#160;&#160;&#160; <span class="pre">1.888</span>&#160;&#160;&#160; <span class="pre">0.000</span> <span class="pre">&lt;ipython-input-98-f91457c8741a&gt;:18(meet_wrapped)</span>&#160;&#160;&#160; <span class="pre">100000</span>&#160;&#160;&#160; <span class="pre">1.448</span>&#160;&#160;&#160; <span class="pre">0.000</span>&#160;&#160;&#160; <span class="pre">1.448</span>&#160;&#160;&#160; <span class="pre">0.000</span> <span class="pre">&lt;ipython-input-98-f91457c8741a&gt;:14(meet_val)</span>&#160;&#160;&#160; <span class="pre">100000</span>&#160;&#160;&#160; <span class="pre">0.096</span>&#160;&#160;&#160; <span class="pre">0.000</span>&#160;&#160;&#160; <span class="pre">0.166</span>&#160;&#160;&#160; <span class="pre">0.000</span> <span class="pre">__init__.py:677(__init__)</span></code></p>
+</div>
+<div class="section" id="Algorithms-exploiting-known-sparseness-of-MultiVector-value-array">
+<h2>Algorithms exploiting known sparseness of MultiVector value array<a class="headerlink" href="#Algorithms-exploiting-known-sparseness-of-MultiVector-value-array" title="Permalink to this headline">¶</a></h2>
+<p>The standard multiplication generator function for two general
+multivectors is as follows:</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">get_mult_function</span><span class="p">(</span><span class="n">mult_table</span><span class="p">,</span><span class="n">n_dims</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Returns a function that implements the mult_table on two input multivectors</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">non_zero_indices</span> <span class="o">=</span> <span class="n">mult_table</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()</span>
+    <span class="n">k_list</span> <span class="o">=</span> <span class="n">non_zero_indices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">l_list</span> <span class="o">=</span> <span class="n">non_zero_indices</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">m_list</span> <span class="o">=</span> <span class="n">non_zero_indices</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">mult_table_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">mult_table</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="n">l</span><span class="p">,</span><span class="n">m</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">l</span><span class="p">,</span><span class="n">m</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">non_zero_indices</span><span class="p">)],</span><span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+
+    <span class="nd">@numba.njit</span>
+    <span class="k">def</span> <span class="nf">mv_mult</span><span class="p">(</span><span class="n">value</span><span class="p">,</span><span class="n">other_value</span><span class="p">):</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_dims</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">ind</span><span class="p">,</span><span class="n">k</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">k_list</span><span class="p">):</span>
+            <span class="n">l</span> <span class="o">=</span> <span class="n">l_list</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span>
+            <span class="n">m</span> <span class="o">=</span> <span class="n">m_list</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span>
+            <span class="n">output</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="o">+=</span> <span class="n">value</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">*</span><span class="n">mult_table_vals</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span><span class="o">*</span><span class="n">other_value</span><span class="p">[</span><span class="n">m</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">output</span>
+    <span class="k">return</span> <span class="n">mv_mult</span>
+</pre></div>
+</div>
+</div>
+<p>There are however instances in which we might be able to use the known
+sparseness of the input data value representation to speed up the
+operations. For example, in Cl(4,1) rotors only contain even grade
+blades and we can therefore remove all the operations accessing odd
+grade objects.</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="k">def</span> <span class="nf">get_grade_from_index</span><span class="p">(</span><span class="n">index_in</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">index_in</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+    <span class="k">elif</span> <span class="n">index_in</span> <span class="o">&lt;</span> <span class="mi">6</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">1</span>
+    <span class="k">elif</span> <span class="n">index_in</span> <span class="o">&lt;</span> <span class="mi">16</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">2</span>
+    <span class="k">elif</span> <span class="n">index_in</span> <span class="o">&lt;</span> <span class="mi">26</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">3</span>
+    <span class="k">elif</span> <span class="n">index_in</span> <span class="o">&lt;</span> <span class="mi">31</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">4</span>
+    <span class="k">elif</span> <span class="n">index_in</span> <span class="o">==</span> <span class="mi">31</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">5</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Index is out of multivector bounds&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">get_sparse_mult_function</span><span class="p">(</span><span class="n">mult_table</span><span class="p">,</span><span class="n">n_dims</span><span class="p">,</span><span class="n">grades_a</span><span class="p">,</span><span class="n">grades_b</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Returns a function that implements the mult_table on two input multivectors</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">non_zero_indices</span> <span class="o">=</span> <span class="n">mult_table</span><span class="o">.</span><span class="n">nonzero</span><span class="p">()</span>
+    <span class="n">k_list</span> <span class="o">=</span> <span class="n">non_zero_indices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">l_list</span> <span class="o">=</span> <span class="n">non_zero_indices</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">m_list</span> <span class="o">=</span> <span class="n">non_zero_indices</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">mult_table_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">mult_table</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="n">l</span><span class="p">,</span><span class="n">m</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">l</span><span class="p">,</span><span class="n">m</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">non_zero_indices</span><span class="p">)],</span><span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+
+    <span class="c1"># Now filter out the sparseness</span>
+    <span class="n">filter_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">k_list</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">filter_mask</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">get_grade_from_index</span><span class="p">(</span><span class="n">k_list</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="ow">in</span> <span class="n">grades_a</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">get_grade_from_index</span><span class="p">(</span><span class="n">m_list</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="ow">in</span> <span class="n">grades_b</span><span class="p">:</span>
+                <span class="n">filter_mask</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="n">k_list</span> <span class="o">=</span> <span class="n">k_list</span><span class="p">[</span><span class="n">filter_mask</span><span class="p">]</span>
+    <span class="n">l_list</span> <span class="o">=</span> <span class="n">l_list</span><span class="p">[</span><span class="n">filter_mask</span><span class="p">]</span>
+    <span class="n">m_list</span> <span class="o">=</span> <span class="n">m_list</span><span class="p">[</span><span class="n">filter_mask</span><span class="p">]</span>
+    <span class="n">mult_table_vals</span> <span class="o">=</span> <span class="n">mult_table_vals</span><span class="p">[</span><span class="n">filter_mask</span><span class="p">]</span>
+
+    <span class="nd">@numba.njit</span>
+    <span class="k">def</span> <span class="nf">mv_mult</span><span class="p">(</span><span class="n">value</span><span class="p">,</span><span class="n">other_value</span><span class="p">):</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_dims</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">ind</span><span class="p">,</span><span class="n">k</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">k_list</span><span class="p">):</span>
+            <span class="n">l</span> <span class="o">=</span> <span class="n">l_list</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span>
+            <span class="n">m</span> <span class="o">=</span> <span class="n">m_list</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span>
+            <span class="n">output</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="o">+=</span> <span class="n">value</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">*</span><span class="n">mult_table_vals</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span><span class="o">*</span><span class="n">other_value</span><span class="p">[</span><span class="n">m</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">output</span>
+    <span class="k">return</span> <span class="n">mv_mult</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">left_rotor_mult</span> <span class="o">=</span> <span class="n">get_sparse_mult_function</span><span class="p">(</span><span class="n">layout</span><span class="o">.</span><span class="n">gmt</span><span class="p">,</span><span class="n">layout</span><span class="o">.</span><span class="n">gaDims</span><span class="p">,[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
+<span class="n">right_rotor_mult</span> <span class="o">=</span> <span class="n">get_sparse_mult_function</span><span class="p">(</span><span class="n">layout</span><span class="o">.</span><span class="n">gmt</span><span class="p">,</span><span class="n">layout</span><span class="o">.</span><span class="n">gaDims</span><span class="p">,[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
+
+<span class="nd">@numba.njit</span>
+<span class="k">def</span> <span class="nf">sparse_apply_rotor_val</span><span class="p">(</span><span class="n">R_val</span><span class="p">,</span><span class="n">mv_val</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">left_rotor_mult</span><span class="p">(</span><span class="n">R_val</span><span class="p">,</span><span class="n">right_rotor_mult</span><span class="p">(</span><span class="n">mv_val</span><span class="p">,</span><span class="n">adjoint_func</span><span class="p">(</span><span class="n">R_val</span><span class="p">)))</span>
+
+<span class="k">def</span> <span class="nf">sparse_apply_rotor</span><span class="p">(</span><span class="n">R</span><span class="p">,</span><span class="n">mv</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">cf</span><span class="o">.</span><span class="n">MultiVector</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span><span class="n">sparse_apply_rotor_val</span><span class="p">(</span><span class="n">R</span><span class="o">.</span><span class="n">value</span><span class="p">,</span><span class="n">mv</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#%%prun -s cumtime</span>
+<span class="c1">#for i in range(1000000):</span>
+<span class="c1">#    sparse_apply_rotor(R,line_one)</span>
+</pre></div>
+</div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ncalls</span>  <span class="n">tottime</span>  <span class="n">percall</span>  <span class="n">cumtime</span>  <span class="n">percall</span> <span class="n">filename</span><span class="p">:</span><span class="n">lineno</span><span class="p">(</span><span class="n">function</span><span class="p">)</span>
+       <span class="mi">1</span>    <span class="mf">0.000</span>    <span class="mf">0.000</span>    <span class="mf">9.490</span>    <span class="mf">9.490</span> <span class="p">{</span><span class="n">built</span><span class="o">-</span><span class="ow">in</span> <span class="n">method</span> <span class="n">builtins</span><span class="o">.</span><span class="n">exec</span><span class="p">}</span>
+       <span class="mi">1</span>    <span class="mf">0.624</span>    <span class="mf">0.624</span>    <span class="mf">9.489</span>    <span class="mf">9.489</span> <span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">:</span><span class="mi">2</span><span class="p">(</span><span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span><span class="p">)</span>
+ <span class="mi">1000000</span>    <span class="mf">2.684</span>    <span class="mf">0.000</span>    <span class="mf">8.865</span>    <span class="mf">0.000</span> <span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">146</span><span class="o">-</span><span class="n">f75aae3ce595</span><span class="o">&gt;</span><span class="p">:</span><span class="mi">8</span><span class="p">(</span><span class="n">sparse_apply_rotor</span><span class="p">)</span>
+ <span class="mi">1000000</span>    <span class="mf">4.651</span>    <span class="mf">0.000</span>    <span class="mf">4.651</span>    <span class="mf">0.000</span> <span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">146</span><span class="o">-</span><span class="n">f75aae3ce595</span><span class="o">&gt;</span><span class="p">:</span><span class="mi">4</span><span class="p">(</span><span class="n">sparse_apply_rotor_val</span><span class="p">)</span>
+ <span class="mi">1000000</span>    <span class="mf">0.934</span>    <span class="mf">0.000</span>    <span class="mf">1.530</span>    <span class="mf">0.000</span> <span class="n">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">677</span><span class="p">(</span><span class="n">__init__</span><span class="p">)</span>
+ <span class="mi">1000000</span>    <span class="mf">0.596</span>    <span class="mf">0.000</span>    <span class="mf">0.596</span>    <span class="mf">0.000</span> <span class="p">{</span><span class="n">built</span><span class="o">-</span><span class="ow">in</span> <span class="n">method</span> <span class="n">numpy</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">multiarray</span><span class="o">.</span><span class="n">array</span><span class="p">}</span>
+</pre></div>
+</div>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="k">print</span><span class="p">(</span><span class="n">line_two</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">sparse_apply_rotor</span><span class="p">(</span><span class="n">R</span><span class="p">,</span><span class="n">line_one</span><span class="p">)</span><span class="o">.</span><span class="n">normal</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<p>We can do the same with the meet operation that we defined earlier if we
+know what grade objects we are meeting</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">left_pseudo_mult</span> <span class="o">=</span> <span class="n">get_sparse_mult_function</span><span class="p">(</span><span class="n">layout</span><span class="o">.</span><span class="n">gmt</span><span class="p">,</span><span class="n">layout</span><span class="o">.</span><span class="n">gaDims</span><span class="p">,[</span><span class="mi">5</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
+<span class="n">sparse_omt_2_1</span> <span class="o">=</span> <span class="n">get_sparse_mult_function</span><span class="p">(</span><span class="n">layout</span><span class="o">.</span><span class="n">omt</span><span class="p">,</span><span class="n">layout</span><span class="o">.</span><span class="n">gaDims</span><span class="p">,[</span><span class="mi">2</span><span class="p">],[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="nd">@numba.njit</span>
+<span class="k">def</span> <span class="nf">dual_sparse_val</span><span class="p">(</span><span class="n">mv_val</span><span class="p">):</span>
+    <span class="k">return</span> <span class="o">-</span><span class="n">left_pseudo_mult</span><span class="p">(</span><span class="n">I5_val</span><span class="p">,</span><span class="n">mv_val</span><span class="p">)</span>
+
+<span class="nd">@numba.njit</span>
+<span class="k">def</span> <span class="nf">meet_sparse_3_4_val</span><span class="p">(</span><span class="n">mv_a_val</span><span class="p">,</span><span class="n">mv_b_val</span><span class="p">):</span>
+    <span class="k">return</span> <span class="o">-</span><span class="n">dual_sparse_val</span><span class="p">(</span> <span class="n">sparse_omt_2_1</span><span class="p">(</span> <span class="n">dual_sparse_val</span><span class="p">(</span><span class="n">mv_a_val</span><span class="p">)</span> <span class="p">,</span> <span class="n">dual_sparse_val</span><span class="p">(</span><span class="n">mv_b_val</span><span class="p">))</span> <span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">meet_sparse_3_4</span><span class="p">(</span><span class="n">mv_a</span><span class="p">,</span><span class="n">mv_b</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">cf</span><span class="o">.</span><span class="n">MultiVector</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">meet_sparse_3_4_val</span><span class="p">(</span><span class="n">mv_a</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">mv_b</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">sphere</span><span class="o">.</span><span class="n">meet</span><span class="p">(</span><span class="n">line_one</span><span class="p">)</span><span class="o">.</span><span class="n">normal</span><span class="p">()</span><span class="o">.</span><span class="n">normal</span><span class="p">())</span>
+<span class="k">print</span><span class="p">(</span><span class="n">meet_sparse_3_4</span><span class="p">(</span><span class="n">line_one</span><span class="p">,</span><span class="n">sphere</span><span class="p">)</span><span class="o">.</span><span class="n">normal</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="c1">#%%prun -s cumtime</span>
+<span class="c1">#for i in range(100000):</span>
+<span class="c1">#    meet_sparse_3_4(line_one,sphere)</span>
+</pre></div>
+</div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ncalls</span>  <span class="n">tottime</span>  <span class="n">percall</span>  <span class="n">cumtime</span>  <span class="n">percall</span> <span class="n">filename</span><span class="p">:</span><span class="n">lineno</span><span class="p">(</span><span class="n">function</span><span class="p">)</span>
+     <span class="mi">1</span>    <span class="mf">0.000</span>    <span class="mf">0.000</span>    <span class="mf">0.725</span>    <span class="mf">0.725</span> <span class="p">{</span><span class="n">built</span><span class="o">-</span><span class="ow">in</span> <span class="n">method</span> <span class="n">builtins</span><span class="o">.</span><span class="n">exec</span><span class="p">}</span>
+     <span class="mi">1</span>    <span class="mf">0.058</span>    <span class="mf">0.058</span>    <span class="mf">0.725</span>    <span class="mf">0.725</span> <span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span><span class="p">:</span><span class="mi">2</span><span class="p">(</span><span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span><span class="p">)</span>
+<span class="mi">100000</span>    <span class="mf">0.252</span>    <span class="mf">0.000</span>    <span class="mf">0.667</span>    <span class="mf">0.000</span> <span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">156</span><span class="o">-</span><span class="n">f346d0563682</span><span class="o">&gt;</span><span class="p">:</span><span class="mi">12</span><span class="p">(</span><span class="n">meet_sparse_3_4</span><span class="p">)</span>
+<span class="mi">100000</span>    <span class="mf">0.267</span>    <span class="mf">0.000</span>    <span class="mf">0.267</span>    <span class="mf">0.000</span> <span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">156</span><span class="o">-</span><span class="n">f346d0563682</span><span class="o">&gt;</span><span class="p">:</span><span class="mi">8</span><span class="p">(</span><span class="n">meet_sparse_3_4_val</span><span class="p">)</span>
+<span class="mi">100000</span>    <span class="mf">0.088</span>    <span class="mf">0.000</span>    <span class="mf">0.148</span>    <span class="mf">0.000</span> <span class="n">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">677</span><span class="p">(</span><span class="n">__init__</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="Future-work-on-performance">
+<h2>Future work on performance<a class="headerlink" href="#Future-work-on-performance" title="Permalink to this headline">¶</a></h2>
+<p>Investigate efficient operations on containers of large numbers of
+multivectors.</p>
+<p>Possibly investigate <a class="reference external" href="http://numba.pydata.org/numba-doc/0.13/CUDAJit.html">http://numba.pydata.org/numba-doc/0.13/CUDAJit.html</a>
+for larger algebras/other areas in which GPU memory latency will not be
+such a large factor, ie, lots of bulk parallel numerical operations.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Example 1 Interpolating Conformal Objects.html" class="btn btn-neutral float-right" title="Example 1 Interpolating Conformal Objects" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="PredefinedGAs.html" class="btn btn-neutral" title="Predefined Geometric Algebras" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Robert Kern and the Clifford Team.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.82',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: ''
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

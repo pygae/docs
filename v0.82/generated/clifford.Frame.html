@@ -1,0 +1,518 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>clifford.Frame &mdash; Clifford 0.82 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="next" title="clifford.Frame.En" href="clifford.Frame.En.html" />
+    <link rel="prev" title="clifford.Layout.randomV" href="clifford.Layout.randomV.html" />
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-85010051-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Clifford
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.82
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials.html">Tutorials</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../clifford.html">clifford (<code class="docutils literal"><span class="pre">clifford</span></code>)</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../clifford.html#classes">Classes</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="clifford.MultiVector.html">clifford.MultiVector</a></li>
+<li class="toctree-l4"><a class="reference internal" href="clifford.Layout.html">clifford.Layout</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">clifford.Frame</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../clifford.html#functions">Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../cga.html">cga (<code class="docutils literal"><span class="pre">clifford.cga</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tools.html">tools (<code class="docutils literal"><span class="pre">clifford.tools</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../issues_and_changelog.html">Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../issues_and_changelog.html#changelog">ChangeLog</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Clifford</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../api.html">API</a> &raquo;</li>
+        
+          <li><a href="../clifford.html">clifford (<code class="docutils literal"><span class="pre">clifford</span></code>)</a> &raquo;</li>
+        
+      <li>clifford.Frame</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/generated/clifford.Frame.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+</style>
+<div class="section" id="clifford-frame">
+<h1>clifford.Frame<a class="headerlink" href="#clifford-frame" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="clifford.Frame">
+<em class="property">class </em><code class="descclassname">clifford.</code><code class="descname">Frame</code><a class="reference internal" href="../_modules/clifford.html#Frame"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#clifford.Frame" title="Permalink to this definition">¶</a></dt>
+<dd><p>A frame of vectors</p>
+</dd></dl>
+
+<p class="rubric">Attributes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="clifford.Frame.En.html#clifford.Frame.En" title="clifford.Frame.En"><code class="xref py py-obj docutils literal"><span class="pre">En</span></code></a></td>
+<td>Volume element for this frame</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.Frame.T.html#clifford.Frame.T" title="clifford.Frame.T"><code class="xref py py-obj docutils literal"><span class="pre">T</span></code></a></td>
+<td>Same as self.transpose(), except that self is returned if self.ndim &lt; 2.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.Frame.base.html#clifford.Frame.base" title="clifford.Frame.base"><code class="xref py py-obj docutils literal"><span class="pre">base</span></code></a></td>
+<td>Base object if memory is from some other object.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.Frame.ctypes.html#clifford.Frame.ctypes" title="clifford.Frame.ctypes"><code class="xref py py-obj docutils literal"><span class="pre">ctypes</span></code></a></td>
+<td>An object to simplify the interaction of the array with the ctypes module.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.Frame.data.html#clifford.Frame.data" title="clifford.Frame.data"><code class="xref py py-obj docutils literal"><span class="pre">data</span></code></a></td>
+<td>Python buffer object pointing to the start of the array&#8217;s data.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.Frame.dtype.html#clifford.Frame.dtype" title="clifford.Frame.dtype"><code class="xref py py-obj docutils literal"><span class="pre">dtype</span></code></a></td>
+<td>Data-type of the array&#8217;s elements.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.Frame.flags.html#clifford.Frame.flags" title="clifford.Frame.flags"><code class="xref py py-obj docutils literal"><span class="pre">flags</span></code></a></td>
+<td>Information about the memory layout of the array.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.Frame.flat.html#clifford.Frame.flat" title="clifford.Frame.flat"><code class="xref py py-obj docutils literal"><span class="pre">flat</span></code></a></td>
+<td>A 1-D iterator over the array.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.Frame.imag.html#clifford.Frame.imag" title="clifford.Frame.imag"><code class="xref py py-obj docutils literal"><span class="pre">imag</span></code></a></td>
+<td>The imaginary part of the array.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.Frame.inv.html#clifford.Frame.inv" title="clifford.Frame.inv"><code class="xref py py-obj docutils literal"><span class="pre">inv</span></code></a></td>
+<td>The inverse frame of self</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.Frame.itemsize.html#clifford.Frame.itemsize" title="clifford.Frame.itemsize"><code class="xref py py-obj docutils literal"><span class="pre">itemsize</span></code></a></td>
+<td>Length of one array element in bytes.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.Frame.nbytes.html#clifford.Frame.nbytes" title="clifford.Frame.nbytes"><code class="xref py py-obj docutils literal"><span class="pre">nbytes</span></code></a></td>
+<td>Total bytes consumed by the elements of the array.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.Frame.ndim.html#clifford.Frame.ndim" title="clifford.Frame.ndim"><code class="xref py py-obj docutils literal"><span class="pre">ndim</span></code></a></td>
+<td>Number of array dimensions.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.Frame.real.html#clifford.Frame.real" title="clifford.Frame.real"><code class="xref py py-obj docutils literal"><span class="pre">real</span></code></a></td>
+<td>The real part of the array.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.Frame.shape.html#clifford.Frame.shape" title="clifford.Frame.shape"><code class="xref py py-obj docutils literal"><span class="pre">shape</span></code></a></td>
+<td>Tuple of array dimensions.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.Frame.size.html#clifford.Frame.size" title="clifford.Frame.size"><code class="xref py py-obj docutils literal"><span class="pre">size</span></code></a></td>
+<td>Number of elements in the array.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.Frame.strides.html#clifford.Frame.strides" title="clifford.Frame.strides"><code class="xref py py-obj docutils literal"><span class="pre">strides</span></code></a></td>
+<td>Tuple of bytes to step in each dimension when traversing an array.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="clifford.Frame.all.html#clifford.Frame.all" title="clifford.Frame.all"><code class="xref py py-obj docutils literal"><span class="pre">all</span></code></a></td>
+<td>Returns True if all elements evaluate to True.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.Frame.any.html#clifford.Frame.any" title="clifford.Frame.any"><code class="xref py py-obj docutils literal"><span class="pre">any</span></code></a></td>
+<td>Returns True if any of the elements of <cite>a</cite> evaluate to True.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.Frame.argmax.html#clifford.Frame.argmax" title="clifford.Frame.argmax"><code class="xref py py-obj docutils literal"><span class="pre">argmax</span></code></a></td>
+<td>Return indices of the maximum values along the given axis.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.Frame.argmin.html#clifford.Frame.argmin" title="clifford.Frame.argmin"><code class="xref py py-obj docutils literal"><span class="pre">argmin</span></code></a></td>
+<td>Return indices of the minimum values along the given axis of <cite>a</cite>.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.Frame.argpartition.html#clifford.Frame.argpartition" title="clifford.Frame.argpartition"><code class="xref py py-obj docutils literal"><span class="pre">argpartition</span></code></a></td>
+<td>Returns the indices that would partition this array.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.Frame.argsort.html#clifford.Frame.argsort" title="clifford.Frame.argsort"><code class="xref py py-obj docutils literal"><span class="pre">argsort</span></code></a></td>
+<td>Returns the indices that would sort this array.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.Frame.astype.html#clifford.Frame.astype" title="clifford.Frame.astype"><code class="xref py py-obj docutils literal"><span class="pre">astype</span></code></a></td>
+<td>Copy of the array, cast to a specified type.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.Frame.byteswap.html#clifford.Frame.byteswap" title="clifford.Frame.byteswap"><code class="xref py py-obj docutils literal"><span class="pre">byteswap</span></code></a></td>
+<td>Swap the bytes of the array elements</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.Frame.choose.html#clifford.Frame.choose" title="clifford.Frame.choose"><code class="xref py py-obj docutils literal"><span class="pre">choose</span></code></a></td>
+<td>Use an index array to construct a new array from a set of choices.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.Frame.clip.html#clifford.Frame.clip" title="clifford.Frame.clip"><code class="xref py py-obj docutils literal"><span class="pre">clip</span></code></a></td>
+<td>Return an array whose values are limited to <code class="docutils literal"><span class="pre">[min,</span> <span class="pre">max]</span></code>.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.Frame.compress.html#clifford.Frame.compress" title="clifford.Frame.compress"><code class="xref py py-obj docutils literal"><span class="pre">compress</span></code></a></td>
+<td>Return selected slices of this array along given axis.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.Frame.conj.html#clifford.Frame.conj" title="clifford.Frame.conj"><code class="xref py py-obj docutils literal"><span class="pre">conj</span></code></a></td>
+<td>Complex-conjugate all elements.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.Frame.conjugate.html#clifford.Frame.conjugate" title="clifford.Frame.conjugate"><code class="xref py py-obj docutils literal"><span class="pre">conjugate</span></code></a></td>
+<td>Return the complex conjugate, element-wise.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.Frame.copy.html#clifford.Frame.copy" title="clifford.Frame.copy"><code class="xref py py-obj docutils literal"><span class="pre">copy</span></code></a></td>
+<td>Return a copy of the array.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.Frame.cumprod.html#clifford.Frame.cumprod" title="clifford.Frame.cumprod"><code class="xref py py-obj docutils literal"><span class="pre">cumprod</span></code></a></td>
+<td>Return the cumulative product of the elements along the given axis.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.Frame.cumsum.html#clifford.Frame.cumsum" title="clifford.Frame.cumsum"><code class="xref py py-obj docutils literal"><span class="pre">cumsum</span></code></a></td>
+<td>Return the cumulative sum of the elements along the given axis.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.Frame.diagonal.html#clifford.Frame.diagonal" title="clifford.Frame.diagonal"><code class="xref py py-obj docutils literal"><span class="pre">diagonal</span></code></a></td>
+<td>Return specified diagonals.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.Frame.dot.html#clifford.Frame.dot" title="clifford.Frame.dot"><code class="xref py py-obj docutils literal"><span class="pre">dot</span></code></a></td>
+<td>Dot product of two arrays.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.Frame.dump.html#clifford.Frame.dump" title="clifford.Frame.dump"><code class="xref py py-obj docutils literal"><span class="pre">dump</span></code></a></td>
+<td>Dump a pickle of the array to the specified file.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.Frame.dumps.html#clifford.Frame.dumps" title="clifford.Frame.dumps"><code class="xref py py-obj docutils literal"><span class="pre">dumps</span></code></a></td>
+<td>Returns the pickle of the array as a string.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.Frame.fill.html#clifford.Frame.fill" title="clifford.Frame.fill"><code class="xref py py-obj docutils literal"><span class="pre">fill</span></code></a></td>
+<td>Fill the array with a scalar value.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.Frame.flatten.html#clifford.Frame.flatten" title="clifford.Frame.flatten"><code class="xref py py-obj docutils literal"><span class="pre">flatten</span></code></a></td>
+<td>Return a copy of the array collapsed into one dimension.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.Frame.getfield.html#clifford.Frame.getfield" title="clifford.Frame.getfield"><code class="xref py py-obj docutils literal"><span class="pre">getfield</span></code></a></td>
+<td>Returns a field of the given array as a certain type.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.Frame.is_innermorphic_to.html#clifford.Frame.is_innermorphic_to" title="clifford.Frame.is_innermorphic_to"><code class="xref py py-obj docutils literal"><span class="pre">is_innermorphic_to</span></code></a></td>
+<td>Is this frame <cite>innermorhpic</cite> to  other?</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.Frame.item.html#clifford.Frame.item" title="clifford.Frame.item"><code class="xref py py-obj docutils literal"><span class="pre">item</span></code></a></td>
+<td>Copy an element of an array to a standard Python scalar and return it.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.Frame.itemset.html#clifford.Frame.itemset" title="clifford.Frame.itemset"><code class="xref py py-obj docutils literal"><span class="pre">itemset</span></code></a></td>
+<td>Insert scalar into an array (scalar is cast to array&#8217;s dtype, if possible)</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.Frame.max.html#clifford.Frame.max" title="clifford.Frame.max"><code class="xref py py-obj docutils literal"><span class="pre">max</span></code></a></td>
+<td>Return the maximum along a given axis.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.Frame.mean.html#clifford.Frame.mean" title="clifford.Frame.mean"><code class="xref py py-obj docutils literal"><span class="pre">mean</span></code></a></td>
+<td>Returns the average of the array elements along given axis.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.Frame.min.html#clifford.Frame.min" title="clifford.Frame.min"><code class="xref py py-obj docutils literal"><span class="pre">min</span></code></a></td>
+<td>Return the minimum along a given axis.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.Frame.newbyteorder.html#clifford.Frame.newbyteorder" title="clifford.Frame.newbyteorder"><code class="xref py py-obj docutils literal"><span class="pre">newbyteorder</span></code></a></td>
+<td>Return the array with the same data viewed with a different byte order.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.Frame.nonzero.html#clifford.Frame.nonzero" title="clifford.Frame.nonzero"><code class="xref py py-obj docutils literal"><span class="pre">nonzero</span></code></a></td>
+<td>Return the indices of the elements that are non-zero.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.Frame.partition.html#clifford.Frame.partition" title="clifford.Frame.partition"><code class="xref py py-obj docutils literal"><span class="pre">partition</span></code></a></td>
+<td>Rearranges the elements in the array in such a way that value of the element in kth position is in the position it would be in a sorted array.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.Frame.prod.html#clifford.Frame.prod" title="clifford.Frame.prod"><code class="xref py py-obj docutils literal"><span class="pre">prod</span></code></a></td>
+<td>Return the product of the array elements over the given axis</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.Frame.ptp.html#clifford.Frame.ptp" title="clifford.Frame.ptp"><code class="xref py py-obj docutils literal"><span class="pre">ptp</span></code></a></td>
+<td>Peak to peak (maximum - minimum) value along a given axis.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.Frame.put.html#clifford.Frame.put" title="clifford.Frame.put"><code class="xref py py-obj docutils literal"><span class="pre">put</span></code></a></td>
+<td>Set <code class="docutils literal"><span class="pre">a.flat[n]</span> <span class="pre">=</span> <span class="pre">values[n]</span></code> for all <cite>n</cite> in indices.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.Frame.ravel.html#clifford.Frame.ravel" title="clifford.Frame.ravel"><code class="xref py py-obj docutils literal"><span class="pre">ravel</span></code></a></td>
+<td>Return a flattened array.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.Frame.repeat.html#clifford.Frame.repeat" title="clifford.Frame.repeat"><code class="xref py py-obj docutils literal"><span class="pre">repeat</span></code></a></td>
+<td>Repeat elements of an array.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.Frame.reshape.html#clifford.Frame.reshape" title="clifford.Frame.reshape"><code class="xref py py-obj docutils literal"><span class="pre">reshape</span></code></a></td>
+<td>Returns an array containing the same data with a new shape.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.Frame.resize.html#clifford.Frame.resize" title="clifford.Frame.resize"><code class="xref py py-obj docutils literal"><span class="pre">resize</span></code></a></td>
+<td>Change shape and size of array in-place.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.Frame.round.html#clifford.Frame.round" title="clifford.Frame.round"><code class="xref py py-obj docutils literal"><span class="pre">round</span></code></a></td>
+<td>Return <cite>a</cite> with each element rounded to the given number of decimals.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.Frame.searchsorted.html#clifford.Frame.searchsorted" title="clifford.Frame.searchsorted"><code class="xref py py-obj docutils literal"><span class="pre">searchsorted</span></code></a></td>
+<td>Find indices where elements of v should be inserted in a to maintain order.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.Frame.setfield.html#clifford.Frame.setfield" title="clifford.Frame.setfield"><code class="xref py py-obj docutils literal"><span class="pre">setfield</span></code></a></td>
+<td>Put a value into a specified place in a field defined by a data-type.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.Frame.setflags.html#clifford.Frame.setflags" title="clifford.Frame.setflags"><code class="xref py py-obj docutils literal"><span class="pre">setflags</span></code></a></td>
+<td>Set array flags WRITEABLE, ALIGNED, and UPDATEIFCOPY, respectively.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.Frame.sort.html#clifford.Frame.sort" title="clifford.Frame.sort"><code class="xref py py-obj docutils literal"><span class="pre">sort</span></code></a></td>
+<td>Sort an array, in-place.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.Frame.squeeze.html#clifford.Frame.squeeze" title="clifford.Frame.squeeze"><code class="xref py py-obj docutils literal"><span class="pre">squeeze</span></code></a></td>
+<td>Remove single-dimensional entries from the shape of <cite>a</cite>.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.Frame.std.html#clifford.Frame.std" title="clifford.Frame.std"><code class="xref py py-obj docutils literal"><span class="pre">std</span></code></a></td>
+<td>Returns the standard deviation of the array elements along given axis.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.Frame.sum.html#clifford.Frame.sum" title="clifford.Frame.sum"><code class="xref py py-obj docutils literal"><span class="pre">sum</span></code></a></td>
+<td>Return the sum of the array elements over the given axis.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.Frame.swapaxes.html#clifford.Frame.swapaxes" title="clifford.Frame.swapaxes"><code class="xref py py-obj docutils literal"><span class="pre">swapaxes</span></code></a></td>
+<td>Return a view of the array with <cite>axis1</cite> and <cite>axis2</cite> interchanged.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.Frame.take.html#clifford.Frame.take" title="clifford.Frame.take"><code class="xref py py-obj docutils literal"><span class="pre">take</span></code></a></td>
+<td>Return an array formed from the elements of <cite>a</cite> at the given indices.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.Frame.tobytes.html#clifford.Frame.tobytes" title="clifford.Frame.tobytes"><code class="xref py py-obj docutils literal"><span class="pre">tobytes</span></code></a></td>
+<td>Construct Python bytes containing the raw data bytes in the array.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.Frame.tofile.html#clifford.Frame.tofile" title="clifford.Frame.tofile"><code class="xref py py-obj docutils literal"><span class="pre">tofile</span></code></a></td>
+<td>Write array to a file as text or binary (default).</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.Frame.tolist.html#clifford.Frame.tolist" title="clifford.Frame.tolist"><code class="xref py py-obj docutils literal"><span class="pre">tolist</span></code></a></td>
+<td>Return the array as a (possibly nested) list.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.Frame.tostring.html#clifford.Frame.tostring" title="clifford.Frame.tostring"><code class="xref py py-obj docutils literal"><span class="pre">tostring</span></code></a></td>
+<td>Construct Python bytes containing the raw data bytes in the array.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.Frame.trace.html#clifford.Frame.trace" title="clifford.Frame.trace"><code class="xref py py-obj docutils literal"><span class="pre">trace</span></code></a></td>
+<td>Return the sum along diagonals of the array.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.Frame.transpose.html#clifford.Frame.transpose" title="clifford.Frame.transpose"><code class="xref py py-obj docutils literal"><span class="pre">transpose</span></code></a></td>
+<td>Returns a view of the array with axes transposed.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="clifford.Frame.var.html#clifford.Frame.var" title="clifford.Frame.var"><code class="xref py py-obj docutils literal"><span class="pre">var</span></code></a></td>
+<td>Returns the variance of the array elements, along given axis.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="clifford.Frame.view.html#clifford.Frame.view" title="clifford.Frame.view"><code class="xref py py-obj docutils literal"><span class="pre">view</span></code></a></td>
+<td>New view of array with the same data.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="clifford.Frame.En.html" class="btn btn-neutral float-right" title="clifford.Frame.En" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="clifford.Layout.randomV.html" class="btn btn-neutral" title="clifford.Layout.randomV" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Robert Kern and the Clifford Team.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.82',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: ''
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

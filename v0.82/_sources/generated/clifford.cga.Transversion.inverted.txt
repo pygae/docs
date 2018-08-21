@@ -1,0 +1,6 @@
+clifford.cga.Transversion.inverted
+==================================
+
+.. currentmodule:: clifford.cga
+
+.. automethod:: Transversion.inverted

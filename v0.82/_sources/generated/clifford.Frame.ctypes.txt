@@ -1,0 +1,6 @@
+clifford.Frame.ctypes
+=====================
+
+.. currentmodule:: clifford
+
+.. autoattribute:: Frame.ctypes

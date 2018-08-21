@@ -1,0 +1,6 @@
+clifford.tools.orthoFrames2Verser
+=================================
+
+.. currentmodule:: clifford.tools
+
+.. autofunction:: orthoFrames2Verser

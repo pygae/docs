@@ -1,0 +1,34 @@
+clifford.cga.CGA
+================
+
+.. currentmodule:: clifford.cga
+
+.. autoclass:: CGA
+  :no-members:
+
+
+
+
+
+
+
+.. rubric:: Methods
+
+.. autosummary::
+  :toctree:
+  :nosignatures:
+
+  ~CGA.__init__
+  ~CGA.base_vector
+  ~CGA.dilation
+  ~CGA.flat
+  ~CGA.null_vector
+  ~CGA.rotation
+  ~CGA.round
+  ~CGA.straight_up
+  ~CGA.translation
+  ~CGA.transversion
+
+
+
+

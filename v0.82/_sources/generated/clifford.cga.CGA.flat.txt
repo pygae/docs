@@ -1,0 +1,6 @@
+clifford.cga.CGA.flat
+=====================
+
+.. currentmodule:: clifford.cga
+
+.. automethod:: CGA.flat

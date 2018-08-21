@@ -1,0 +1,6 @@
+clifford.MultiVector.lc
+=======================
+
+.. currentmodule:: clifford
+
+.. automethod:: MultiVector.lc

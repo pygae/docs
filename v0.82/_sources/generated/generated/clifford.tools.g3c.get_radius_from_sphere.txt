@@ -1,0 +1,6 @@
+clifford.tools.g3c.get_radius_from_sphere
+=========================================
+
+.. currentmodule:: clifford.tools.g3c
+
+.. autofunction:: get_radius_from_sphere

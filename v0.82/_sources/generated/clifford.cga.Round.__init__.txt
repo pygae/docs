@@ -1,0 +1,6 @@
+clifford.cga.Round.__init__
+===========================
+
+.. currentmodule:: clifford.cga
+
+.. automethod:: Round.__init__

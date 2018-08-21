@@ -1,0 +1,6 @@
+clifford.MultiVector.round
+==========================
+
+.. currentmodule:: clifford
+
+.. automethod:: MultiVector.round

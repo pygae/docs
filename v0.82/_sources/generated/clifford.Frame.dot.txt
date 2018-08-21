@@ -1,0 +1,6 @@
+clifford.Frame.dot
+==================
+
+.. currentmodule:: clifford
+
+.. automethod:: Frame.dot

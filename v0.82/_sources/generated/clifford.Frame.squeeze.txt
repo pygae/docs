@@ -1,0 +1,6 @@
+clifford.Frame.squeeze
+======================
+
+.. currentmodule:: clifford
+
+.. automethod:: Frame.squeeze

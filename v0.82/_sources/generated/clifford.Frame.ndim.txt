@@ -1,0 +1,6 @@
+clifford.Frame.ndim
+===================
+
+.. currentmodule:: clifford
+
+.. autoattribute:: Frame.ndim

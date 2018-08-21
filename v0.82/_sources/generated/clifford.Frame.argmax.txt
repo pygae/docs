@@ -1,0 +1,6 @@
+clifford.Frame.argmax
+=====================
+
+.. currentmodule:: clifford
+
+.. automethod:: Frame.argmax

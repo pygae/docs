@@ -1,0 +1,6 @@
+clifford.Frame.inv
+==================
+
+.. currentmodule:: clifford
+
+.. autoattribute:: Frame.inv

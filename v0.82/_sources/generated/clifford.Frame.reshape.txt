@@ -1,0 +1,6 @@
+clifford.Frame.reshape
+======================
+
+.. currentmodule:: clifford
+
+.. automethod:: Frame.reshape

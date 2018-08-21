@@ -1,0 +1,6 @@
+clifford.Frame.diagonal
+=======================
+
+.. currentmodule:: clifford
+
+.. automethod:: Frame.diagonal

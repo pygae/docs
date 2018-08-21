@@ -1,0 +1,6 @@
+clifford.MultiVector.project
+============================
+
+.. currentmodule:: clifford
+
+.. automethod:: MultiVector.project

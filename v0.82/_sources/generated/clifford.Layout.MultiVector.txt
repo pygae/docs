@@ -1,0 +1,6 @@
+clifford.Layout.MultiVector
+===========================
+
+.. currentmodule:: clifford
+
+.. automethod:: Layout.MultiVector

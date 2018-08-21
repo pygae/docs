@@ -1,0 +1,6 @@
+clifford.MultiVector.grades
+===========================
+
+.. currentmodule:: clifford
+
+.. automethod:: MultiVector.grades

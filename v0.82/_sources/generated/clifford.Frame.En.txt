@@ -1,0 +1,6 @@
+clifford.Frame.En
+=================
+
+.. currentmodule:: clifford
+
+.. autoattribute:: Frame.En

@@ -1,0 +1,6 @@
+clifford.Frame.take
+===================
+
+.. currentmodule:: clifford
+
+.. automethod:: Frame.take

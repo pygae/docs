@@ -1,0 +1,6 @@
+clifford.MultiVector.conjugate
+==============================
+
+.. currentmodule:: clifford
+
+.. automethod:: MultiVector.conjugate

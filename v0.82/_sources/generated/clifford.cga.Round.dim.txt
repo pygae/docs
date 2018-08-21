@@ -1,0 +1,6 @@
+clifford.cga.Round.dim
+======================
+
+.. currentmodule:: clifford.cga
+
+.. autoattribute:: Round.dim

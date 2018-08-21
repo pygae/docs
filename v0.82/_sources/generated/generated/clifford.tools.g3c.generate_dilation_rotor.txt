@@ -1,0 +1,6 @@
+clifford.tools.g3c.generate_dilation_rotor
+==========================================
+
+.. currentmodule:: clifford.tools.g3c
+
+.. autofunction:: generate_dilation_rotor

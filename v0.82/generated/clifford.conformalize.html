@@ -1,0 +1,325 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>clifford.conformalize &mdash; Clifford 0.82 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="next" title="clifford.bases" href="clifford.bases.html" />
+    <link rel="prev" title="clifford.Cl" href="clifford.Cl.html" />
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-85010051-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Clifford
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.82
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials.html">Tutorials</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../clifford.html">clifford (<code class="docutils literal"><span class="pre">clifford</span></code>)</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../clifford.html#classes">Classes</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../clifford.html#functions">Functions</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="clifford.Cl.html">clifford.Cl</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">clifford.conformalize</a></li>
+<li class="toctree-l4"><a class="reference internal" href="clifford.bases.html">clifford.bases</a></li>
+<li class="toctree-l4"><a class="reference internal" href="clifford.randomMV.html">clifford.randomMV</a></li>
+<li class="toctree-l4"><a class="reference internal" href="clifford.pretty.html">clifford.pretty</a></li>
+<li class="toctree-l4"><a class="reference internal" href="clifford.ugly.html">clifford.ugly</a></li>
+<li class="toctree-l4"><a class="reference internal" href="clifford.eps.html">clifford.eps</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../cga.html">cga (<code class="docutils literal"><span class="pre">clifford.cga</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tools.html">tools (<code class="docutils literal"><span class="pre">clifford.tools</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../issues_and_changelog.html">Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../issues_and_changelog.html#changelog">ChangeLog</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Clifford</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../api.html">API</a> &raquo;</li>
+        
+          <li><a href="../clifford.html">clifford (<code class="docutils literal"><span class="pre">clifford</span></code>)</a> &raquo;</li>
+        
+      <li>clifford.conformalize</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/generated/clifford.conformalize.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+</style>
+<div class="section" id="clifford-conformalize">
+<h1>clifford.conformalize<a class="headerlink" href="#clifford-conformalize" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="clifford.conformalize">
+<code class="descclassname">clifford.</code><code class="descname">conformalize</code><span class="sig-paren">(</span><em>layout, added_sig=[1, -1]</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/clifford.html#conformalize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#clifford.conformalize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Conformalize a Geometric Algebra</p>
+<p>Given the <cite>Layout</cite> for a GA of signature (p,q), this
+will produce a GA of signature (p+1,q+1), as well as
+return a new list of blades and some <cite>stuff</cite>. <cite>stuff</cite>
+is a dict containing the null basis blades, and some
+up/down functions for projecting in/out of the CGA.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>layout</strong> (<cite>clifford.Layout</cite>) &#8211; layout of the GA to conformalize (the base)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><ul>
+<li><strong>layout_c</strong> (<cite>clifford.Layout</cite>) &#8211; layout of the base GA</li>
+<li><strong>blades_c</strong> (<em>dict</em>) &#8211; blades for the CGA</li>
+<li><strong>stuff</strong> (<em>dict</em>) &#8211;<dl class="docutils">
+<dt>dict containing the following:</dt>
+<dd><ul class="first last simple">
+<li>ep - postive basis vector added</li>
+<li>en - negative basis vector added</li>
+<li>eo - zero vector of null basis (=.5*(en-ep))</li>
+<li>einf - infinity vector of null basis (=en+ep)</li>
+<li>E0 - minkowski bivector (=einf^eo)</li>
+<li>base - pseudoscalar for base ga, in cga layout</li>
+<li>up - up-project a vector from GA to CGA</li>
+<li>down - down-project a vector from CGA to GA</li>
+<li>homo - homogenize a CGA vector</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">clifford</span> <span class="k">import</span> <span class="n">Cl</span><span class="p">,</span> <span class="n">conformalize</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G2</span><span class="p">,</span> <span class="n">blades</span> <span class="o">=</span> <span class="n">Cl</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">G2c</span><span class="p">,</span> <span class="n">bladesc</span><span class="p">,</span> <span class="n">stuff</span> <span class="o">=</span> <span class="n">conformalize</span><span class="p">(</span><span class="n">G2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">locals</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">bladesc</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">locals</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">stuff</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="clifford.bases.html" class="btn btn-neutral float-right" title="clifford.bases" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="clifford.Cl.html" class="btn btn-neutral" title="clifford.Cl" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Robert Kern and the Clifford Team.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.82',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: ''
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

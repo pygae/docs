@@ -1,0 +1,6 @@
+clifford.cga.CGA.rotation
+=========================
+
+.. currentmodule:: clifford.cga
+
+.. automethod:: CGA.rotation

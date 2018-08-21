@@ -1,0 +1,6 @@
+clifford.Frame.var
+==================
+
+.. currentmodule:: clifford
+
+.. automethod:: Frame.var

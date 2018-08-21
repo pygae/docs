@@ -1,0 +1,6 @@
+clifford.tools.g3c.intersect_line_and_plane_to_point
+====================================================
+
+.. currentmodule:: clifford.tools.g3c
+
+.. autofunction:: intersect_line_and_plane_to_point

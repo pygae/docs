@@ -1,0 +1,6 @@
+clifford.MultiVector.normal
+===========================
+
+.. currentmodule:: clifford
+
+.. automethod:: MultiVector.normal

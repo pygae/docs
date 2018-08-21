@@ -1,0 +1,27 @@
+clifford.cga.Translation
+========================
+
+.. currentmodule:: clifford.cga
+
+.. autoclass:: Translation
+  :no-members:
+
+
+
+
+
+
+
+.. rubric:: Methods
+
+.. autosummary::
+  :toctree:
+  :nosignatures:
+
+  ~Translation.__init__
+  ~Translation.inverted
+  ~Translation.involuted
+
+
+
+

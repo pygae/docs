@@ -1,0 +1,6 @@
+clifford.tools.g3c.pos_twiddle_root
+===================================
+
+.. currentmodule:: clifford.tools.g3c
+
+.. autofunction:: pos_twiddle_root

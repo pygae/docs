@@ -1,0 +1,6 @@
+clifford.Layout.scalar
+======================
+
+.. currentmodule:: clifford
+
+.. autoattribute:: Layout.scalar

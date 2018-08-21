@@ -1,0 +1,6 @@
+clifford.Frame.base
+===================
+
+.. currentmodule:: clifford
+
+.. autoattribute:: Frame.base

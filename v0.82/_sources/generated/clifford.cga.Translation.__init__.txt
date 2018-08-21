@@ -1,0 +1,6 @@
+clifford.cga.Translation.__init__
+=================================
+
+.. currentmodule:: clifford.cga
+
+.. automethod:: Translation.__init__

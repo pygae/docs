@@ -1,0 +1,6 @@
+clifford.ugly
+=============
+
+.. currentmodule:: clifford
+
+.. autofunction:: ugly

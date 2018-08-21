@@ -1,0 +1,6 @@
+clifford.Frame.repeat
+=====================
+
+.. currentmodule:: clifford
+
+.. automethod:: Frame.repeat

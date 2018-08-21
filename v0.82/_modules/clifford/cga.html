@@ -1,0 +1,795 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>clifford.cga &mdash; Clifford 0.82 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-85010051-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Clifford
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.82
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials.html">Tutorials</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Clifford</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../clifford.html">clifford</a> &raquo;</li>
+        
+      <li>clifford.cga</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for clifford.cga</h1><div class="highlight"><pre>
+<span></span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">.. currentmodule:: clifford.cga</span>
+<span class="sd">========================================</span>
+<span class="sd">cga (:mod:`clifford.cga`)</span>
+<span class="sd">========================================</span>
+
+<span class="sd">Object Oriented Conformal Geometric Algebra. </span>
+
+<span class="sd">Examples</span>
+<span class="sd">-----------</span>
+<span class="sd">&gt;&gt;&gt; from clifford import Cl</span>
+<span class="sd">&gt;&gt;&gt; from clifford.cga import CGA</span>
+<span class="sd">&gt;&gt;&gt; g3,blades  = Cl(3)</span>
+<span class="sd">&gt;&gt;&gt; g3c = CGA(g3)</span>
+<span class="sd">&gt;&gt;&gt; C = g3c.round(3)             # create random sphere </span>
+<span class="sd">&gt;&gt;&gt; T = g3c.translation(e1+e2)   # create translation</span>
+<span class="sd">&gt;&gt;&gt; C_ = T(C)                    # translate the sphere </span>
+<span class="sd">&gt;&gt;&gt; C_.center                    # compute center of sphere </span>
+
+<span class="sd">The CGA </span>
+<span class="sd">========</span>
+
+<span class="sd">.. autosummary::</span>
+<span class="sd">    :toctree: generated/</span>
+
+<span class="sd">    CGA</span>
+<span class="sd">    </span>
+
+<span class="sd">Objects</span>
+<span class="sd">================</span>
+
+<span class="sd">.. autosummary::</span>
+<span class="sd">    :toctree: generated/</span>
+
+<span class="sd">    Flat</span>
+<span class="sd">    Round</span>
+
+<span class="sd">Operators</span>
+<span class="sd">================</span>
+
+<span class="sd">.. autosummary::</span>
+<span class="sd">    :toctree: generated/</span>
+
+<span class="sd">    Rotation</span>
+<span class="sd">    Dilation</span>
+<span class="sd">    Translation</span>
+<span class="sd">    Transversion</span>
+
+<span class="sd">Meta-Class</span>
+<span class="sd">===========</span>
+
+<span class="sd">.. autosummary::</span>
+<span class="sd">    :toctree: generated/</span>
+
+<span class="sd">    CGAThing</span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">reduce</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">conformalize</span><span class="p">,</span> <span class="n">op</span><span class="p">,</span><span class="n">gp</span><span class="p">,</span> <span class="n">MultiVector</span><span class="p">,</span><span class="n">Cl</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">zeros</span><span class="p">,</span><span class="n">e</span><span class="p">,</span><span class="n">log</span>
+<span class="kn">from</span> <span class="nn">numpy.random</span> <span class="k">import</span> <span class="n">rand</span>
+<span class="kn">import</span> <span class="nn">math</span>
+    
+
+<div class="viewcode-block" id="CGAThing"><a class="viewcode-back" href="../../generated/clifford.cga.CGAThing.html#clifford.cga.CGAThing">[docs]</a><span class="k">class</span> <span class="nc">CGAThing</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    base class for cga objects and operators. </span>
+<span class="sd">    </span>
+<span class="sd">    maps versor product to `__call__`. </span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">MultiVector</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">other</span><span class="o">.</span><span class="n">grades</span><span class="p">()</span> <span class="o">==</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+                <span class="n">null</span><span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cga</span><span class="o">.</span><span class="n">null_vector</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">mv</span><span class="o">*</span><span class="n">null</span><span class="o">*~</span><span class="bp">self</span><span class="o">.</span><span class="n">mv</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">mv</span><span class="o">*</span><span class="n">other</span><span class="o">*~</span><span class="bp">self</span><span class="o">.</span><span class="n">mv</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">klass</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">__class__</span>
+            <span class="k">return</span> <span class="n">klass</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cga</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">mv</span><span class="o">*</span><span class="n">other</span><span class="o">.</span><span class="n">mv</span><span class="o">*~</span><span class="bp">self</span><span class="o">.</span><span class="n">mv</span><span class="p">)</span>
+    
+<div class="viewcode-block" id="CGAThing.inverted"><a class="viewcode-back" href="../../generated/clifford.cga.CGAThing.inverted.html#clifford.cga.CGAThing.inverted">[docs]</a>    <span class="k">def</span> <span class="nf">inverted</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        inverted version of this thing. </span>
+<span class="sd">        </span>
+<span class="sd">        self -&gt; ep*self*ep</span>
+<span class="sd">        </span>
+<span class="sd">        where ep is the positive added basis vector </span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cga</span><span class="o">.</span><span class="n">ep</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">mv</span><span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">cga</span><span class="o">.</span><span class="n">ep</span></div>
+    
+<div class="viewcode-block" id="CGAThing.involuted"><a class="viewcode-back" href="../../generated/clifford.cga.CGAThing.involuted.html#clifford.cga.CGAThing.involuted">[docs]</a>    <span class="k">def</span> <span class="nf">involuted</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        inverted version of this thing. </span>
+<span class="sd">        </span>
+<span class="sd">        self -&gt; E0*self*E0</span>
+<span class="sd">        </span>
+<span class="sd">        where E0 is the added minkowski bivector </span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cga</span><span class="o">.</span><span class="n">E0</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">mv</span><span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">cga</span><span class="o">.</span><span class="n">E0</span></div></div>
+        
+<span class="c1">## Objects  </span>
+<div class="viewcode-block" id="Flat"><a class="viewcode-back" href="../../generated/clifford.cga.Flat.html#clifford.cga.Flat">[docs]</a><span class="k">class</span> <span class="nc">Flat</span><span class="p">(</span><span class="n">CGAThing</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        A line, plane, or hyperplane. </span>
+<span class="sd">        </span>
+<span class="sd">        Typically constructed as method of existing cga, like `cga.flat()`</span>
+<span class="sd">        </span>
+<span class="sd">        multivector is accessable by `mv` property</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters </span>
+<span class="sd">        -----------</span>
+<span class="sd">        cga : `CGA`</span>
+<span class="sd">            the cga object</span>
+<span class="sd">        </span>
+<span class="sd">        args : [int, Multivector,Multivectors]    </span>
+<span class="sd">            * if nothing supplied, generate a flat of highest dimension </span>
+<span class="sd">            * int: dimension of flat  (2=line, 3=plane, etc)</span>
+<span class="sd">            * Multivector : can be </span>
+<span class="sd">              * existing Multivector representing the Flat</span>
+<span class="sd">              * vectors on the flat</span>
+<span class="sd">              </span>
+<span class="sd">        Examples</span>
+<span class="sd">        ----------  </span>
+<span class="sd">        </span>
+<span class="sd">        &gt;&gt;&gt; cga.flat()               # from None </span>
+<span class="sd">        &gt;&gt;&gt; cga.flat(2)              # from dim of space</span>
+<span class="sd">        &gt;&gt;&gt; cga.flat(e1,e2)          # from points</span>
+<span class="sd">        &gt;&gt;&gt; cga.flat(cga.flat().mv)  # from existing multivector   </span>
+<span class="sd">        &#39;&#39;&#39;</span>
+    <span class="c1"># could inherent some generic CGAObject class</span>
+<div class="viewcode-block" id="Flat.__init__"><a class="viewcode-back" href="../../generated/clifford.cga.Flat.__init__.html#clifford.cga.Flat.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">cga</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">cga</span> <span class="o">=</span> <span class="n">cga</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layout</span> <span class="o">=</span> <span class="n">cga</span><span class="o">.</span><span class="n">layout</span> <span class="c1"># note: self.layout is the cga layout</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">einf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cga</span><span class="o">.</span><span class="n">einf</span> <span class="c1"># we use this alot</span>
+        
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>    
+            <span class="c1"># generate random highest dimension flat</span>
+            <span class="n">nulls</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">cga</span><span class="o">.</span><span class="n">null_vector</span><span class="p">()</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">dims</span><span class="o">-</span><span class="mi">2</span><span class="p">)]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mv</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="n">op</span><span class="p">,</span><span class="n">nulls</span> <span class="o">+</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">einf</span><span class="p">])</span> 
+        
+        
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="c1"># from existing multivector</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">MultiVector</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">mv</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            
+            <span class="c1"># generate random flat  for given  dimension</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">int</span><span class="p">):</span>
+                <span class="n">dim</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">points</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">cga</span><span class="o">.</span><span class="n">base_vector</span><span class="p">()</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dim</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span>
+                <span class="n">points</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cga</span><span class="o">.</span><span class="n">up</span><span class="p">,</span> <span class="n">points</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">mv</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="n">op</span><span class="p">,</span><span class="n">points</span> <span class="o">+</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">einf</span><span class="p">])</span>
+            
+            
+        <span class="c1"># from vectors on flat         </span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">nulls</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cga</span><span class="o">.</span><span class="n">null_vector</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">einf</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">nulls</span><span class="p">:</span>
+                <span class="n">nulls</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">nulls</span><span class="p">)</span><span class="o">+</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">einf</span><span class="p">]</span>
+                
+            <span class="bp">self</span><span class="o">.</span><span class="n">mv</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="n">op</span><span class="p">,</span><span class="n">nulls</span><span class="p">)</span> 
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">mv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mv</span><span class="o">.</span><span class="n">normal</span><span class="p">()</span></div>
+    
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">%i</span><span class="s1">-Flat&#39;</span><span class="o">%</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span></div>
+                    
+<div class="viewcode-block" id="Round"><a class="viewcode-back" href="../../generated/clifford.cga.Round.html#clifford.cga.Round">[docs]</a><span class="k">class</span> <span class="nc">Round</span><span class="p">(</span><span class="n">CGAThing</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    A point pair, circle, sphere or hyper-sphere.</span>
+<span class="sd">    </span>
+<span class="sd">    Typically constructed as method of existing cga, like `cga.round()`</span>
+<span class="sd">    </span>
+<span class="sd">    multivector is accessable by `mv` property</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters </span>
+<span class="sd">    -----------</span>
+<span class="sd">    cga : `CGA`</span>
+<span class="sd">        the cga object</span>
+<span class="sd">    </span>
+<span class="sd">    args : [int, Multivector,Multivectors]    </span>
+<span class="sd">        * if nothing supplied, generate a round of highest dimension </span>
+<span class="sd">        * int: dimension of flat  (2=point pair, 3=circle, etc)</span>
+<span class="sd">        * Multivector : can be </span>
+<span class="sd">          * existing Multivector representing the round</span>
+<span class="sd">          * vectors on the round</span>
+<span class="sd">          </span>
+<span class="sd">    Examples</span>
+<span class="sd">    ----------  </span>
+<span class="sd">    </span>
+<span class="sd">    &gt;&gt;&gt; cga.round()               # from None </span>
+<span class="sd">    &gt;&gt;&gt; cga.round(2)              # from dim of space</span>
+<span class="sd">    &gt;&gt;&gt; cga.round(e1,e2,-e1)      # from points</span>
+<span class="sd">    &gt;&gt;&gt; cga.round(cga.flat().mv)  # from existing multivector   </span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="c1"># could inherent some generic CGAObject class</span>
+<div class="viewcode-block" id="Round.__init__"><a class="viewcode-back" href="../../generated/clifford.cga.Round.__init__.html#clifford.cga.Round.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">cga</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="c1"># me</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cga</span> <span class="o">=</span> <span class="n">cga</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layout</span> <span class="o">=</span> <span class="n">cga</span><span class="o">.</span><span class="n">layout</span> <span class="c1"># note: self.layout is the cga layout</span>
+        
+        
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>    
+            <span class="c1"># generate random highest dimension round</span>
+            <span class="n">nulls</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">cga</span><span class="o">.</span><span class="n">null_vector</span><span class="p">()</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">dims</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mv</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="n">op</span><span class="p">,</span><span class="n">nulls</span><span class="p">)</span> 
+        
+        
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="c1"># from existing multivector</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">MultiVector</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">mv</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            
+            <span class="c1"># generate random round  for given  dimension</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">int</span><span class="p">):</span>
+                <span class="n">dim</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">points</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">cga</span><span class="o">.</span><span class="n">base_vector</span><span class="p">()</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dim</span><span class="o">+</span><span class="mi">2</span><span class="p">)]</span>
+                <span class="n">points</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cga</span><span class="o">.</span><span class="n">up</span><span class="p">,</span> <span class="n">points</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">mv</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="n">op</span><span class="p">,</span><span class="n">points</span><span class="p">)</span>
+        
+            <span class="c1"># from center, radius tuple</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                    <span class="n">center</span><span class="p">,</span><span class="n">radius</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="n">center</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cga</span><span class="o">.</span><span class="n">null_vector</span><span class="p">(</span><span class="n">center</span><span class="p">)</span>
+                    <span class="n">dual_round</span> <span class="o">=</span> <span class="p">(</span><span class="n">center</span> <span class="o">-</span> <span class="o">.</span><span class="mi">5</span><span class="o">*</span><span class="n">radius</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">cga</span><span class="o">.</span><span class="n">einf</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">mv</span> <span class="o">=</span> <span class="n">dual_round</span><span class="o">.</span><span class="n">normal</span><span class="p">()</span><span class="o">.</span><span class="n">dual</span><span class="p">()</span>
+                       
+        <span class="c1"># from vectors on round         </span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">nulls</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cga</span><span class="o">.</span><span class="n">null_vector</span><span class="p">,</span><span class="n">args</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mv</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="n">op</span><span class="p">,</span><span class="n">nulls</span><span class="p">)</span> 
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">mv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mv</span><span class="o">.</span><span class="n">normal</span><span class="p">()</span></div>
+        
+<div class="viewcode-block" id="Round.from_center_radius"><a class="viewcode-back" href="../../generated/clifford.cga.Round.from_center_radius.html#clifford.cga.Round.from_center_radius">[docs]</a>    <span class="k">def</span> <span class="nf">from_center_radius</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">center</span><span class="p">,</span> <span class="n">radius</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        construct a round from center/radius</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">center</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cga</span><span class="o">.</span><span class="n">null_vector</span><span class="p">(</span><span class="n">center</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mv</span> <span class="o">=</span> <span class="p">(</span><span class="n">center</span> <span class="o">-</span> <span class="o">.</span><span class="mi">5</span><span class="o">*</span><span class="n">radius</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">cga</span><span class="o">.</span><span class="n">einf</span><span class="p">)</span><span class="o">.</span><span class="n">normal</span><span class="p">()</span><span class="o">.</span><span class="n">dual</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+    
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">names</span> <span class="o">=</span> <span class="p">{</span><span class="mi">4</span><span class="p">:</span><span class="s1">&#39;Sphere&#39;</span><span class="p">,</span><span class="mi">3</span><span class="p">:</span><span class="s1">&#39;Circle&#39;</span><span class="p">,</span><span class="mi">2</span><span class="p">:</span><span class="s1">&#39;Point Pair&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="s1">&#39;Point&#39;</span><span class="p">}</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim</span> <span class="o">&lt;=</span><span class="mi">4</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">names</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">&#39;</span><span class="si">%i</span><span class="s1">-Round&#39;</span><span class="o">%</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">dim</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        dimension of this round</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">mv</span><span class="o">.</span><span class="n">grades</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">center</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        center of this round, as a null vector </span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">mv</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">cga</span><span class="o">.</span><span class="n">einf</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">mv</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">center_down</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        center of this round, as a down-projected  vector (in I_base)</span>
+<span class="sd">        </span>
+<span class="sd">        (but still in cga&#39;s layout)</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cga</span><span class="o">.</span><span class="n">down</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">center</span><span class="p">)</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">radius</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        radius of the round (a float)</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">dual_sphere</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dual</span> 
+        <span class="n">dual_sphere</span> <span class="o">/</span> <span class="p">(</span><span class="o">-</span><span class="n">dual_sphere</span> <span class="o">|</span> <span class="bp">self</span><span class="o">.</span><span class="n">cga</span><span class="o">.</span><span class="n">einf</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">dual_sphere</span> <span class="o">*</span> <span class="n">dual_sphere</span><span class="p">))</span>
+
+    <span class="nd">@property</span> 
+    <span class="k">def</span> <span class="nf">dual</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        self.mv* self.layout.I</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">mv</span><span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">I</span></div>
+            
+<span class="c1">## Operators</span>
+<div class="viewcode-block" id="Translation"><a class="viewcode-back" href="../../generated/clifford.cga.Translation.html#clifford.cga.Translation">[docs]</a><span class="k">class</span> <span class="nc">Translation</span><span class="p">(</span><span class="n">CGAThing</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    A Translation</span>
+<span class="sd">    </span>
+<span class="sd">    Can be constructed from a vector in base space or a null</span>
+<span class="sd">    vector, or nothing. </span>
+<span class="sd">    </span>
+<span class="sd">    Parameters </span>
+<span class="sd">    -------------</span>
+<span class="sd">    args : [none, `clifford.Multivector`]</span>
+<span class="sd">        if none, a random translation will be generated</span>
+<span class="sd">        several types of Multivectors can be used:</span>
+<span class="sd">            * base vector - vector in base space </span>
+<span class="sd">            * null vector </span>
+<span class="sd">            * existing translation rotor  </span>
+<span class="sd">        </span>
+<span class="sd">    Examples</span>
+<span class="sd">    ----------</span>
+<span class="sd">    &gt;&gt;&gt; T = cga.translation()       # from None </span>
+<span class="sd">    &gt;&gt;&gt; T = cga.translation(e1+e2)  # from base vector  </span>
+<span class="sd">    &gt;&gt;&gt; T = cga.translation(cga.up(e1+e2)) # from null vector </span>
+<span class="sd">    &gt;&gt;&gt; T = cga.translation(T.mv)  # from existing translation rotor </span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<div class="viewcode-block" id="Translation.__init__"><a class="viewcode-back" href="../../generated/clifford.cga.Translation.__init__.html#clifford.cga.Translation.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">cga</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cga</span> <span class="o">=</span> <span class="n">cga</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layout</span> <span class="o">=</span> <span class="n">cga</span><span class="o">.</span><span class="n">layout</span>
+        
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span><span class="mi">0</span><span class="p">:</span>    
+            <span class="c1"># generate generator!</span>
+            <span class="n">mv</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">cga</span><span class="o">.</span><span class="n">base_vector</span><span class="p">()</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">cga</span><span class="o">.</span><span class="n">einf</span><span class="o">/</span><span class="mf">2.</span>
+        
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">arg</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">MultiVector</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">arg</span><span class="o">.</span><span class="n">grades</span><span class="p">()</span><span class="o">==</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+                    <span class="c1"># we have vector </span>
+                    <span class="n">mv</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">cga</span><span class="o">.</span><span class="n">straight_up</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">cga</span><span class="o">.</span><span class="n">einf</span><span class="o">/</span><span class="mf">2.</span>     
+                <span class="k">if</span> <span class="n">arg</span><span class="o">.</span><span class="n">grades</span><span class="p">()</span><span class="o">==</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">]:</span>
+                    <span class="c1"># we have ro tor  </span>
+                    <span class="c1">## TODO ensure its a translation</span>
+                    <span class="n">mv</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;bad input&#39;</span><span class="p">)</span>
+            
+        <span class="bp">self</span><span class="o">.</span><span class="n">mv</span> <span class="o">=</span> <span class="n">mv</span></div>
+    
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;Translation&#39;</span></div>
+  
+<div class="viewcode-block" id="Dilation"><a class="viewcode-back" href="../../generated/clifford.cga.Dilation.html#clifford.cga.Dilation">[docs]</a><span class="k">class</span> <span class="nc">Dilation</span><span class="p">(</span><span class="n">CGAThing</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    A global dilation</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters </span>
+<span class="sd">    -------------</span>
+<span class="sd">    args : [none, number]</span>
+<span class="sd">        if none, a random dilation will be generated</span>
+<span class="sd">        if a number, dilation of given amount</span>
+<span class="sd">        </span>
+<span class="sd">    Examples</span>
+<span class="sd">    ----------</span>
+<span class="sd">    &gt;&gt;&gt; D = cga.dilation()          # from  none </span>
+<span class="sd">    &gt;&gt;&gt; D = cga.dilation(.4)        # from number</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<div class="viewcode-block" id="Dilation.__init__"><a class="viewcode-back" href="../../generated/clifford.cga.Dilation.__init__.html#clifford.cga.Dilation.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">cga</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cga</span> <span class="o">=</span> <span class="n">cga</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layout</span> <span class="o">=</span> <span class="n">cga</span><span class="o">.</span><span class="n">layout</span>
+        
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span><span class="mi">0</span><span class="p">:</span>    
+            <span class="c1"># generate a dilation </span>
+            <span class="n">args</span><span class="o">=</span> <span class="p">[</span><span class="n">rand</span><span class="p">()]</span>
+        
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">arg</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">MultiVector</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">arg</span><span class="o">.</span><span class="n">grades</span><span class="p">()</span><span class="o">==</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">]:</span>
+                    <span class="c1"># we have a rotor </span>
+                    <span class="n">mv</span> <span class="o">=</span> <span class="n">arg</span>
+                <span class="k">if</span> <span class="n">arg</span><span class="o">.</span><span class="n">grades</span> <span class="o">==</span> <span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                    <span class="n">arg</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+            
+            <span class="k">if</span> <span class="n">arg</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">:</span>
+                <span class="k">raise</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;dilation should be positive&#39;</span><span class="p">))</span>
+            
+            <span class="n">mv</span> <span class="o">=</span> <span class="n">e</span><span class="o">**</span><span class="p">((</span><span class="o">-</span><span class="n">log</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span><span class="o">/</span><span class="mf">2.</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cga</span><span class="o">.</span><span class="n">E0</span><span class="p">))</span> 
+            
+                
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;bad input&#39;</span><span class="p">)</span>
+            
+        <span class="bp">self</span><span class="o">.</span><span class="n">mv</span> <span class="o">=</span> <span class="n">mv</span></div>
+    
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;Dilation&#39;</span></div>
+
+<div class="viewcode-block" id="Rotation"><a class="viewcode-back" href="../../generated/clifford.cga.Rotation.html#clifford.cga.Rotation">[docs]</a><span class="k">class</span> <span class="nc">Rotation</span><span class="p">(</span><span class="n">CGAThing</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    A Rotation</span>
+<span class="sd">    </span>
+<span class="sd">    Can be constructed from a generator, rotor, or none</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters </span>
+<span class="sd">    -------------</span>
+<span class="sd">    args : [none, `clifford.Multivector`]</span>
+<span class="sd">        if none, a random translation will be generated</span>
+<span class="sd">        several types of Multivectors can be used:</span>
+<span class="sd">            * bivector   - interpreted as the generator</span>
+<span class="sd">            * existing translation rotor  </span>
+<span class="sd">        </span>
+<span class="sd">    Examples</span>
+<span class="sd">    ----------</span>
+<span class="sd">    &gt;&gt;&gt; R = cga.rotation()          # from None</span>
+<span class="sd">    &gt;&gt;&gt; R = cga.rotation(e12+e23)   # from bivector </span>
+<span class="sd">    &gt;&gt;&gt; R = cga.rotation(R.mv)   # from bivector </span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<div class="viewcode-block" id="Rotation.__init__"><a class="viewcode-back" href="../../generated/clifford.cga.Rotation.__init__.html#clifford.cga.Rotation.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">cga</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cga</span> <span class="o">=</span> <span class="n">cga</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layout</span> <span class="o">=</span> <span class="n">cga</span><span class="o">.</span><span class="n">layout</span>
+        
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span><span class="mi">0</span><span class="p">:</span>    
+            <span class="c1"># generate a rotation</span>
+            
+            <span class="n">U</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">randomMV</span><span class="p">()(</span><span class="mi">2</span><span class="p">)</span>
+            <span class="n">U</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cga</span><span class="o">.</span><span class="n">I_base</span><span class="o">.</span><span class="n">project</span><span class="p">(</span><span class="n">U</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mv</span> <span class="o">=</span> <span class="n">e</span><span class="o">**</span><span class="p">(</span><span class="n">U</span><span class="p">)</span>
+        
+        
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">arg</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">MultiVector</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">arg</span><span class="o">.</span><span class="n">grades</span><span class="p">()</span><span class="o">==</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">]:</span>
+                    <span class="c1"># we have a rotor </span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">mv</span> <span class="o">=</span> <span class="n">arg</span>
+                
+                <span class="k">elif</span> <span class="n">arg</span><span class="o">.</span><span class="n">grades</span><span class="p">()</span> <span class="o">==</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span>
+                    <span class="c1"># we have a bivector, make sure its in base space</span>
+                    <span class="k">if</span> <span class="n">arg</span><span class="o">^</span><span class="bp">self</span><span class="o">.</span><span class="n">cga</span><span class="o">.</span><span class="n">I_base</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="n">arg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cga</span><span class="o">.</span><span class="n">I_base</span><span class="o">.</span><span class="n">project</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">mv</span> <span class="o">=</span> <span class="n">e</span><span class="o">**</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># multivector has improper grade</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;bad input&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># arg isnt a multivector</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;bad input&#39;</span><span class="p">)</span>            
+                
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># more than 1 arg</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;bad input&#39;</span><span class="p">)</span></div>
+                
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;Rotation&#39;</span>    </div>
+
+<div class="viewcode-block" id="Transversion"><a class="viewcode-back" href="../../generated/clifford.cga.Transversion.html#clifford.cga.Transversion">[docs]</a><span class="k">class</span> <span class="nc">Transversion</span><span class="p">(</span><span class="n">Translation</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    A Transversion</span>
+<span class="sd">    </span>
+<span class="sd">    A transversion is a combination of an inversion-translation-inversion,</span>
+<span class="sd">    or in other words an inverted translation operator. This inherits</span>
+<span class="sd">    from `Translation`</span>
+<span class="sd">    </span>
+<span class="sd">    Can be constructed from a vector in base space or a null</span>
+<span class="sd">    vector, or nothing.  </span>
+<span class="sd">    </span>
+<span class="sd">    Parameters </span>
+<span class="sd">    -------------</span>
+<span class="sd">    args : [none, `clifford.Multivector`]</span>
+<span class="sd">        if none, a random transversion will be generated</span>
+<span class="sd">        several types of Multivectors can be used:</span>
+<span class="sd">            * base vector - vector in base space </span>
+<span class="sd">            * null vector </span>
+<span class="sd">            * existing transversion rotor  </span>
+<span class="sd">        </span>
+<span class="sd">    Examples</span>
+<span class="sd">    ----------</span>
+<span class="sd">    &gt;&gt;&gt; K = cga.transversion()       # from None </span>
+<span class="sd">    &gt;&gt;&gt; K = cga.transversion(e1+e2)  # from base vector  </span>
+<span class="sd">    &gt;&gt;&gt; K = cga.transversion(cga.up(e1+e2)) # from null vector </span>
+<span class="sd">    &gt;&gt;&gt; K = cga.transversion(T.mv)  # from existing translation rotor </span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<div class="viewcode-block" id="Transversion.__init__"><a class="viewcode-back" href="../../generated/clifford.cga.Transversion.__init__.html#clifford.cga.Transversion.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">cga</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mv</span> <span class="o">=</span> <span class="n">Translation</span><span class="p">(</span><span class="n">cga</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span><span class="o">.</span><span class="n">inverted</span><span class="p">()</span></div>
+        
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;Transversion&#39;</span>    </div>
+       
+         
+<div class="viewcode-block" id="CGA"><a class="viewcode-back" href="../../generated/clifford.cga.CGA.html#clifford.cga.CGA">[docs]</a><span class="k">class</span> <span class="nc">CGA</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Conformal Geometric Algebra </span>
+<span class="sd">    </span>
+<span class="sd">    conformalizes the layout_orig,  and provides several</span>
+<span class="sd">    methods and for objects/operators</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters </span>
+<span class="sd">    -----------</span>
+<span class="sd">    layout_orig: [`clifford.Layout`, int]</span>
+<span class="sd">        a layout for the *base* geometric algebra which is conformalized</span>
+<span class="sd">        if given as an int, then generates a euclidean space of given </span>
+<span class="sd">        dimension</span>
+<span class="sd">        </span>
+<span class="sd">    Examples </span>
+<span class="sd">    ----------</span>
+<span class="sd">    &gt;&gt;&gt; from clifford import Cl</span>
+<span class="sd">    &gt;&gt;&gt; from clifford.cga import CGA</span>
+<span class="sd">    &gt;&gt;&gt; g3,blades  = Cl(3)</span>
+<span class="sd">    &gt;&gt;&gt; g3c = CGA(g3)</span>
+<span class="sd">    &gt;&gt;&gt; g3c = CGA(3)</span>
+<span class="sd">    </span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<div class="viewcode-block" id="CGA.__init__"><a class="viewcode-back" href="../../generated/clifford.cga.CGA.__init__.html#clifford.cga.CGA.__init__">[docs]</a>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layout_orig</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span> <span class="n">layout_orig</span><span class="p">,</span><span class="nb">int</span><span class="p">):</span>
+            <span class="n">layout_orig</span><span class="p">,</span><span class="n">blades</span> <span class="o">=</span> <span class="n">Cl</span><span class="p">(</span><span class="n">layout_orig</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layout_orig</span> <span class="o">=</span> <span class="n">layout_orig</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">blades</span><span class="p">,</span> <span class="n">stuff</span> <span class="o">=</span> <span class="n">conformalize</span><span class="p">(</span><span class="n">layout_orig</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">stuff</span><span class="p">)</span></div>
+    
+    <span class="c1">## Objects</span>
+<div class="viewcode-block" id="CGA.base_vector"><a class="viewcode-back" href="../../generated/clifford.cga.CGA.base_vector.html#clifford.cga.CGA.base_vector">[docs]</a>    <span class="k">def</span> <span class="nf">base_vector</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        random vector in the lower(original) space</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">I_base</span><span class="o">.</span><span class="n">project</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">randomV</span><span class="p">())</span></div>
+    
+<div class="viewcode-block" id="CGA.null_vector"><a class="viewcode-back" href="../../generated/clifford.cga.CGA.null_vector.html#clifford.cga.CGA.null_vector">[docs]</a>    <span class="k">def</span> <span class="nf">null_vector</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        generates random null vector if x is None, or</span>
+<span class="sd">        returns a null vector from base vector x, if  x^self.I_base ==0 </span>
+<span class="sd">        returns x, </span>
+<span class="sd">        </span>
+<span class="sd">        a null vector will lay on the horisphere</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">up</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">base_vector</span><span class="p">())</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">x</span><span class="o">^</span><span class="bp">self</span><span class="o">.</span><span class="n">I_base</span> <span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">up</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">x</span></div>
+    
+<div class="viewcode-block" id="CGA.round"><a class="viewcode-back" href="../../generated/clifford.cga.CGA.round.html#clifford.cga.CGA.round">[docs]</a>    <span class="k">def</span> <span class="nf">round</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        see :class:`Round`</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="n">Round</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="o">*</span><span class="n">args</span><span class="p">)</span> </div>
+    
+<div class="viewcode-block" id="CGA.flat"><a class="viewcode-back" href="../../generated/clifford.cga.CGA.flat.html#clifford.cga.CGA.flat">[docs]</a>    <span class="k">def</span> <span class="nf">flat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        see :class:`Flat`</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="n">Flat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="o">*</span><span class="n">args</span><span class="p">)</span> </div>
+    <span class="c1">##  Operators</span>
+<div class="viewcode-block" id="CGA.translation"><a class="viewcode-back" href="../../generated/clifford.cga.CGA.translation.html#clifford.cga.CGA.translation">[docs]</a>    <span class="k">def</span> <span class="nf">translation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        see :class:`Translation`</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="n">Translation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span></div>
+        
+<div class="viewcode-block" id="CGA.transversion"><a class="viewcode-back" href="../../generated/clifford.cga.CGA.transversion.html#clifford.cga.CGA.transversion">[docs]</a>    <span class="k">def</span> <span class="nf">transversion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        see :class:`Transversion`</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="n">Transversion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CGA.dilation"><a class="viewcode-back" href="../../generated/clifford.cga.CGA.dilation.html#clifford.cga.CGA.dilation">[docs]</a>    <span class="k">def</span> <span class="nf">dilation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        see :class:`Dilation`</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="n">Dilation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="o">*</span><span class="n">args</span><span class="p">)</span></div>
+    
+<div class="viewcode-block" id="CGA.rotation"><a class="viewcode-back" href="../../generated/clifford.cga.CGA.rotation.html#clifford.cga.CGA.rotation">[docs]</a>    <span class="k">def</span> <span class="nf">rotation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        see :class:`Rotation`</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="n">Rotation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="o">*</span><span class="n">args</span><span class="p">)</span></div>
+    
+    <span class="c1">##  methods</span>
+<div class="viewcode-block" id="CGA.straight_up"><a class="viewcode-back" href="../../generated/clifford.cga.CGA.straight_up.html#clifford.cga.CGA.straight_up">[docs]</a>    <span class="k">def</span> <span class="nf">straight_up</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        place a vector from layout_orig into this CGA, without up()</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">I_base</span><span class="o">.</span><span class="n">project</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">up</span><span class="p">(</span><span class="n">x</span><span class="p">))</span></div></div>
+        
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Robert Kern and the Clifford Team.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.82',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: ''
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

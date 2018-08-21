@@ -1,0 +1,6 @@
+clifford.Frame.tostring
+=======================
+
+.. currentmodule:: clifford
+
+.. automethod:: Frame.tostring

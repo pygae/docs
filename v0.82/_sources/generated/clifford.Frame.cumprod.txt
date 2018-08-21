@@ -1,0 +1,6 @@
+clifford.Frame.cumprod
+======================
+
+.. currentmodule:: clifford
+
+.. automethod:: Frame.cumprod

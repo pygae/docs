@@ -1,0 +1,573 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Conformal Geometric Algebra"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "##  Intro"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Conformal Geometric Algebra (CGA) is a projective geometry tool which allows conformal transformations to be implemented with rotations.   To do this,  the original geometric algebra is extended by two dimensions, one of positive signature $e_+$ and one of negative signature $e_-$. Thus, if we started with $G_p$,  the conformal algebra is  $G_{p+1,1}$.\n",
+    "\n",
+    "It is convenient to define a *null* basis given by \n",
+    "\n",
+    "$$e_{o} = \\frac{1}{2}(e_{-} -e_{+})\\\\e_{\\infty} = e_{-}+e_{+}$$\n",
+    "\n",
+    "A vector in the original space $x$ is *up-projected* into a conformal vector $X$  by \n",
+    "\n",
+    "$$X = x + \\frac{1}{2} x^2 e_{\\infty} +e_o $$\n",
+    "\n",
+    "\n",
+    "To map a conformal vector back into a vector from the original space, the vector is first normalized, then rejected from the minkowski plane $E_0$,\n",
+    "\n",
+    "\n",
+    "$$ X = \\frac{X}{X \\cdot e_{\\infty}}$$\n",
+    "\n",
+    "then \n",
+    "\n",
+    "$$x = X \\wedge E_0\\, E_0^{-1}$$\n",
+    "\n",
+    "\n",
+    "To implement this in `clifford`  we could create a CGA by instantiating the it directly, like `Cl(3,1)`  for example, and then making the definitions and maps described above relating the various subspaces. Or, we you can use the helper function `conformalize()`. "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Using `conformalize()`\n",
+    "The purpose of `conformalize()` is to remove the redunancy assocaited with creating a conformal geometric algebras. `conformalize()` takes an existing geometric algebra layout and *conformalizes* it by adding two dimensions, as described above. Additionally, this function returns a new layout for the CGA, a dict of blades for the CGA, and dictionary containing the added basis vectors and up/down projection functions. \n",
+    "\n",
+    "To demonstrate we will conformalize $G_2$, producing a CGA of $G_{3,1}$."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "from numpy import pi,e\n",
+    "from clifford import Cl, conformalize\n",
+    "\n",
+    "G2, blades_g2 = Cl(2)\n",
+    "\n",
+    "blades_g2 # inspect the G2 blades"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Now, conformalize it "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "G2c, blades_g2c, stuff = conformalize(G2)\n",
+    "\n",
+    "blades_g2c   #inspect the CGA blades"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Additionally lets inspect `stuff` "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "stuff"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "It contains the following:\n",
+    "\n",
+    "* `ep` - postive basis vector added\n",
+    "* `en` - negative basis vector added\n",
+    "* `eo` - zero vecror of null basis (=.5*(en-ep))\n",
+    "* `einf` - infinity vector of null basis (=en+ep)\n",
+    "* `E0` - minkowski bivector (=einf^eo)\n",
+    "* `up()` - function to up-project a vector from GA to CGA\n",
+    "* `down()` - function to down-project a vector from CGA to GA\n",
+    "* `homo()` - function ot homogenize a CGA vector\n",
+    "\n",
+    "\n",
+    "We can put the `blades` and the `stuff` into the local namespace, "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "locals().update(blades_g2c)\n",
+    "locals().update(stuff)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Now we can use the `up()` and `down()` functions to go in and out of CGA"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "x = e1+e2\n",
+    "X = up(x)\n",
+    "X"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "down(X)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Operations"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Conformal transformations in $G_n$ are achieved through versers in the conformal space $G_{n+1,1}$. These versers can be categorized by their relation to the added minkowski plane, $E_0$. There are three categories,\n",
+    "\n",
+    "* verser purely in $E_0$\n",
+    "* verser partly in $E_0$\n",
+    "* verser out of $E_0$\n",
+    "\n",
+    "\n",
+    "A three dimensional projection for conformal space with the relavant subspaces labeled is shown below. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "from IPython.display import Image\n",
+    "Image(url='_static/conformal space.svg')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Versers purely in $E_0$"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "First we generate some vectors in G2, which we can operate on"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "a= 1*e1 + 2*e2\n",
+    "b= 3*e1 + 4*e2"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Inversions"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "$$e_{+} X e_{+}$$\n",
+    "\n",
+    "Inversion is a reflection in  $e_+$, this swaps $e_o$  and $e_{\\infty}$, as can be seen from the model above."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "assert(down(ep*up(a)*ep)  == a.inv())"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Involutions "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "$$E_0 X E_0$$"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "assert(down(E0*up(a)*E0) == -a)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Dilations"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "$$D_{\\alpha}  =  e^{-\\frac{\\ln{\\alpha}}{2} \\,E_0} $$\n",
+    "\n",
+    "$$D_{\\alpha} \\, X \\, \\tilde{D_{\\alpha}} $$"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "from scipy import rand,log\n",
+    "\n",
+    "D = lambda alpha: e**((-log(alpha)/2.)*(E0)) \n",
+    "alpha = rand()\n",
+    "assert(down( D(alpha)*up(a)*~D(alpha)) == (alpha*a))\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Versers partly in $E_0$"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Translations"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "$$ V = e ^{\\frac{1}{2} e_{\\infty} a } = 1 + e_{\\infty}a$$"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "T = lambda x: e**(1/2.*(einf*x)) \n",
+    "assert(down( T(a)*up(b)*~T(a)) == b+a)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Transversions"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "A transversion is an inversion,  followed by a translation, followed by a inversion. The verser is \n",
+    "\n",
+    "$$V= e_+ T_a e_+$$\n",
+    "\n",
+    "which is recognised as the translation bivector reflected in the $e_+$ vector. From the diagram, it is seen that this is equivalent to the bivector in $x\\wedge e_o$,\n",
+    "\n",
+    "$$ e_+ (1+e_{\\infty}a)e_+ $$\n",
+    "\n",
+    "$$ e_+^2 + e_+e_{\\infty}a e_+$$\n",
+    "$$2 +2e_o a$$\n",
+    "\n",
+    "the factor of 2 may be dropped, because the conformal vectors are null\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "V = ep * T(a) * ep\n",
+    "assert ( V == 1+(eo*a))\n",
+    "\n",
+    "K = lambda x: 1+(eo*a) \n",
+    "\n",
+    "B= up(b)\n",
+    "assert( down(K(a)*B*~K(a)) == 1/(a+1/b) ) "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Versers Out of  $E_0$"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Versers that are out of $E_0$ are made up of the versers within the original space. These include reflections and rotations, and their conformal representation is identical to their form in $G^n$, except the minus sign is dropped for reflections, "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Reflections"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "$$ -mam^{-1}  \\rightarrow MA\\tilde{M}  $$"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "m = 5*e1 + 6*e2\n",
+    "n = 7*e1 + 8*e2\n",
+    "\n",
+    "\n",
+    "assert(down(m*up(a)*m) == -m*a*m.inv())\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Rotations"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "$$ mnanm = Ra\\tilde{R} \\rightarrow RA\\tilde{R}  $$"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "R = lambda theta: e**((-.5*theta)*(e12))\n",
+    "theta = pi/2\n",
+    "assert(down( R(theta)*up(a)*~R(theta)) == R(theta)*a*~R(theta))\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Combinations of Operations"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### simple example"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "As a simple example consider the combination  operations of translation,scaling, and inversion. "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "$$b=-2a+e_0 \\quad \\rightarrow \\quad B= (T_{e_0}E_0 D_2) A \\tilde{ (D_2 E_0 T_{e_0})} $$"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "A = up(a)\n",
+    "V = T(e1)*E0*D(2)\n",
+    "B = V*A*~V\n",
+    "assert(down(B) == (-2*a)+e1 )"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Transversion"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "A transversion may be built from a inversion, translation, and inversion. \n",
+    "\n",
+    "$$c = (a^{-1}+b)^{-1}$$\n",
+    "\n",
+    "In conformal GA, this is accomplished by \n",
+    "\n",
+    "$$C = VA\\tilde{V}$$\n",
+    "\n",
+    "$$V= e_+ T_b e_+$$"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "A = up(a)\n",
+    "V = ep*T(b)*ep\n",
+    "C = V*A*~V\n",
+    "assert(down(C) ==1/(1/a +b))\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Rotation about a point "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Rotation about a point, $a$  can be achieved by translating the origina to $a$ then rotating, then translating back.  Just like the transversion can be thought of as translating the involution operator, rotation about a point can also be thought of as  translating the Rotor itself. Covariance.  "
+   ]
+  }
+ ],
+ "metadata": {
+  "anaconda-cloud": {},
+  "kernelspec": {
+   "display_name": "Python [default]",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.5.2"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 0
+}

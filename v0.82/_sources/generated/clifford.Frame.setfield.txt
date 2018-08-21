@@ -1,0 +1,6 @@
+clifford.Frame.setfield
+=======================
+
+.. currentmodule:: clifford
+
+.. automethod:: Frame.setfield

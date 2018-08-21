@@ -1,0 +1,6 @@
+clifford.Frame.transpose
+========================
+
+.. currentmodule:: clifford
+
+.. automethod:: Frame.transpose

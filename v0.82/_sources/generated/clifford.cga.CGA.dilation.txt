@@ -1,0 +1,6 @@
+clifford.cga.CGA.dilation
+=========================
+
+.. currentmodule:: clifford.cga
+
+.. automethod:: CGA.dilation

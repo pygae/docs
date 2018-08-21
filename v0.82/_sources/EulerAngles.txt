@@ -1,0 +1,332 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Rotations in Space: Euler Angles, Matrices, and Quaternions"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "This notebook demonstrates how to use `clifford` to implement rotations in three dimensions using euler angles, rotation matices and quaternions. All of these forms are derived from the more general rotor form, which is provided by GA.   Conversion from the rotor form to a matrix reprentation is shown, and takes about three lines of code. We start with euler angles. "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Euler Angles  with Rotors"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "A common way to parameterize rotations in three dimensions is through [Euler Angles](https://en.wikipedia.org/wiki/Euler_angles). \n",
+    "\n",
+    "\"Any orientation can be achieved by composing three elemental rotations. The elemental rotations can either occur about the axes of the fixed coordinate system (*extrinsic rotations*) or about the axes of a rotating coordinate system, which is initially aligned with the fixed one, and modifies its orientation after each elemental rotation (*intrinsic rotations*). \" -wikipedia\n",
+    "\n",
+    "The animation below shows an intrinsic rotation model as each elemental rotation is applied.  Label the left, right, and vertical blue-axes as  $e_1, e_2,$ and $e_3$, respectively. The series of rotations  can be described:\n",
+    "\n",
+    "1. rotate about  $e_3$-axis\n",
+    "2. rotate about the rotated $e_1$-axis, call it  $e_1^{'}$\n",
+    "3. rotate about the twice rotated axis of $e_3$-axis, call it  $e_3^{''}$\n",
+    "\n",
+    "So the elemental rotations are about  $e_3,  e_{1}^{'},  e_3^{''}$-axes, respectively."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "from IPython.display import Image,SVG\n",
+    "Image(url='_static/Euler2a.gif') # taken from wikipedia"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "\n",
+    "Following Sec. 2.7.5  from \"Geometric Algebra for Physicists\", we first rotate an angle $\\phi$ about the\n",
+    "$e_3$-axis,  which is equivalent to rotating in the $e_{12}$-plane. This is done with the rotor\n",
+    "\n",
+    "$$ R_{\\phi} = e^{-\\frac{\\phi}{2} e_{12}}$$\n",
+    "\n",
+    "\n",
+    "Next we rotate about the rotated $e_1$-axis, which we label $e_1^{'}$. To find where this is, we can rotate the axis, \n",
+    "\n",
+    "$$  e_1^{'} =R_{\\phi} e_1 \\tilde{R_{\\phi}} $$\n",
+    "\n",
+    "The plane corresponding to this axis is found by taking the dual of  $e_1^{'}$\n",
+    "\n",
+    "$$ I R_{\\phi} e_1 \\tilde{R_{\\phi}} = R_{\\phi} e_{23} \\tilde{R_{\\phi}} $$\n",
+    "\n",
+    "\n",
+    "Where we have made use of the fact that the psuedo-scalar commutes in G3. Using this result, the second roation  by angle $\\theta$ about the $e_1^{'}$-axis is then ,\n",
+    "\n",
+    "\n",
+    "$$ R_{\\theta} = e^{\\frac{\\theta}{2} R_{\\phi} e_{23} \\tilde{R_{\\phi}}}  $$\n",
+    "\n",
+    "\n",
+    "However, noting that \n",
+    "\n",
+    "$$ e^{R_{\\phi} e_{23} \\tilde{R_{\\phi}}} =R_{\\phi} e^{e_{23}} \\tilde{R_{\\phi}}  $$\n",
+    "\n",
+    "Allows us to write the second rotation  by angle $\\theta$ about the $e_1^{'}$-axis as \n",
+    "\n",
+    "$$ R_{\\theta} = R_{\\phi} e^{\\frac{\\theta}{2}e_{23}} \\tilde{R_{\\phi}}  $$\n",
+    "\n",
+    "So, the combonation of the first two elemental rotations equals, \n",
+    "\n",
+    "\\begin{align*} \n",
+    "R_{\\theta} R_{\\phi} &= R_{\\phi} e^{\\frac{\\theta}{2}e_{23}} \\tilde{R_{\\phi}} R_{\\phi} \\\\ \n",
+    "&= e^{-\\frac{\\phi}{2} e_{12}}e^{-\\frac{\\theta}{2} e_{23}}\n",
+    "\\end{align*}\n",
+    "\n",
+    "This pattern can be extended to the third elemental rotation of angle $\\psi$ in the twice-rotated $e_1$-axis, creating the total rotor \n",
+    "\n",
+    "$$ R = e^{-\\frac{\\phi}{2} e_{12}} e^{-\\frac{\\theta}{2} e_{23}} e^{-\\frac{\\psi}{2} e_{12}} $$"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Implementation of Euler Angles"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "First, we initialize the algbera and assign the variables"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "from numpy import e,pi\n",
+    "from clifford import Cl\n",
+    "\n",
+    "layout, blades = Cl(3)   # create a 3-dimensional clifford algebra\n",
+    "\n",
+    "locals().update(blades) # lazy way to put entire basis in the namespace"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "\n",
+    "Next we define a function to produce a rotor given euler angles"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "def R_euler(phi, theta,psi):\n",
+    "    Rphi = e**(-phi/2.*e12)\n",
+    "    Rtheta = e**(-theta/2.*e23)\n",
+    "    Rpsi = e**(-psi/2.*e12)\n",
+    "    \n",
+    "    return Rphi*Rtheta*Rpsi"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "For example, using this to create a rotation similar to that shown in the animation above,"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "R = R_euler(pi/4, pi/4, pi/4)\n",
+    "R"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Convert to Quaternions"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "A Rotor in 3D space **is**  a *unit quaternion*, and so we have essentially created a function that converts Euler angles to quaternions. All you need to do is interpret the bivectors as $i,j,$ and $k$'s.  See the page *\"Interfacing Other Mathematical Systems\"*, for more on quaternions. "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "##  Convert to Rotation Matrix"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "The matrix representation for a rotation can defined as the result of  rotating an ortho-normal frame. Rotating an ortho-normal frame can be done easily, "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "A = [e1,e2,e3]          # initial ortho-normal frame\n",
+    "B = [R*a*~R for a in A] # resultant frame after rotation\n",
+    "\n",
+    "B"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "The components of this frame **are**  the rotation matrix, so we just enter the frame componenets into a matrix."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "from numpy import array \n",
+    "\n",
+    "M = [float(b|a) for b in B for a in A] # you need float() due to bug in clifford\n",
+    "M = array(M).reshape(3,3)\n",
+    "\n",
+    "M"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Thats a rotation  matrix."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "##  Convert a Rotation Matrix to a Rotor"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "In 3 Dimenions, there is a simple formula which can be used to directly transform a rotations matrix into a rotor. For arbitrary dimensions you have to use a different algorithm (see `orthoMat2Verser()` in `clifford.tools`).  Anyway, in 3 dimensions there is a closed form solution, as described in  Sec. 4.3.3 of \"Geometric Algebra for Physicists\".   Given a rotor $R$ which transforms an  orthonormal frame $A={a_k}$  into $B={b_k}$ as such,\n",
+    "\n",
+    "$$b_k = Ra_k\\tilde{R}$$\n",
+    "\n",
+    "$R$ is given by \n",
+    "\n",
+    "$$R= \\frac{1+a_kb_k}{|1+a_kb_k|}$$\n",
+    "\n",
+    "So, if you want to convert from a rotation matrix into a rotor, start by converting the matrix `M` into a frame $B$. (You could do this with loop if you want.)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "B = [M[0,0]*e1 + M[1,0]*e2 + M[2,0]*e3,\n",
+    "     M[0,1]*e1 + M[1,1]*e2 + M[2,1]*e3,\n",
+    "     M[0,2]*e1 + M[1,2]*e2 + M[2,2]*e3]\n",
+    "B"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Then implement the formula "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {
+    "collapsed": false
+   },
+   "outputs": [],
+   "source": [
+    "A = [e1,e2,e3]\n",
+    "R = 1+sum([A[k]*B[k] for k in range(3)])\n",
+    "R = R/abs(R)\n",
+    "\n",
+    "R"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "blam. "
+   ]
+  }
+ ],
+ "metadata": {
+  "anaconda-cloud": {},
+  "kernelspec": {
+   "display_name": "Python [default]",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.5.2"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 0
+}

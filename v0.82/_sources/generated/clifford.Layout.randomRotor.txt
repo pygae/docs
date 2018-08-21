@@ -1,0 +1,6 @@
+clifford.Layout.randomRotor
+===========================
+
+.. currentmodule:: clifford
+
+.. automethod:: Layout.randomRotor

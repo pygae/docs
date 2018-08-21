@@ -1,0 +1,6 @@
+clifford.Frame.flat
+===================
+
+.. currentmodule:: clifford
+
+.. autoattribute:: Frame.flat

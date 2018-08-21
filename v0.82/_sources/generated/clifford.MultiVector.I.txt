@@ -1,0 +1,6 @@
+clifford.MultiVector.I
+======================
+
+.. currentmodule:: clifford
+
+.. autoattribute:: MultiVector.I

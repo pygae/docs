@@ -1,0 +1,6 @@
+clifford.Frame.shape
+====================
+
+.. currentmodule:: clifford
+
+.. autoattribute:: Frame.shape

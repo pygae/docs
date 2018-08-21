@@ -1,0 +1,40 @@
+clifford.cga.Round
+==================
+
+.. currentmodule:: clifford.cga
+
+.. autoclass:: Round
+  :no-members:
+
+
+
+.. rubric:: Attributes
+
+.. autosummary::
+  :toctree:
+  :nosignatures:
+
+  ~Round.center
+  ~Round.center_down
+  ~Round.dim
+  ~Round.dual
+  ~Round.radius
+
+
+
+
+
+.. rubric:: Methods
+
+.. autosummary::
+  :toctree:
+  :nosignatures:
+
+  ~Round.__init__
+  ~Round.from_center_radius
+  ~Round.inverted
+  ~Round.involuted
+
+
+
+

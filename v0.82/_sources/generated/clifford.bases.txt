@@ -1,0 +1,6 @@
+clifford.bases
+==============
+
+.. currentmodule:: clifford
+
+.. autofunction:: bases

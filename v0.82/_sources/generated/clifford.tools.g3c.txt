@@ -1,0 +1,98 @@
+clifford.tools.g3c
+==================
+
+.. automodule:: clifford.tools.g3c
+
+   
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      Cl
+      annhilate_k
+      apply_rotor
+      apply_rotor_inv
+      average_objects
+      check_infinite_roots
+      check_sigma_for_negative_root
+      check_sigma_for_positive_root
+      conformalize
+      convert_2D_point_to_conformal
+      convert_2D_polar_line_to_conformal_line
+      distance_polar_line_to_euc_point_2d
+      disturb_object
+      down
+      euc_dist
+      fast_down
+      fast_dual
+      fast_up
+      general_root
+      generate_dilation_rotor
+      generate_n_clusters
+      generate_random_object_cluster
+      generate_rotation_rotor
+      generate_translation_rotor
+      get_center_from_sphere
+      get_circle_in_euc
+      get_mult_function
+      get_nearest_plane_point
+      get_plane_normal
+      get_plane_origin_distance
+      get_radius_from_sphere
+      homo
+      interp_objects_root
+      intersect_line_and_plane_to_point
+      line_to_point_and_direction
+      meet
+      neg_twiddle_root
+      negative_root
+      norm
+      normalise_n_minus_1
+      normalised
+      point_pair_to_end_points
+      pos_twiddle_root
+      positive_root
+      quaternion_and_vector_to_rotor
+      quaternion_to_rotor
+      random_bivector
+      random_circle
+      random_circle_at_origin
+      random_conformal_point
+      random_euc_mv
+      random_line
+      random_line_at_origin
+      random_plane
+      random_plane_at_origin
+      random_point_pair
+      random_point_pair_at_origin
+      random_rotation_rotor
+      random_rotation_translation_rotor
+      random_sphere
+      random_sphere_at_origin
+      random_translation_rotor
+      rotor_between_lines
+      rotor_between_objects
+      rotor_between_planes
+      square_roots_of_rotor
+      standard_line_at_origin
+      standard_point_pair_at_origin
+      up
+      val_convert_2D_polar_line_to_conformal_line
+      val_distance_point_to_line
+   
+   
+
+   
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      ConformalMVArray
+   
+   
+
+   
+   
+   

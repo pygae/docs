@@ -1,0 +1,6 @@
+clifford.MultiVector.even
+=========================
+
+.. currentmodule:: clifford
+
+.. autoattribute:: MultiVector.even

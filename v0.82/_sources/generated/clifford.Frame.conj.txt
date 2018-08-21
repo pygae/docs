@@ -1,0 +1,6 @@
+clifford.Frame.conj
+===================
+
+.. currentmodule:: clifford
+
+.. automethod:: Frame.conj

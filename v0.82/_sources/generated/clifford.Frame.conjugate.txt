@@ -1,0 +1,6 @@
+clifford.Frame.conjugate
+========================
+
+.. currentmodule:: clifford
+
+.. automethod:: Frame.conjugate

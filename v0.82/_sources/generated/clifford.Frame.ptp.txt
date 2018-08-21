@@ -1,0 +1,6 @@
+clifford.Frame.ptp
+==================
+
+.. currentmodule:: clifford
+
+.. automethod:: Frame.ptp

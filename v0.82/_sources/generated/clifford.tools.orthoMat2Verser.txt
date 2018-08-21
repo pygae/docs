@@ -1,0 +1,6 @@
+clifford.tools.orthoMat2Verser
+==============================
+
+.. currentmodule:: clifford.tools
+
+.. autofunction:: orthoMat2Verser

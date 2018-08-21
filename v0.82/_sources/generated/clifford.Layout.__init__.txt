@@ -1,0 +1,6 @@
+clifford.Layout.__init__
+========================
+
+.. currentmodule:: clifford
+
+.. automethod:: Layout.__init__

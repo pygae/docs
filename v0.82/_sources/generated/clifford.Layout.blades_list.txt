@@ -1,0 +1,6 @@
+clifford.Layout.blades_list
+===========================
+
+.. currentmodule:: clifford
+
+.. autoattribute:: Layout.blades_list

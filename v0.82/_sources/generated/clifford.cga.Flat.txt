@@ -1,0 +1,27 @@
+clifford.cga.Flat
+=================
+
+.. currentmodule:: clifford.cga
+
+.. autoclass:: Flat
+  :no-members:
+
+
+
+
+
+
+
+.. rubric:: Methods
+
+.. autosummary::
+  :toctree:
+  :nosignatures:
+
+  ~Flat.__init__
+  ~Flat.inverted
+  ~Flat.involuted
+
+
+
+

@@ -1,0 +1,686 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>clifford.tools &mdash; Clifford 0.82 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-85010051-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Clifford
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.82
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials.html">Tutorials</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Clifford</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+          <li><a href="../clifford.html">clifford</a> &raquo;</li>
+        
+      <li>clifford.tools</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for clifford.tools</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">.. currentmodule:: clifford.tools</span>
+
+<span class="sd">========================================</span>
+<span class="sd">tools (:mod:`clifford.tools`)</span>
+<span class="sd">========================================</span>
+
+<span class="sd">Algorithms and tools of various kinds.</span>
+
+
+<span class="sd">Tools for specific ga&#39;s</span>
+<span class="sd">---------------------------------</span>
+
+<span class="sd">.. autosummary::</span>
+<span class="sd">    :toctree: generated/</span>
+<span class="sd">    </span>
+<span class="sd">    g3</span>
+<span class="sd">    g3c</span>
+
+
+<span class="sd">Determining Rotors From Frame Pairs or Orthogonal Matrices</span>
+<span class="sd">-----------------------------------------------------------</span>
+
+<span class="sd">Given two frames that are related by a orthogonal transform, we seek a rotor</span>
+<span class="sd">which enacts the transform. Details of the mathematics and psuedo-code used the</span>
+<span class="sd">create the algorithms below can be found at Allan Cortzen&#39;s website.</span>
+
+<span class="sd"> http://ctz.dk/geometric-algebra/frames-to-versor-algorithm/</span>
+
+<span class="sd">There are also some helper functions which can be used to translate matrices</span>
+<span class="sd">into GA frames, so an orthogonal (or complex unitary ) matrix can be directly</span>
+<span class="sd">translated into a Verser.</span>
+
+<span class="sd">.. autosummary::</span>
+<span class="sd">    :toctree: generated/</span>
+
+<span class="sd">    orthoFrames2Verser</span>
+<span class="sd">    orthoMat2Verser</span>
+<span class="sd">    mat2Frame</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">unicode_literals</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">reduce</span>
+
+<span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">sqrt</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">eye</span><span class="p">,</span> <span class="n">array</span><span class="p">,</span> <span class="n">sign</span><span class="p">,</span> <span class="n">zeros</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span><span class="n">arccos</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">from</span> <span class="nn">..</span> <span class="k">import</span> <span class="n">Cl</span><span class="p">,</span> <span class="n">gp</span><span class="p">,</span> <span class="n">Frame</span>
+<span class="kn">from</span> <span class="nn">..</span> <span class="k">import</span> <span class="n">eps</span> <span class="k">as</span> <span class="n">global_eps</span>
+
+<span class="kn">from</span> <span class="nn">warnings</span> <span class="k">import</span> <span class="n">warn</span>
+
+
+<span class="k">def</span> <span class="nf">omoh</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Determines homogenzation scaling for two Frames related by a Rotor</span>
+
+<span class="sd">    This is used as part of the frames2Versor algorithm, when the</span>
+<span class="sd">    frames are given in CGA. It is requried because the model assumes,</span>
+
+<span class="sd">        `B = R*A*~R`</span>
+<span class="sd">    but if data is given in the original space, only</span>
+
+<span class="sd">        `lambda*B&#39; == homo(B)`</span>
+
+<span class="sd">    is observable. We need  to determine lambda before the Cartan-based</span>
+<span class="sd">    algorithm can be used. The name of this function is inverses of</span>
+<span class="sd">    `homo`, which is the method used to homogenize</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    --------------</span>
+<span class="sd">    A : list of vectors, or clifford.Frame</span>
+<span class="sd">        the set of  vectors before the transform</span>
+<span class="sd">    B : list of vectors, or clifford.Frame</span>
+<span class="sd">        the set of  vectors after the transform, and homogenzation.</span>
+<span class="sd">        ie B=(B/B|einf)</span>
+
+
+<span class="sd">    Returns</span>
+<span class="sd">    ---------</span>
+<span class="sd">    out : list of floats</span>
+<span class="sd">        weights on `B`, which produce inhomogenous versions  of `B`. If</span>
+<span class="sd">        you multiply the input `B` by `lam`, it will fulfill `B = R*A*~R`</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    ----------</span>
+<span class="sd">    lam = ohom(A,B):</span>
+<span class="sd">    B_ohom = Frame([B[k]*lam[k] for k in range(len(B)])</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">B</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;input must be &gt;=3 long and len(a)==len(b)&#39;</span><span class="p">)</span>
+
+    <span class="n">idx</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">))</span>
+    <span class="n">lam</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">))</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">idx</span><span class="p">:</span>
+        <span class="n">j</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">idx</span> <span class="k">if</span> <span class="n">p</span> <span class="o">!=</span> <span class="n">i</span><span class="p">][:</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">lam</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> \
+            <span class="nb">float</span><span class="p">((</span><span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">A</span><span class="p">[</span><span class="n">j</span><span class="p">])(</span><span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">A</span><span class="p">[</span><span class="n">k</span><span class="p">])(</span><span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">B</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="n">B</span><span class="p">[</span><span class="n">k</span><span class="p">])(</span><span class="mi">0</span><span class="p">))</span> <span class="o">/</span> \
+            <span class="nb">float</span><span class="p">((</span><span class="n">B</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">B</span><span class="p">[</span><span class="n">j</span><span class="p">])(</span><span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">B</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">B</span><span class="p">[</span><span class="n">k</span><span class="p">])(</span><span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="n">A</span><span class="p">[</span><span class="n">k</span><span class="p">])(</span><span class="mi">0</span><span class="p">))</span>
+        <span class="n">lam</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">lam</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+
+    <span class="k">return</span> <span class="n">lam</span>
+
+
+<div class="viewcode-block" id="mat2Frame"><a class="viewcode-back" href="../../generated/clifford.tools.mat2Frame.html#clifford.tools.mat2Frame">[docs]</a><span class="k">def</span> <span class="nf">mat2Frame</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">is_complex</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Translates a  (possibly complex) matrix into a real vector frame</span>
+
+<span class="sd">    The rows and columns are interpreted as follows</span>
+<span class="sd">        * M,N = shape(A)</span>
+<span class="sd">        * M = dimension of space</span>
+<span class="sd">        * N = number of vectors</span>
+
+<span class="sd">    If A is complex M and N are doubled.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ------------</span>
+<span class="sd">    A : ndarray</span>
+<span class="sd">        MxN matrix representing vectors</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="c1"># TODO: could simplify this by just implementing the real case and then</span>
+    <span class="c1"># recursively calling this for A.real, and A.imag, then combine results</span>
+
+    <span class="c1"># M = dimension of space</span>
+    <span class="c1"># N = number of vectors</span>
+    <span class="n">M</span><span class="p">,</span> <span class="n">N</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span>
+
+    <span class="k">if</span> <span class="n">is_complex</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">A</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="s1">&#39;complex&#39;</span><span class="p">:</span>
+            <span class="n">is_complex</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">is_complex</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">if</span> <span class="n">is_complex</span><span class="p">:</span>
+        <span class="n">N</span> <span class="o">=</span> <span class="n">N</span> <span class="o">*</span> <span class="mi">2</span>
+        <span class="n">M</span> <span class="o">=</span> <span class="n">M</span> <span class="o">*</span> <span class="mi">2</span>
+
+    <span class="k">if</span> <span class="n">layout</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">layout</span><span class="p">,</span> <span class="n">blades</span> <span class="o">=</span> <span class="n">Cl</span><span class="p">(</span><span class="n">M</span><span class="p">)</span>
+
+    <span class="n">e_</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">basis_vectors</span>
+
+    <span class="n">e_</span> <span class="o">=</span> <span class="p">[</span><span class="n">e_</span><span class="p">[</span><span class="s1">&#39;e</span><span class="si">%i</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">layout</span><span class="o">.</span><span class="n">firstIdx</span><span class="p">,</span> <span class="n">layout</span><span class="o">.</span><span class="n">firstIdx</span> <span class="o">+</span> <span class="n">M</span><span class="p">)]</span>
+
+    <span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span> <span class="o">^</span> <span class="n">e_</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">*</span> <span class="n">N</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">is_complex</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">M</span><span class="p">):</span>
+                <span class="n">a</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">n</span><span class="p">])</span> <span class="o">+</span> <span class="p">((</span><span class="n">A</span><span class="p">[</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">])</span> <span class="o">^</span> <span class="n">e_</span><span class="p">[</span><span class="n">m</span><span class="p">])</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span> <span class="o">//</span> <span class="mi">2</span><span class="p">):</span>
+            <span class="n">n_</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">n</span>
+            <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">M</span> <span class="o">//</span> <span class="mi">2</span><span class="p">):</span>
+                <span class="n">m_</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">m</span>
+
+                <span class="n">a</span><span class="p">[</span><span class="n">n_</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">n_</span><span class="p">])</span> <span class="o">+</span> <span class="p">((</span><span class="n">A</span><span class="p">[</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">real</span><span class="p">)</span> <span class="o">^</span> <span class="n">e_</span><span class="p">[</span><span class="n">m_</span><span class="p">])</span> \
+                        <span class="o">+</span> <span class="p">((</span><span class="n">A</span><span class="p">[</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">imag</span><span class="p">)</span> <span class="o">^</span> <span class="n">e_</span><span class="p">[</span><span class="n">m_</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+                <span class="n">a</span><span class="p">[</span><span class="n">n_</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">n_</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="p">((</span><span class="o">-</span><span class="n">A</span><span class="p">[</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">imag</span><span class="p">)</span> <span class="o">^</span> <span class="n">e_</span><span class="p">[</span><span class="n">m_</span><span class="p">])</span> \
+                            <span class="o">+</span> <span class="p">((</span><span class="n">A</span><span class="p">[</span><span class="n">m</span><span class="p">,</span> <span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">real</span><span class="p">)</span> <span class="o">^</span> <span class="n">e_</span><span class="p">[</span><span class="n">m_</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">a</span><span class="p">,</span> <span class="n">layout</span></div>
+
+
+<span class="k">def</span> <span class="nf">frame2Mat</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">A</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">is_complex</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">is_complex</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">A</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># assume we have orthonormal initial frame</span>
+        <span class="n">A</span> <span class="o">=</span> <span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">basis_vectors_lst</span>
+
+    <span class="c1"># you need float() due to bug in clifford</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">b</span> <span class="o">|</span> <span class="n">a</span><span class="p">)</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">B</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">A</span><span class="p">]</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="n">array</span><span class="p">(</span><span class="n">M</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">B</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">B</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">orthoFrames2Verser_dist</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Determines verser for two frames related by an orthogonal transform</span>
+
+<span class="sd">    The frames themselves do not have to be othorgonal.</span>
+
+<span class="sd">    Based on [1,2]. This works  in Euclidean spaces and, under special</span>
+<span class="sd">    circumstances in other signatures. see [1] for limitaions/details</span>
+
+<span class="sd">    [1] http://ctz.dk/geometric-algebra/frames-to-versor-algorithm/</span>
+
+<span class="sd">    [2] Reconstructing Rotations and Rigid Body Motions from Exact Point</span>
+<span class="sd">    Correspondences Through Reflections, Daniel Fontijne and Leo Dorst</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="c1"># TODO: should we test to see if A and B are related by rotation?</span>
+    <span class="c1"># TODO: implement  reflect/rotate based on distance (as in[1])</span>
+
+    <span class="c1"># keep copy of original frames</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">A</span><span class="p">[:]</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">B</span><span class="p">[:]</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">B</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;len(A)!=len(B)&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">eps</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">eps</span> <span class="o">=</span> <span class="n">global_eps</span><span class="p">()</span>
+
+    <span class="c1"># store each reflector  in a list</span>
+    <span class="n">r_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># find the vector pair with the largest distance</span>
+    <span class="n">dist</span> <span class="o">=</span> <span class="p">[</span><span class="nb">abs</span><span class="p">((</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">)]</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="n">dist</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">dist</span><span class="p">))</span>
+
+    <span class="k">while</span> <span class="n">dist</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">eps</span><span class="p">:</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">-</span> <span class="n">B</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="o">/</span> <span class="nb">abs</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">-</span> <span class="n">B</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>  <span class="c1"># determine reflector</span>
+        <span class="n">r_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>  <span class="c1"># append to our list</span>
+        <span class="n">A</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>  <span class="c1"># remove current vector pair</span>
+        <span class="n">B</span> <span class="o">=</span> <span class="n">B</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">break</span>
+        <span class="c1"># reflect remaining vectors</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">)):</span>
+            <span class="n">A</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">r</span> <span class="o">*</span> <span class="n">A</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="n">r</span>
+
+        <span class="c1"># find the next pair based on current distance</span>
+        <span class="n">dist</span> <span class="o">=</span> <span class="p">[</span><span class="nb">abs</span><span class="p">((</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">)]</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="n">dist</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">dist</span><span class="p">))</span>
+
+    <span class="c1"># print(str(len(r_list)) + &#39; reflections found&#39;)</span>
+    <span class="n">R</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="n">gp</span><span class="p">,</span> <span class="n">r_list</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">R</span><span class="p">,</span> <span class="n">r_list</span>
+
+
+<div class="viewcode-block" id="orthoFrames2Verser"><a class="viewcode-back" href="../../generated/clifford.tools.orthoFrames2Verser.html#clifford.tools.orthoFrames2Verser">[docs]</a><span class="k">def</span> <span class="nf">orthoFrames2Verser</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">A</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">delta</span><span class="o">=</span><span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">det</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                       <span class="n">remove_scaling</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Determines verser for two frames related by an orthogonal transform</span>
+
+<span class="sd">    Based on [1,2]. This works  in Euclidean spaces and, under special</span>
+<span class="sd">    circumstances in other signatures. see [1] for limitaions/details</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    -----------</span>
+<span class="sd">    B : list of vectors, or clifford.Frame</span>
+<span class="sd">        the set of  vectors after the transform, and homogenzation.</span>
+<span class="sd">        ie B=(B/B|einf)</span>
+
+<span class="sd">    A : list of vectors, or clifford.Frame</span>
+<span class="sd">        the set of  vectors before the transform. If `None` we assume A is</span>
+<span class="sd">        the basis given B.layout.basis_vectors</span>
+
+<span class="sd">    delta : float</span>
+<span class="sd">        Tolerance for reflection/rotation determination. If the normalized</span>
+<span class="sd">        distance between A[i] and B[i] is larger than delta, we use</span>
+<span class="sd">        reflection, otherwise use rotation.</span>
+
+<span class="sd">    eps: float</span>
+<span class="sd">        Tolerance on spinor determination. if pseudoscalar of A  differs</span>
+<span class="sd">        in magnitude from pseudoscalar of B by eps, then we have spinor.</span>
+<span class="sd">        If `None`, use the `clifford.eps()` global eps.</span>
+<span class="sd">    det : [+1,-1,None]</span>
+<span class="sd">        The sign of the determinant of the versor, if known. If  it is</span>
+<span class="sd">        known a-priori that the versor is a rotation vs a reflection, this</span>
+<span class="sd">        fact might be needed to correctly append an additional reflection</span>
+<span class="sd">        which leaves transformed points invariant. See 4.6.3 [2].</span>
+<span class="sd">    remove_scaling : Bool</span>
+<span class="sd">        Remove the effects of homogenzation from frame B. This is needed</span>
+<span class="sd">        if you are working in CGA, but the input data is given in the</span>
+<span class="sd">        original space. See `omoh` method  for more. See 4.6.2 of [2]</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    ---------</span>
+<span class="sd">    R :  clifford.Multivector</span>
+<span class="sd">        the Versor.</span>
+<span class="sd">    rs : list of clifford.Multivectors</span>
+<span class="sd">        ordered list of found reflectors/rotors.</span>
+
+
+<span class="sd">    References</span>
+<span class="sd">    ------------</span>
+<span class="sd">    [1] http://ctz.dk/geometric-algebra/frames-to-versor-algorithm/</span>
+
+<span class="sd">    [2] Reconstructing Rotations and Rigid Body Motions from Exact Point</span>
+<span class="sd">    Correspondences Through Reflections, Daniel Fontijne and Leo Dorst</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="c1"># Checking and Setup</span>
+    <span class="k">if</span> <span class="n">A</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># assume we have orthonormal initial frame</span>
+        <span class="n">bv</span> <span class="o">=</span> <span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">basis_vectors</span>
+        <span class="n">A</span> <span class="o">=</span> <span class="p">[</span><span class="n">bv</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">bv</span><span class="o">.</span><span class="n">keys</span><span class="p">())]</span>
+
+    <span class="c1"># make copy of original frames, so we can rotate A</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">A</span><span class="p">[:]</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">B</span><span class="p">[:]</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">B</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;len(A)!=len(B)&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">eps</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">eps</span> <span class="o">=</span> <span class="n">global_eps</span><span class="p">()</span>
+
+    <span class="c1"># Determine if we have a spinor</span>
+    <span class="n">spinor</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="c1"># store peudoscalar of frame B, in case known det (see end)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">B</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span><span class="n">B</span><span class="p">)</span>
+        <span class="n">B_En</span> <span class="o">=</span> <span class="n">B</span><span class="o">.</span><span class="n">En</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">pass</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+
+    <span class="c1"># Determine and remove scaling factors caused by homogenization</span>
+    <span class="k">if</span> <span class="n">remove_scaling</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="n">lam</span> <span class="o">=</span> <span class="n">omoh</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span>
+        <span class="n">B</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">([</span><span class="n">B</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">*</span> <span class="n">lam</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">)])</span>
+
+    
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># compute ratio of volumes for each frame. take Nth root</span>
+        <span class="n">A</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span><span class="n">A</span><span class="p">[:])</span>
+        <span class="n">B</span> <span class="o">=</span> <span class="n">Frame</span><span class="p">(</span><span class="n">B</span><span class="p">[:])</span>
+        <span class="n">alpha</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">B</span><span class="o">.</span><span class="n">En</span> <span class="o">/</span> <span class="n">A</span><span class="o">.</span><span class="n">En</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">/</span> <span class="n">N</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">alpha</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">eps</span><span class="p">:</span>
+            <span class="n">spinor</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="c1"># we have a spinor, remove the scaling (add it back in at the end)</span>
+            <span class="n">B</span> <span class="o">=</span> <span class="p">[</span><span class="n">b</span> <span class="o">/</span> <span class="n">alpha</span> <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">B</span><span class="p">]</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="c1"># probably  A and B are not pure vector correspondence</span>
+        <span class="c1"># whatever,  it might still work</span>
+        <span class="k">pass</span>
+   
+    <span class="c1"># Find the Verser</span>
+
+    <span class="c1"># store each reflector/rotor  in a list,  make full verser at the</span>
+    <span class="c1"># end of the loop</span>
+    <span class="n">r_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+        <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">B</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">a</span> <span class="o">-</span> <span class="n">b</span>  <span class="c1"># determine reflector</span>
+        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">b</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">eps</span><span class="p">:</span>
+            <span class="n">d</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">r</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="nb">abs</span><span class="p">(</span><span class="n">b</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># conditional rotation tolerance</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># probably b is a null vector, make our best guess for tol!</span>
+            <span class="n">d</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">r</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">d</span> <span class="o">&gt;=</span> <span class="n">delta</span><span class="p">:</span>
+            <span class="c1"># reflection  part</span>
+            <span class="n">r_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+            <span class="n">A</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>  <span class="c1"># remove current vector pair</span>
+            <span class="n">B</span> <span class="o">=</span> <span class="n">B</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">)):</span>
+                <span class="n">A</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">r</span> <span class="o">*</span> <span class="n">A</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="n">r</span><span class="o">.</span><span class="n">inv</span><span class="p">()</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1">#  rotation part</span>
+            <span class="c1"># if k==N:                # see paper for explaination</span>
+            <span class="c1">#     break</span>
+
+            <span class="n">R</span> <span class="o">=</span> <span class="n">b</span> <span class="o">*</span> <span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">R</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">eps</span><span class="p">:</span>  <span class="c1"># abs(R) can be &lt;eps in null space</span>
+                <span class="n">r_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">R</span><span class="p">)</span>  <span class="c1"># append to our list</span>
+            <span class="n">A</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>  <span class="c1"># remove current vector pair</span>
+            <span class="n">B</span> <span class="o">=</span> <span class="n">B</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">)):</span>
+                <span class="n">A</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">R</span> <span class="o">*</span> <span class="n">A</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="n">R</span><span class="o">.</span><span class="n">inv</span><span class="p">()</span>
+
+    <span class="n">R</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="n">gp</span><span class="p">,</span> <span class="n">r_list</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="c1"># if det is known a priori check to see if it&#39;s correct, if not add</span>
+    <span class="c1"># an extra reflection which leaves all points in B invarianct</span>
+    <span class="k">if</span> <span class="n">det</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">I</span> <span class="o">=</span> <span class="n">R</span><span class="o">.</span><span class="n">pseudoScalar</span><span class="p">()</span>
+        <span class="n">our_det</span> <span class="o">=</span> <span class="p">(</span><span class="n">R</span> <span class="o">*</span> <span class="n">I</span> <span class="o">*</span> <span class="o">~</span><span class="n">R</span> <span class="o">*</span> <span class="n">I</span><span class="o">.</span><span class="n">inv</span><span class="p">())(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">sign</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">our_det</span><span class="p">))</span> <span class="o">!=</span> <span class="n">det</span><span class="p">:</span>
+            <span class="n">R</span> <span class="o">=</span> <span class="n">B_En</span><span class="o">.</span><span class="n">dual</span><span class="p">()</span> <span class="o">*</span> <span class="n">R</span>
+
+    <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">R</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">eps</span><span class="p">:</span>
+        <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;abs(R)&lt;eps. likely to be inaccurate&#39;</span><span class="p">)</span>
+    <span class="n">R</span> <span class="o">=</span> <span class="n">R</span> <span class="o">/</span> <span class="nb">abs</span><span class="p">(</span><span class="n">R</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">spinor</span><span class="p">:</span>
+        <span class="n">R</span> <span class="o">=</span> <span class="n">R</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">alpha</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">R</span><span class="p">,</span> <span class="n">r_list</span></div>
+
+
+<div class="viewcode-block" id="orthoMat2Verser"><a class="viewcode-back" href="../../generated/clifford.tools.orthoMat2Verser.html#clifford.tools.orthoMat2Verser">[docs]</a><span class="k">def</span> <span class="nf">orthoMat2Verser</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">is_complex</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Translates an orthogonal (or unitary) matrix to a Verser</span>
+
+<span class="sd">    `A` is interpreted as the frame produced by transforming a</span>
+<span class="sd">    orthonormal frame by an orthogonal transform. Given this relation,</span>
+<span class="sd">    this function will find the verser which enacts this transform.</span>
+
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ------------</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">B</span><span class="p">,</span> <span class="n">layout</span> <span class="o">=</span> <span class="n">mat2Frame</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="n">layout</span><span class="p">,</span> <span class="n">is_complex</span><span class="o">=</span><span class="n">is_complex</span><span class="p">)</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">B</span><span class="p">)</span>
+
+    <span class="c1"># if (A.dot(A.conj().T) -eye(N/2)).max()&gt;eps:</span>
+    <span class="c1">#     warn(&#39;A doesnt appear to be a rotation. &#39;)</span>
+    <span class="n">A</span><span class="p">,</span> <span class="n">layout</span> <span class="o">=</span> <span class="n">mat2Frame</span><span class="p">(</span><span class="n">eye</span><span class="p">(</span><span class="n">N</span><span class="p">),</span> <span class="n">layout</span><span class="o">=</span><span class="n">layout</span><span class="p">,</span> <span class="n">is_complex</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">orthoFrames2Verser</span><span class="p">(</span><span class="n">A</span><span class="o">=</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="o">=</span><span class="n">B</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="n">eps</span><span class="p">)</span></div>
+
+
+<span class="k">def</span> <span class="nf">rotor_decomp</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Rotor decomposition of rotor V</span>
+
+<span class="sd">    Given a rotor V, and a vector x, this will decompose V into  a</span>
+<span class="sd">    series of two rotations, U  and H, where U leaves x</span>
+<span class="sd">    invariant and H contains x.</span>
+
+<span class="sd">    Limited to 4D for now</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ---------------</span>
+<span class="sd">    V : clifford.MultiVector</span>
+<span class="sd">        rotor</span>
+<span class="sd">    x : clifford.MultiVector</span>
+<span class="sd">        vector</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    H : clifford.Multivector</span>
+<span class="sd">        rotor which contains x</span>
+<span class="sd">    U : clifford.Multivector</span>
+<span class="sd">        rotor which leaves x invariant</span>
+
+<span class="sd">    References</span>
+<span class="sd">    ----------------</span>
+<span class="sd">    [1] : Space Time Algebra, D. Hestenes. AppendixB, Theroem 4</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">H2</span> <span class="o">=</span> <span class="n">V</span> <span class="o">*</span> <span class="n">x</span> <span class="o">*</span> <span class="o">~</span><span class="n">V</span> <span class="o">*</span> <span class="n">x</span><span class="o">.</span><span class="n">inv</span><span class="p">()</span>  <span class="c1"># inv needed to handle signatures</span>
+    <span class="n">H</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">H2</span><span class="p">)</span> <span class="o">/</span> <span class="n">sqrt</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">H2</span><span class="p">(</span><span class="mi">0</span><span class="p">)))))</span>
+    <span class="n">U</span> <span class="o">=</span> <span class="n">H</span> <span class="o">*</span> <span class="n">x</span> <span class="o">*</span> <span class="n">V</span> <span class="o">*</span> <span class="n">x</span><span class="o">.</span><span class="n">inv</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">H</span><span class="p">,</span> <span class="n">U</span>
+
+
+<span class="k">def</span> <span class="nf">sinc</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="n">x</span>
+
+<span class="k">def</span> <span class="nf">log_rotor</span><span class="p">(</span><span class="n">V</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Logarithm of a simple rotor</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">V</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">grades</span><span class="p">()</span> <span class="o">!=</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">V</span><span class="p">)</span>
+        <span class="c1">#raise ValueError(&#39;Bivector is not a Blade.&#39;)</span>
+    <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">V</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span><span class="o">&lt;</span><span class="n">global_eps</span><span class="p">():</span>
+        <span class="k">return</span> <span class="n">log</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">V</span><span class="p">(</span><span class="mi">0</span><span class="p">)))</span>
+    <span class="c1"># numpy&#39;s trig correctly chooses hyperbolic or not with Complex args</span>
+    <span class="n">theta</span> <span class="o">=</span> <span class="n">arccos</span><span class="p">(</span><span class="nb">complex</span><span class="p">(</span><span class="n">V</span><span class="p">(</span><span class="mi">0</span><span class="p">)))</span>
+    <span class="k">return</span> <span class="n">V</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="n">sinc</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span><span class="o">.</span><span class="n">real</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Robert Kern and the Clifford Team.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.82',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: ''
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

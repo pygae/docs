@@ -1,0 +1,6 @@
+clifford.Frame.copy
+===================
+
+.. currentmodule:: clifford
+
+.. automethod:: Frame.copy

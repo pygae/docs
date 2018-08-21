@@ -1,0 +1,6 @@
+clifford.Layout.basis_vectors
+=============================
+
+.. currentmodule:: clifford
+
+.. autoattribute:: Layout.basis_vectors

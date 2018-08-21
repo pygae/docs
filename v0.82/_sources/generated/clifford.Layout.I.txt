@@ -1,0 +1,6 @@
+clifford.Layout.I
+=================
+
+.. currentmodule:: clifford
+
+.. autoattribute:: Layout.I

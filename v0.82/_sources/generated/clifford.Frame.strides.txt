@@ -1,0 +1,6 @@
+clifford.Frame.strides
+======================
+
+.. currentmodule:: clifford
+
+.. autoattribute:: Frame.strides

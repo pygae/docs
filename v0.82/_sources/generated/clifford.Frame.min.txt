@@ -1,0 +1,6 @@
+clifford.Frame.min
+==================
+
+.. currentmodule:: clifford
+
+.. automethod:: Frame.min

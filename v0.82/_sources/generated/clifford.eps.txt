@@ -1,0 +1,6 @@
+clifford.eps
+============
+
+.. currentmodule:: clifford
+
+.. autofunction:: eps

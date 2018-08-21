@@ -1,0 +1,6 @@
+clifford.cga.Round.dual
+=======================
+
+.. currentmodule:: clifford.cga
+
+.. autoattribute:: Round.dual

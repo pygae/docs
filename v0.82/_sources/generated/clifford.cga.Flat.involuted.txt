@@ -1,0 +1,6 @@
+clifford.cga.Flat.involuted
+===========================
+
+.. currentmodule:: clifford.cga
+
+.. automethod:: Flat.involuted

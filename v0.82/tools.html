@@ -1,0 +1,320 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>tools (clifford.tools) &mdash; Clifford 0.82 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="next" title="clifford.tools.g3" href="generated/clifford.tools.g3.html" />
+    <link rel="prev" title="clifford.cga.CGAThing.involuted" href="generated/clifford.cga.CGAThing.involuted.html" />
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-85010051-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Clifford
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.82
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="api.html">API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="clifford.html">clifford (<code class="docutils literal"><span class="pre">clifford</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cga.html">cga (<code class="docutils literal"><span class="pre">clifford.cga</span></code>)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">tools (<code class="docutils literal"><span class="pre">clifford.tools</span></code>)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#tools-for-specific-ga-s">Tools for specific ga&#8217;s</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/clifford.tools.g3.html">clifford.tools.g3</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/clifford.tools.g3c.html">clifford.tools.g3c</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#determining-rotors-from-frame-pairs-or-orthogonal-matrices">Determining Rotors From Frame Pairs or Orthogonal Matrices</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/clifford.tools.orthoFrames2Verser.html">clifford.tools.orthoFrames2Verser</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/clifford.tools.orthoMat2Verser.html">clifford.tools.orthoMat2Verser</a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/clifford.tools.mat2Frame.html">clifford.tools.mat2Frame</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="issues_and_changelog.html">Issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="issues_and_changelog.html#changelog">ChangeLog</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Clifford</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="api.html">API</a> &raquo;</li>
+        
+      <li>tools (<code class="docutils literal"><span class="pre">clifford.tools</span></code>)</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/tools.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+</style>
+<span class="target" id="module-clifford.tools"></span><div class="section" id="tools-clifford-tools">
+<h1>tools (<a class="reference internal" href="#module-clifford.tools" title="clifford.tools"><code class="xref py py-mod docutils literal"><span class="pre">clifford.tools</span></code></a>)<a class="headerlink" href="#tools-clifford-tools" title="Permalink to this headline">¶</a></h1>
+<p>Algorithms and tools of various kinds.</p>
+<div class="section" id="tools-for-specific-ga-s">
+<h2>Tools for specific ga&#8217;s<a class="headerlink" href="#tools-for-specific-ga-s" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="generated/clifford.tools.g3.html#module-clifford.tools.g3" title="clifford.tools.g3"><code class="xref py py-obj docutils literal"><span class="pre">g3</span></code></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/clifford.tools.g3c.html#module-clifford.tools.g3c" title="clifford.tools.g3c"><code class="xref py py-obj docutils literal"><span class="pre">g3c</span></code></a></td>
+<td>Tools for 3DCGA (g3c)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="determining-rotors-from-frame-pairs-or-orthogonal-matrices">
+<h2>Determining Rotors From Frame Pairs or Orthogonal Matrices<a class="headerlink" href="#determining-rotors-from-frame-pairs-or-orthogonal-matrices" title="Permalink to this headline">¶</a></h2>
+<p>Given two frames that are related by a orthogonal transform, we seek a rotor
+which enacts the transform. Details of the mathematics and psuedo-code used the
+create the algorithms below can be found at Allan Cortzen&#8217;s website.</p>
+<blockquote>
+<div><a class="reference external" href="http://ctz.dk/geometric-algebra/frames-to-versor-algorithm/">http://ctz.dk/geometric-algebra/frames-to-versor-algorithm/</a></div></blockquote>
+<p>There are also some helper functions which can be used to translate matrices
+into GA frames, so an orthogonal (or complex unitary ) matrix can be directly
+translated into a Verser.</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="generated/clifford.tools.orthoFrames2Verser.html#clifford.tools.orthoFrames2Verser" title="clifford.tools.orthoFrames2Verser"><code class="xref py py-obj docutils literal"><span class="pre">orthoFrames2Verser</span></code></a>(B[,&nbsp;A,&nbsp;delta,&nbsp;eps,&nbsp;det,&nbsp;...])</td>
+<td>Determines verser for two frames related by an orthogonal transform</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/clifford.tools.orthoMat2Verser.html#clifford.tools.orthoMat2Verser" title="clifford.tools.orthoMat2Verser"><code class="xref py py-obj docutils literal"><span class="pre">orthoMat2Verser</span></code></a>(A[,&nbsp;eps,&nbsp;layout,&nbsp;is_complex])</td>
+<td>Translates an orthogonal (or unitary) matrix to a Verser</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/clifford.tools.mat2Frame.html#clifford.tools.mat2Frame" title="clifford.tools.mat2Frame"><code class="xref py py-obj docutils literal"><span class="pre">mat2Frame</span></code></a>(A[,&nbsp;layout,&nbsp;is_complex])</td>
+<td>Translates a  (possibly complex) matrix into a real vector frame</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="generated/clifford.tools.g3.html" class="btn btn-neutral float-right" title="clifford.tools.g3" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="generated/clifford.cga.CGAThing.involuted.html" class="btn btn-neutral" title="clifford.cga.CGAThing.involuted" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Robert Kern and the Clifford Team.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.82',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: ''
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

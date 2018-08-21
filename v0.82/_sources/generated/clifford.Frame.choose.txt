@@ -1,0 +1,6 @@
+clifford.Frame.choose
+=====================
+
+.. currentmodule:: clifford
+
+.. automethod:: Frame.choose

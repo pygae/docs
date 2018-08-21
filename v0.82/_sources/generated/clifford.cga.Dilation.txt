@@ -1,0 +1,27 @@
+clifford.cga.Dilation
+=====================
+
+.. currentmodule:: clifford.cga
+
+.. autoclass:: Dilation
+  :no-members:
+
+
+
+
+
+
+
+.. rubric:: Methods
+
+.. autosummary::
+  :toctree:
+  :nosignatures:
+
+  ~Dilation.__init__
+  ~Dilation.inverted
+  ~Dilation.involuted
+
+
+
+

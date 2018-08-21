@@ -1,0 +1,6 @@
+clifford.tools.g3c.positive_root
+================================
+
+.. currentmodule:: clifford.tools.g3c
+
+.. autofunction:: positive_root

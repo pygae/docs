@@ -1,0 +1,6 @@
+clifford.tools.g3c.generate_translation_rotor
+=============================================
+
+.. currentmodule:: clifford.tools.g3c
+
+.. autofunction:: generate_translation_rotor

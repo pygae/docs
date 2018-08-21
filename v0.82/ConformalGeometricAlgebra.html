@@ -1,0 +1,831 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Conformal Geometric Algebra &mdash; Clifford 0.82 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="next" title="Space Time Algebra" href="SpaceTimeAlgebra.html" />
+    <link rel="prev" title="Rotations in Space: Euler Angles, Matrices, and Quaternions" href="EulerAngles.html" />
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-85010051-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Clifford
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.82
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="tutorials.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Installation.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="QuickStartG2.html">Quick Start (G2)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="TheAlgebraOfSpaceG3.html">The Algebra Of Space (G3)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="EulerAngles.html">Rotations in Space: Euler Angles, Matrices, and Quaternions</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Conformal Geometric Algebra</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Intro">Intro</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Using-conformalize()">Using <code class="docutils literal"><span class="pre">conformalize()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Operations">Operations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#Versers-purely-in-">Versers purely in <span class="math">\(E_0\)</span></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Inversions">Inversions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Involutions">Involutions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Dilations">Dilations</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Versers-partly-in-">Versers partly in <span class="math">\(E_0\)</span></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Translations">Translations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Transversions">Transversions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Versers-Out-of-">Versers Out of <span class="math">\(E_0\)</span></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Reflections">Reflections</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Rotations">Rotations</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#Combinations-of-Operations">Combinations of Operations</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#simple-example">simple example</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Transversion">Transversion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Rotation-about-a-point">Rotation about a point</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="SpaceTimeAlgebra.html">Space Time Algebra</a></li>
+<li class="toctree-l2"><a class="reference internal" href="InterfacingOtherMathSystems.html">Interfacing Other Mathematical Systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PredefinedGAs.html">Predefined Geometric Algebras</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PerformanceCliffordTutorial.html">Writing high(ish) performance code with Clifford and Numba via Numpy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Example 1 Interpolating Conformal Objects.html">Example 1 Interpolating Conformal Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Example 2 Clustering Geometric Objects.html">Example 2 Clustering Geometric Objects</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Clifford</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="tutorials.html">Tutorials</a> &raquo;</li>
+        
+      <li>Conformal Geometric Algebra</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/ConformalGeometricAlgebra.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #303F9F;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #D84315;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 8ex;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #cfcfcf;
+    border-radius: 2px;
+    background: #f7f7f7;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.pngmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+</style>
+<div class="section" id="Conformal-Geometric-Algebra">
+<h1>Conformal Geometric Algebra<a class="headerlink" href="#Conformal-Geometric-Algebra" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="Intro">
+<h2>Intro<a class="headerlink" href="#Intro" title="Permalink to this headline">¶</a></h2>
+<p>Conformal Geometric Algebra (CGA) is a projective geometry tool which
+allows conformal transformations to be implemented with rotations. To do
+this, the original geometric algebra is extended by two dimensions, one
+of positive signature <span class="math">\(e_+\)</span> and one of negative signature
+<span class="math">\(e_-\)</span>. Thus, if we started with <span class="math">\(G_p\)</span>, the conformal algebra
+is <span class="math">\(G_{p+1,1}\)</span>.</p>
+<p>It is convenient to define a <em>null</em> basis given by</p>
+<div class="math">
+\[\begin{split}e_{o} = \frac{1}{2}(e_{-} -e_{+})\\e_{\infty} = e_{-}+e_{+}\end{split}\]</div>
+<p>A vector in the original space <span class="math">\(x\)</span> is <em>up-projected</em> into a
+conformal vector <span class="math">\(X\)</span> by</p>
+<div class="math">
+\[X = x + \frac{1}{2} x^2 e_{\infty} +e_o\]</div>
+<p>To map a conformal vector back into a vector from the original space,
+the vector is first normalized, then rejected from the minkowski plane
+<span class="math">\(E_0\)</span>,</p>
+<div class="math">
+\[X = \frac{X}{X \cdot e_{\infty}}\]</div>
+<p>then</p>
+<div class="math">
+\[x = X \wedge E_0\, E_0^{-1}\]</div>
+<p>To implement this in <code class="docutils literal"><span class="pre">clifford</span></code> we could create a CGA by instantiating
+the it directly, like <code class="docutils literal"><span class="pre">Cl(3,1)</span></code> for example, and then making the
+definitions and maps described above relating the various subspaces. Or,
+we you can use the helper function <code class="docutils literal"><span class="pre">conformalize()</span></code>.</p>
+</div>
+<div class="section" id="Using-conformalize()">
+<h2>Using <code class="docutils literal"><span class="pre">conformalize()</span></code><a class="headerlink" href="#Using-conformalize()" title="Permalink to this headline">¶</a></h2>
+<p>The purpose of <code class="docutils literal"><span class="pre">conformalize()</span></code> is to remove the redunancy assocaited
+with creating a conformal geometric algebras. <code class="docutils literal"><span class="pre">conformalize()</span></code> takes
+an existing geometric algebra layout and <em>conformalizes</em> it by adding
+two dimensions, as described above. Additionally, this function returns
+a new layout for the CGA, a dict of blades for the CGA, and dictionary
+containing the added basis vectors and up/down projection functions.</p>
+<p>To demonstrate we will conformalize <span class="math">\(G_2\)</span>, producing a CGA of
+<span class="math">\(G_{3,1}\)</span>.</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">pi</span><span class="p">,</span><span class="n">e</span>
+<span class="kn">from</span> <span class="nn">clifford</span> <span class="kn">import</span> <span class="n">Cl</span><span class="p">,</span> <span class="n">conformalize</span>
+
+<span class="n">G2</span><span class="p">,</span> <span class="n">blades_g2</span> <span class="o">=</span> <span class="n">Cl</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">blades_g2</span> <span class="c1"># inspect the G2 blades</span>
+</pre></div>
+</div>
+</div>
+<p>Now, conformalize it</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">G2c</span><span class="p">,</span> <span class="n">blades_g2c</span><span class="p">,</span> <span class="n">stuff</span> <span class="o">=</span> <span class="n">conformalize</span><span class="p">(</span><span class="n">G2</span><span class="p">)</span>
+
+<span class="n">blades_g2c</span>   <span class="c1">#inspect the CGA blades</span>
+</pre></div>
+</div>
+</div>
+<p>Additionally lets inspect <code class="docutils literal"><span class="pre">stuff</span></code></p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">stuff</span>
+</pre></div>
+</div>
+</div>
+<p>It contains the following:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">ep</span></code> - postive basis vector added</li>
+<li><code class="docutils literal"><span class="pre">en</span></code> - negative basis vector added</li>
+<li><code class="docutils literal"><span class="pre">eo</span></code> - zero vecror of null basis (=.5*(en-ep))</li>
+<li><code class="docutils literal"><span class="pre">einf</span></code> - infinity vector of null basis (=en+ep)</li>
+<li><code class="docutils literal"><span class="pre">E0</span></code> - minkowski bivector (=einf^eo)</li>
+<li><code class="docutils literal"><span class="pre">up()</span></code> - function to up-project a vector from GA to CGA</li>
+<li><code class="docutils literal"><span class="pre">down()</span></code> - function to down-project a vector from CGA to GA</li>
+<li><code class="docutils literal"><span class="pre">homo()</span></code> - function ot homogenize a CGA vector</li>
+</ul>
+<p>We can put the <code class="docutils literal"><span class="pre">blades</span></code> and the <code class="docutils literal"><span class="pre">stuff</span></code> into the local namespace,</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="nb">locals</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">blades_g2c</span><span class="p">)</span>
+<span class="nb">locals</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">stuff</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Now we can use the <code class="docutils literal"><span class="pre">up()</span></code> and <code class="docutils literal"><span class="pre">down()</span></code> functions to go in and out of
+CGA</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">x</span> <span class="o">=</span> <span class="n">e1</span><span class="o">+</span><span class="n">e2</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">up</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">X</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">down</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Operations">
+<h2>Operations<a class="headerlink" href="#Operations" title="Permalink to this headline">¶</a></h2>
+<p>Conformal transformations in <span class="math">\(G_n\)</span> are achieved through versers in
+the conformal space <span class="math">\(G_{n+1,1}\)</span>. These versers can be categorized
+by their relation to the added minkowski plane, <span class="math">\(E_0\)</span>. There are
+three categories,</p>
+<ul class="simple">
+<li>verser purely in <span class="math">\(E_0\)</span></li>
+<li>verser partly in <span class="math">\(E_0\)</span></li>
+<li>verser out of <span class="math">\(E_0\)</span></li>
+</ul>
+<p>A three dimensional projection for conformal space with the relavant
+subspaces labeled is shown below.</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="n">Image</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s1">&#39;_static/conformal space.svg&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Versers-purely-in-">
+<h2>Versers purely in <span class="math">\(E_0\)</span><a class="headerlink" href="#Versers-purely-in-" title="Permalink to this headline">¶</a></h2>
+<p>First we generate some vectors in G2, which we can operate on</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">a</span><span class="o">=</span> <span class="mi">1</span><span class="o">*</span><span class="n">e1</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">e2</span>
+<span class="n">b</span><span class="o">=</span> <span class="mi">3</span><span class="o">*</span><span class="n">e1</span> <span class="o">+</span> <span class="mi">4</span><span class="o">*</span><span class="n">e2</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="Inversions">
+<h3>Inversions<a class="headerlink" href="#Inversions" title="Permalink to this headline">¶</a></h3>
+<div class="math">
+\[e_{+} X e_{+}\]</div>
+<p>Inversion is a reflection in <span class="math">\(e_+\)</span>, this swaps <span class="math">\(e_o\)</span> and
+<span class="math">\(e_{\infty}\)</span>, as can be seen from the model above.</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="k">assert</span><span class="p">(</span><span class="n">down</span><span class="p">(</span><span class="n">ep</span><span class="o">*</span><span class="n">up</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="n">ep</span><span class="p">)</span>  <span class="o">==</span> <span class="n">a</span><span class="o">.</span><span class="n">inv</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Involutions">
+<h3>Involutions<a class="headerlink" href="#Involutions" title="Permalink to this headline">¶</a></h3>
+<div class="math">
+\[E_0 X E_0\]</div>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="k">assert</span><span class="p">(</span><span class="n">down</span><span class="p">(</span><span class="n">E0</span><span class="o">*</span><span class="n">up</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="n">E0</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="n">a</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Dilations">
+<h3>Dilations<a class="headerlink" href="#Dilations" title="Permalink to this headline">¶</a></h3>
+<div class="math">
+\[D_{\alpha}  =  e^{-\frac{\ln{\alpha}}{2} \,E_0}\]</div>
+<div class="math">
+\[D_{\alpha} \, X \, \tilde{D_{\alpha}}\]</div>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">rand</span><span class="p">,</span><span class="n">log</span>
+
+<span class="n">D</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">alpha</span><span class="p">:</span> <span class="n">e</span><span class="o">**</span><span class="p">((</span><span class="o">-</span><span class="n">log</span><span class="p">(</span><span class="n">alpha</span><span class="p">)</span><span class="o">/</span><span class="mf">2.</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">E0</span><span class="p">))</span>
+<span class="n">alpha</span> <span class="o">=</span> <span class="n">rand</span><span class="p">()</span>
+<span class="k">assert</span><span class="p">(</span><span class="n">down</span><span class="p">(</span> <span class="n">D</span><span class="p">(</span><span class="n">alpha</span><span class="p">)</span><span class="o">*</span><span class="n">up</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">*~</span><span class="n">D</span><span class="p">(</span><span class="n">alpha</span><span class="p">))</span> <span class="o">==</span> <span class="p">(</span><span class="n">alpha</span><span class="o">*</span><span class="n">a</span><span class="p">))</span>
+
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="Versers-partly-in-">
+<h2>Versers partly in <span class="math">\(E_0\)</span><a class="headerlink" href="#Versers-partly-in-" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="Translations">
+<h3>Translations<a class="headerlink" href="#Translations" title="Permalink to this headline">¶</a></h3>
+<div class="math">
+\[V = e ^{\frac{1}{2} e_{\infty} a } = 1 + e_{\infty}a\]</div>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">T</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">e</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mf">2.</span><span class="o">*</span><span class="p">(</span><span class="n">einf</span><span class="o">*</span><span class="n">x</span><span class="p">))</span>
+<span class="k">assert</span><span class="p">(</span><span class="n">down</span><span class="p">(</span> <span class="n">T</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="n">up</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="o">*~</span><span class="n">T</span><span class="p">(</span><span class="n">a</span><span class="p">))</span> <span class="o">==</span> <span class="n">b</span><span class="o">+</span><span class="n">a</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Transversions">
+<h3>Transversions<a class="headerlink" href="#Transversions" title="Permalink to this headline">¶</a></h3>
+<p>A transversion is an inversion, followed by a translation, followed by a
+inversion. The verser is</p>
+<div class="math">
+\[V= e_+ T_a e_+\]</div>
+<p>which is recognised as the translation bivector reflected in the
+<span class="math">\(e_+\)</span> vector. From the diagram, it is seen that this is equivalent
+to the bivector in <span class="math">\(x\wedge e_o\)</span>,</p>
+<div class="math">
+\[e_+ (1+e_{\infty}a)e_+\]</div>
+<div class="math">
+\[e_+^2 + e_+e_{\infty}a e_+\]</div>
+<div class="math">
+\[2 +2e_o a\]</div>
+<p>the factor of 2 may be dropped, because the conformal vectors are null</p>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">V</span> <span class="o">=</span> <span class="n">ep</span> <span class="o">*</span> <span class="n">T</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">*</span> <span class="n">ep</span>
+<span class="k">assert</span> <span class="p">(</span> <span class="n">V</span> <span class="o">==</span> <span class="mi">1</span><span class="o">+</span><span class="p">(</span><span class="n">eo</span><span class="o">*</span><span class="n">a</span><span class="p">))</span>
+
+<span class="n">K</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span><span class="o">+</span><span class="p">(</span><span class="n">eo</span><span class="o">*</span><span class="n">a</span><span class="p">)</span>
+
+<span class="n">B</span><span class="o">=</span> <span class="n">up</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="k">assert</span><span class="p">(</span> <span class="n">down</span><span class="p">(</span><span class="n">K</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="n">B</span><span class="o">*~</span><span class="n">K</span><span class="p">(</span><span class="n">a</span><span class="p">))</span> <span class="o">==</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="mi">1</span><span class="o">/</span><span class="n">b</span><span class="p">)</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="Versers-Out-of-">
+<h2>Versers Out of <span class="math">\(E_0\)</span><a class="headerlink" href="#Versers-Out-of-" title="Permalink to this headline">¶</a></h2>
+<p>Versers that are out of <span class="math">\(E_0\)</span> are made up of the versers within
+the original space. These include reflections and rotations, and their
+conformal representation is identical to their form in <span class="math">\(G^n\)</span>,
+except the minus sign is dropped for reflections,</p>
+<div class="section" id="Reflections">
+<h3>Reflections<a class="headerlink" href="#Reflections" title="Permalink to this headline">¶</a></h3>
+<div class="math">
+\[-mam^{-1}  \rightarrow MA\tilde{M}\]</div>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">m</span> <span class="o">=</span> <span class="mi">5</span><span class="o">*</span><span class="n">e1</span> <span class="o">+</span> <span class="mi">6</span><span class="o">*</span><span class="n">e2</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">7</span><span class="o">*</span><span class="n">e1</span> <span class="o">+</span> <span class="mi">8</span><span class="o">*</span><span class="n">e2</span>
+
+
+<span class="k">assert</span><span class="p">(</span><span class="n">down</span><span class="p">(</span><span class="n">m</span><span class="o">*</span><span class="n">up</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="n">m</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="n">m</span><span class="o">*</span><span class="n">a</span><span class="o">*</span><span class="n">m</span><span class="o">.</span><span class="n">inv</span><span class="p">())</span>
+
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Rotations">
+<h3>Rotations<a class="headerlink" href="#Rotations" title="Permalink to this headline">¶</a></h3>
+<div class="math">
+\[mnanm = Ra\tilde{R} \rightarrow RA\tilde{R}\]</div>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">R</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">theta</span><span class="p">:</span> <span class="n">e</span><span class="o">**</span><span class="p">((</span><span class="o">-.</span><span class="mi">5</span><span class="o">*</span><span class="n">theta</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">e12</span><span class="p">))</span>
+<span class="n">theta</span> <span class="o">=</span> <span class="n">pi</span><span class="o">/</span><span class="mi">2</span>
+<span class="k">assert</span><span class="p">(</span><span class="n">down</span><span class="p">(</span> <span class="n">R</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span><span class="o">*</span><span class="n">up</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">*~</span><span class="n">R</span><span class="p">(</span><span class="n">theta</span><span class="p">))</span> <span class="o">==</span> <span class="n">R</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span><span class="o">*</span><span class="n">a</span><span class="o">*~</span><span class="n">R</span><span class="p">(</span><span class="n">theta</span><span class="p">))</span>
+
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="Combinations-of-Operations">
+<h2>Combinations of Operations<a class="headerlink" href="#Combinations-of-Operations" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="simple-example">
+<h3>simple example<a class="headerlink" href="#simple-example" title="Permalink to this headline">¶</a></h3>
+<p>As a simple example consider the combination operations of
+translation,scaling, and inversion.</p>
+<div class="math">
+\[b=-2a+e_0 \quad \rightarrow \quad B= (T_{e_0}E_0 D_2) A \tilde{ (D_2 E_0 T_{e_0})}\]</div>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">A</span> <span class="o">=</span> <span class="n">up</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="n">V</span> <span class="o">=</span> <span class="n">T</span><span class="p">(</span><span class="n">e1</span><span class="p">)</span><span class="o">*</span><span class="n">E0</span><span class="o">*</span><span class="n">D</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">B</span> <span class="o">=</span> <span class="n">V</span><span class="o">*</span><span class="n">A</span><span class="o">*~</span><span class="n">V</span>
+<span class="k">assert</span><span class="p">(</span><span class="n">down</span><span class="p">(</span><span class="n">B</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">)</span><span class="o">+</span><span class="n">e1</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Transversion">
+<h3>Transversion<a class="headerlink" href="#Transversion" title="Permalink to this headline">¶</a></h3>
+<p>A transversion may be built from a inversion, translation, and
+inversion.</p>
+<div class="math">
+\[c = (a^{-1}+b)^{-1}\]</div>
+<p>In conformal GA, this is accomplished by</p>
+<div class="math">
+\[C = VA\tilde{V}\]</div>
+<div class="math">
+\[V= e_+ T_b e_+\]</div>
+<div class="nbinput nblast container">
+<div class="prompt highlight-none"><div class="highlight"><pre>
+<span></span>In [ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3"><div class="highlight"><pre>
+<span></span><span class="n">A</span> <span class="o">=</span> <span class="n">up</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="n">V</span> <span class="o">=</span> <span class="n">ep</span><span class="o">*</span><span class="n">T</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="o">*</span><span class="n">ep</span>
+<span class="n">C</span> <span class="o">=</span> <span class="n">V</span><span class="o">*</span><span class="n">A</span><span class="o">*~</span><span class="n">V</span>
+<span class="k">assert</span><span class="p">(</span><span class="n">down</span><span class="p">(</span><span class="n">C</span><span class="p">)</span> <span class="o">==</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">a</span> <span class="o">+</span><span class="n">b</span><span class="p">))</span>
+
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Rotation-about-a-point">
+<h3>Rotation about a point<a class="headerlink" href="#Rotation-about-a-point" title="Permalink to this headline">¶</a></h3>
+<p>Rotation about a point, <span class="math">\(a\)</span> can be achieved by translating the
+origina to <span class="math">\(a\)</span> then rotating, then translating back. Just like the
+transversion can be thought of as translating the involution operator,
+rotation about a point can also be thought of as translating the Rotor
+itself. Covariance.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="SpaceTimeAlgebra.html" class="btn btn-neutral float-right" title="Space Time Algebra" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="EulerAngles.html" class="btn btn-neutral" title="Rotations in Space: Euler Angles, Matrices, and Quaternions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Robert Kern and the Clifford Team.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.82',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: ''
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
